@@ -1,0 +1,352 @@
+mysql> show engine innodb status \G
+*************************** 1. row ***************************
+  Type: InnoDB
+  Name: 
+Status: 
+=====================================
+2022-07-29 06:14:22 0x7fb8c4eca700 INNODB MONITOR OUTPUT
+=====================================
+Per second averages calculated from the last 10 seconds
+-----------------
+BACKGROUND THREAD
+-----------------
+srv_master_thread loops: 610773 srv_active, 0 srv_shutdown, 10289188 srv_idle
+srv_master_thread log flush and writes: 0
+----------
+SEMAPHORES
+----------
+OS WAIT ARRAY INFO: reservation count 935362
+OS WAIT ARRAY INFO: signal count 1517484
+RW-shared spins 594382, rounds 727603, OS waits 137368
+RW-excl spins 1005196, rounds 6327653, OS waits 125590
+RW-sx spins 168268, rounds 823260, OS waits 8067
+Spin rounds per wait: 1.22 RW-shared, 6.29 RW-excl, 4.89 RW-sx
+------------------------
+LATEST DETECTED DEADLOCK
+------------------------
+2022-07-24 22:43:00 0x7fb4abe52700
+*** (1) TRANSACTION:
+TRANSACTION 11202022, ACTIVE 0 sec starting index read
+mysql tables in use 1, locked 1
+LOCK WAIT 3 lock struct(s), heap size 1136, 2 row lock(s)
+MySQL thread id 1497931, OS thread handle 140431564424960, query id 157290522 10.88.69.119 metdataopr Searching rows for update
+update t_external_met_tel
+    set parse_flag = 'N',
+        W_TIME     = null
+    where can_parse = 'Y'
+      and parse_flag = 'W'
+      and w_time < '2022-07-25 06:38:00.053'
+
+*** (1) HOLDS THE LOCK(S):
+RECORD LOCKS space id 2 page no 16422 n bits 512 index T_EXTERNAL_MET_TEL_INDEX_PARSE of table `metdatasync`.`t_external_met_tel` trx id 11202022 lock_mode X locks rec but not gap
+Record lock, heap no 438 PHYSICAL RECORD: n_fields 7; compact format; info bits 0
+ 0: len 1; hex 59; asc Y;;
+ 1: len 1; hex 57; asc W;;
+ 2: len 5; hex 99ad726ac0; asc   rj ;;
+ 3: len 2; hex 4643; asc FC;;
+ 4: len 5; hex 99ad716a89; asc   qj ;;
+ 5: len 4; hex 5a50444c; asc ZPDL;;
+ 6: len 8; hex 80000000001bc010; asc         ;;
+
+
+*** (1) WAITING FOR THIS LOCK TO BE GRANTED:
+RECORD LOCKS space id 2 page no 10476 n bits 104 index PRIMARY of table `metdatasync`.`t_external_met_tel` trx id 11202022 lock_mode X locks rec but not gap waiting
+Record lock, heap no 37 PHYSICAL RECORD: n_fields 18; compact format; info bits 0
+ 0: len 8; hex 80000000001bc010; asc         ;;
+ 1: len 6; hex 000000aaede5; asc       ;;
+ 2: len 7; hex 01000001262fa5; asc     &/ ;;
+ 3: len 2; hex 4643; asc FC;;
+ 4: len 4; hex 5a50444c; asc ZPDL;;
+ 5: len 5; hex 99ad716a89; asc   qj ;;
+ 6: len 5; hex 99ad716a00; asc   qj ;;
+ 7: len 3; hex 434143; asc CAC;;
+ 8: len 26; hex 4643323032323037323432323432303839363630303031303031; asc FC202207242242089660001001;;
+ 9: len 1; hex 59; asc Y;;
+ 10: len 5; hex 99ad716aa1; asc   qj ;;
+ 11: len 1; hex 59; asc Y;;
+ 12: SQL NULL;
+ 13: len 30; hex 666331653861653464333861326462613937326630326264306562653330; asc fc1e8ae4d38a2dba972f02bd0ebe30; (total 32 bytes);
+ 14: len 8; hex 8000000000000001; asc         ;;
+ 15: len 30; hex 544146205a50444c203234323234305a20323530302f3235303920313430; asc TAF ZPDL 242240Z 2500/2509 140; (total 154 bytes);
+ 16: SQL NULL;
+ 17: len 4; hex 4f424343; asc OBCC;;
+
+
+*** (2) TRANSACTION:
+TRANSACTION 11202021, ACTIVE 0 sec updating or deleting
+mysql tables in use 1, locked 1
+LOCK WAIT 3 lock struct(s), heap size 1136, 2 row lock(s), undo log entries 1
+MySQL thread id 1502061, OS thread handle 140431674078976, query id 157290523 10.88.69.118 metdataopr updating
+update t_external_met_tel set parse_flag = 'Y',
+     
+      w_time = null
+     
+     
+    where sqc in
+     (  
+      1818640
+     )
+
+*** (2) HOLDS THE LOCK(S):
+RECORD LOCKS space id 2 page no 10476 n bits 104 index PRIMARY of table `metdatasync`.`t_external_met_tel` trx id 11202021 lock_mode X locks rec but not gap
+Record lock, heap no 37 PHYSICAL RECORD: n_fields 18; compact format; info bits 0
+ 0: len 8; hex 80000000001bc010; asc         ;;
+ 1: len 6; hex 000000aaede5; asc       ;;
+ 2: len 7; hex 01000001262fa5; asc     &/ ;;
+ 3: len 2; hex 4643; asc FC;;
+ 4: len 4; hex 5a50444c; asc ZPDL;;
+ 5: len 5; hex 99ad716a89; asc   qj ;;
+ 6: len 5; hex 99ad716a00; asc   qj ;;
+ 7: len 3; hex 434143; asc CAC;;
+ 8: len 26; hex 4643323032323037323432323432303839363630303031303031; asc FC202207242242089660001001;;
+ 9: len 1; hex 59; asc Y;;
+ 10: len 5; hex 99ad716aa1; asc   qj ;;
+ 11: len 1; hex 59; asc Y;;
+ 12: SQL NULL;
+ 13: len 30; hex 666331653861653464333861326462613937326630326264306562653330; asc fc1e8ae4d38a2dba972f02bd0ebe30; (total 32 bytes);
+ 14: len 8; hex 8000000000000001; asc         ;;
+ 15: len 30; hex 544146205a50444c203234323234305a20323530302f3235303920313430; asc TAF ZPDL 242240Z 2500/2509 140; (total 154 bytes);
+ 16: SQL NULL;
+ 17: len 4; hex 4f424343; asc OBCC;;
+
+
+*** (2) WAITING FOR THIS LOCK TO BE GRANTED:
+RECORD LOCKS space id 2 page no 16422 n bits 512 index T_EXTERNAL_MET_TEL_INDEX_PARSE of table `metdatasync`.`t_external_met_tel` trx id 11202021 lock_mode X locks rec but not gap waiting
+Record lock, heap no 438 PHYSICAL RECORD: n_fields 7; compact format; info bits 0
+ 0: len 1; hex 59; asc Y;;
+ 1: len 1; hex 57; asc W;;
+ 2: len 5; hex 99ad726ac0; asc   rj ;;
+ 3: len 2; hex 4643; asc FC;;
+ 4: len 5; hex 99ad716a89; asc   qj ;;
+ 5: len 4; hex 5a50444c; asc ZPDL;;
+ 6: len 8; hex 80000000001bc010; asc         ;;
+
+*** WE ROLL BACK TRANSACTION (1)
+------------
+TRANSACTIONS
+------------
+Trx id counter 11926813
+Purge done for trx's n:o < 11926813 undo n:o < 0 state: running but idle
+History list length 41
+LIST OF TRANSACTIONS FOR EACH SESSION:
+---TRANSACTION 421906578680936, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578686928, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578688640, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578670664, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578673232, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578687784, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578681792, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578677512, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578698056, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578697200, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578696344, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578695488, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578693776, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578692064, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578690352, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578686072, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578684360, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578682648, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578680080, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578679224, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578676656, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578675800, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578671520, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578674944, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578674088, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578672376, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578669808, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578668952, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578691208, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578685216, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578683504, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578678368, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578694632, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578668096, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 421906578667240, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+--------
+FILE I/O
+--------
+I/O thread 0 state: waiting for completed aio requests (insert buffer thread)
+I/O thread 1 state: waiting for completed aio requests (log thread)
+I/O thread 2 state: waiting for completed aio requests (read thread)
+I/O thread 3 state: waiting for completed aio requests (read thread)
+I/O thread 4 state: waiting for completed aio requests (read thread)
+I/O thread 5 state: waiting for completed aio requests (read thread)
+I/O thread 6 state: waiting for completed aio requests (write thread)
+I/O thread 7 state: waiting for completed aio requests (write thread)
+I/O thread 8 state: waiting for completed aio requests (write thread)
+I/O thread 9 state: waiting for completed aio requests (write thread)
+Pending normal aio reads: [0, 0, 0, 0] , aio writes: [0, 0, 0, 0] ,
+ ibuf aio reads:, log i/o's:, sync i/o's:
+Pending flushes (fsync) log: 0; buffer pool: 2629
+29432657 OS file reads, 103033048 OS file writes, 47941490 OS fsyncs
+0.00 reads/s, 0 avg bytes/read, 0.10 writes/s, 0.10 fsyncs/s
+-------------------------------------
+INSERT BUFFER AND ADAPTIVE HASH INDEX
+-------------------------------------
+Ibuf: size 1, free list len 4641, seg size 4643, 9858 merges
+merged operations:
+ insert 1839, delete mark 2504737, delete 49417
+discarded operations:
+ insert 0, delete mark 0, delete 0
+Hash table size 796967, node heap has 278 buffer(s)
+Hash table size 796967, node heap has 232 buffer(s)
+Hash table size 796967, node heap has 156 buffer(s)
+Hash table size 796967, node heap has 627 buffer(s)
+Hash table size 796967, node heap has 229 buffer(s)
+Hash table size 796967, node heap has 180 buffer(s)
+Hash table size 796967, node heap has 63 buffer(s)
+Hash table size 796967, node heap has 166 buffer(s)
+74.09 hash searches/s, 3.60 non-hash searches/s
+---
+LOG
+---
+Log sequence number          64869264838
+Log buffer assigned up to    64869264838
+Log buffer completed up to   64869264838
+Log written up to            64869264838
+Log flushed up to            64869264838
+Added dirty pages up to      64869264838
+Pages flushed up to          64869264838
+Last checkpoint at           64869264838
+34497886 log i/o's done, 0.00 log i/o's/second
+----------------------
+BUFFER POOL AND MEMORY
+----------------------
+Total large memory allocated 3287285760
+Dictionary memory allocated 790616
+Buffer pool size   196608
+Free buffers       4096
+Database pages     190581
+Old database pages 70270
+Modified db pages  0
+Pending reads      0
+Pending writes: LRU 0, flush list 0, single page 0
+Pages made young 1646914, not young 678188540
+0.00 youngs/s, 0.00 non-youngs/s
+Pages read 29431978, created 2837221, written 52326412
+0.00 reads/s, 0.00 creates/s, 0.00 writes/s
+Buffer pool hit rate 1000 / 1000, young-making rate 0 / 1000 not 0 / 1000
+Pages read ahead 0.00/s, evicted without access 0.00/s, Random read ahead 0.00/s
+LRU len: 190581, unzip_LRU len: 0
+I/O sum[1884]:cur[0], unzip sum[0]:cur[0]
+----------------------
+INDIVIDUAL BUFFER POOL INFO
+----------------------
+---BUFFER POOL 0
+Buffer pool size   49152
+Free buffers       1024
+Database pages     47627
+Old database pages 17561
+Modified db pages  0
+Pending reads      0
+Pending writes: LRU 0, flush list 0, single page 0
+Pages made young 415741, not young 170302593
+0.00 youngs/s, 0.00 non-youngs/s
+Pages read 7360544, created 709555, written 13060813
+0.00 reads/s, 0.00 creates/s, 0.00 writes/s
+Buffer pool hit rate 1000 / 1000, young-making rate 0 / 1000 not 0 / 1000
+Pages read ahead 0.00/s, evicted without access 0.00/s, Random read ahead 0.00/s
+LRU len: 47627, unzip_LRU len: 0
+I/O sum[471]:cur[0], unzip sum[0]:cur[0]
+---BUFFER POOL 1
+Buffer pool size   49152
+Free buffers       1024
+Database pages     47661
+Old database pages 17573
+Modified db pages  0
+Pending reads      0
+Pending writes: LRU 0, flush list 0, single page 0
+Pages made young 429711, not young 166674318
+0.00 youngs/s, 0.00 non-youngs/s
+Pages read 7282020, created 708910, written 11610564
+0.00 reads/s, 0.00 creates/s, 0.00 writes/s
+Buffer pool hit rate 1000 / 1000, young-making rate 0 / 1000 not 0 / 1000
+Pages read ahead 0.00/s, evicted without access 0.00/s, Random read ahead 0.00/s
+LRU len: 47661, unzip_LRU len: 0
+I/O sum[471]:cur[0], unzip sum[0]:cur[0]
+---BUFFER POOL 2
+Buffer pool size   49152
+Free buffers       1024
+Database pages     47655
+Old database pages 17571
+Modified db pages  0
+Pending reads      0
+Pending writes: LRU 0, flush list 0, single page 0
+Pages made young 421437, not young 168616074
+0.00 youngs/s, 0.00 non-youngs/s
+Pages read 7333516, created 709430, written 13602127
+0.00 reads/s, 0.00 creates/s, 0.00 writes/s
+Buffer pool hit rate 1000 / 1000, young-making rate 0 / 1000 not 0 / 1000
+Pages read ahead 0.00/s, evicted without access 0.00/s, Random read ahead 0.00/s
+LRU len: 47655, unzip_LRU len: 0
+I/O sum[471]:cur[0], unzip sum[0]:cur[0]
+---BUFFER POOL 3
+Buffer pool size   49152
+Free buffers       1024
+Database pages     47638
+Old database pages 17565
+Modified db pages  0
+Pending reads      0
+Pending writes: LRU 0, flush list 0, single page 0
+Pages made young 380025, not young 172595555
+0.00 youngs/s, 0.00 non-youngs/s
+Pages read 7455898, created 709326, written 14052908
+0.00 reads/s, 0.00 creates/s, 0.00 writes/s
+Buffer pool hit rate 1000 / 1000, young-making rate 0 / 1000 not 0 / 1000
+Pages read ahead 0.00/s, evicted without access 0.00/s, Random read ahead 0.00/s
+LRU len: 47638, unzip_LRU len: 0
+I/O sum[471]:cur[0], unzip sum[0]:cur[0]
+--------------
+ROW OPERATIONS
+--------------
+0 queries inside InnoDB, 0 queries in queue
+0 read views open inside InnoDB
+Process ID=12852, Main thread ID=140413921191680 , state=sleeping
+Number of rows inserted 43188975, updated 5859493, deleted 8426076, read 194216409518
+0.00 inserts/s, 0.00 updates/s, 0.00 deletes/s, 75.29 reads/s
+Number of system rows inserted 1010006, updated 21973, deleted 1008659, read 1556253
+0.00 inserts/s, 0.00 updates/s, 0.00 deletes/s, 0.00 reads/s
+----------------------------
+END OF INNODB MONITOR OUTPUT
+============================
+
+1 row in set (0.00 sec)
+
+mysql> 
