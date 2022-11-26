@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://segmentfault.com/a/1190000005924733 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否</title><meta name="keywords" content="restful"><meta name="description" content="在构建API时，我们不可避免的会采用现有的跨平台的HTTP的交互方式与资源模型，因此如果你发现你目前的模式与我们的标准南辕北辙，那么请咨询你们专业的API设..."><meta name="userId" id="SFUserId"><meta name="userRank" id="SFUserRank"><meta rel="apple-touch-icon" href="https://static.segmentfault.com/main_site_next/f934caec/touch-icon.png"><meta name="msapplication-square150x150logo" content="https://static.segmentfault.com/main_site_next/f934caec/touch-icon.png"><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><meta name="renderer" content="webkit"><meta name="alexaVerifyID" content="LkzCRJ7rPEUwt6fVey2vhxiw1vQ"><meta name="apple-itunes-app" content="app-id=958101793, app-argument="><meta property="qc:admins" content="15317273575564615446375"><meta name="msapplication-TileColor" content="#009a61"><meta name="sogou_site_verification" content="MKVKCoIjwL"><meta name="360-site-verification" content="737314c9bf48873a1a0a22295203d9d1"><link rel="shortcut icon" type="image/x-icon" href="https://static.segmentfault.com/main_site_next/f934caec/favicon.ico"><link rel="search" type="application/opensearchdescription+xml" href="https://segmentfault.com/opensearch.xml" title="SegmentFault"><link rel="alternate" type="application/atom+xml" href="https://segmentfault.com/feeds/questions" title="SegmentFault \u6700\u65B0\u95EE\u9898"><link rel="alternate" type="application/atom+xml" href="https://segmentfault.com/feeds/blogs" title="SegmentFault \u6700\u65B0\u6587\u7AE0"><meta name="twitter:card" content="summary"><meta name="twitter:site" content="@segment_fault"><meta name="twitter:creator" content="@segmentfault"><meta name="twitter:title" content="来自于PayPal的RESTful API标准"><meta name="og:type" content="article"><meta name="og:title" content="来自于PayPal的RESTful API标准"><meta name="og:description" content="在构建API时，我们不可避免的会采用现有的跨平台的HTTP的交互方式与资源模型，因此如果你发现你目前的模式与我们的标准南辕北辙，那么请咨询你们专业的API设..."><meta name="og:url" content="https://segmentfault.com/a/1190000005924733"><meta name="og:site_name" content="SegmentFault 思否"><meta name="msvalidate.01" content="2C018C53297C8388F3E7052F5E9CA6AF"><meta name="event-object" value="{&quot;current&quot;: [&quot;article&quot;, [&quot;1190000005924733&quot;]], &quot;root&quot;: [&quot;article&quot;, &quot;1190000005924733&quot;]}" id="SFEventObject"><meta name="keywords" content="restful"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"><meta name="twitter:image" content="https://static.segmentfault.com/main_site_next/f934caec/touch-icon.png"><meta name="og:image" content="https://static.segmentfault.com/main_site_next/f934caec/touch-icon.png"><script type="application/ld+json">{
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://google.com/article"
+            },
+            "name": "来自于PayPal的RESTful API标准",
+            "headline": "来自于PayPal的RESTful API标准",
+            "image": "https://static.segmentfault.com/main_site_next/f934caec/touch-icon.png",
+            "datePublished": "2016-07-10T08:57:21.000Z",
+            "dateModified": "2016-07-24T14:08:56.000Z",
+            "url": "https://segmentfault.com/a/1190000005924733",
+            "author": {
+              "@type": "Person",
+              "name": "王下邀月熊_Chevalier"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "SegmentFault",
+              "logo": {
+                "@type": "ImageObject",
+                "url":
+                  "https://assets.segmentfault.com/v-5fc4b0b2/global/img/static/touch-icon.png"
+              }
+            }
+          }</script><meta name="description" content="在构建API时，我们不可避免的会采用现有的跨平台的HTTP的交互方式与资源模型，因此如果你发现你目前的模式与我们的标准南辕北辙，那么请咨询你们专业的API设..."><meta name="userId" id="SFUserId"><meta name="userRank" id="SFUserRank"><meta rel="apple-touch-icon" href="https://static.segmentfault.com/main_site_next/f934caec/touch-icon.png"><meta name="msapplication-square150x150logo" content="https://static.segmentfault.com/main_site_next/f934caec/touch-icon.png"><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><meta name="next-head-count" content="34"><script id="google-analytics" data-nscript="beforeInteractive">
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MJYFRXB3ZX')
+    </script><link rel="preload" href="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/f148beb8a4731e04.css" as="style"><link rel="stylesheet" href="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/f148beb8a4731e04.css" data-n-g=""><noscript data-n-css=""></noscript><script defer="" nomodule="" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/polyfills-0d1b80a048d4787e.js.下载"></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/gt.js.下载" defer="" data-nscript="beforeInteractive"></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/webpack-8138b0e505834889.js.下载" defer=""></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/framework-957f43d0aba0f7ed.js.下载" defer=""></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/main-586053c18e4aa7ad.js.下载" defer=""></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/_app-bdd219c61093de7d.js.下载" defer=""></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/116-a43c0b1ed745de9e.js.下载" defer=""></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/164-e074da0c6fec929e.js.下载" defer=""></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/4137-500d24261e9e53bf.js.下载" defer=""></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/2624-da872d6c9c517bcc.js.下载" defer=""></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/395-e731ac6670c77cb0.js.下载" defer=""></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/893-87b7318d756ac1ff.js.下载" defer=""></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/6271-78414547dc5e3285.js.下载" defer=""></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/3595-8058211cb5878fcc.js.下载" defer=""></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/ArticleDetail-bf7d1167be999131.js.下载" defer=""></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/_buildManifest.js.下载" defer=""></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/_ssgManifest.js.下载" defer=""></script><style id="__jsx-6ab5e25efa7387f">#header-tsearch-toogle .input{padding-left:36px}#header-tsearch-toogle .icon-search{position:absolute;height:38px;line-height:38px;top:0;left:0;padding:0 8px 0 12px}#header-tsearch-toogle .icon-search:hover{cursor:pointer}#header-tsearch-toogle .dropdown-toggle::after{display:none!important}#header-tsearch-toogle .dropdown-item.active,#header-tsearch-toogle .dropdown-item>a:hover,#header-tsearch-toogle .dropdown-item>a:focus{text-decoration:none;color:#262626;background-color:#f8f9fa}#header-tsearch-toogle .search-name{width:22px;display:inline-block}</style><style id="__jsx-1c127a2a5375773c">@charset "UTF-8";.fmt,.tui-editor-contents,.preview-wrap{line-height:1.6}.fmt p,.fmt address,.fmt ul,.fmt ol,.fmt dl,.fmt pre,.fmt blockquote,.fmt table,.fmt figure,.fmt hr,.tui-editor-contents p,.tui-editor-contents address,.tui-editor-contents ul,.tui-editor-contents ol,.tui-editor-contents dl,.tui-editor-contents pre,.tui-editor-contents blockquote,.tui-editor-contents table,.tui-editor-contents figure,.tui-editor-contents hr,.preview-wrap p,.preview-wrap address,.preview-wrap ul,.preview-wrap ol,.preview-wrap dl,.preview-wrap pre,.preview-wrap blockquote,.preview-wrap table,.preview-wrap figure,.preview-wrap hr{margin-bottom:1.25rem}.fmt ol ol,.fmt ol ul,.fmt ul ol,.fmt ul ul,.tui-editor-contents ol ol,.tui-editor-contents ol ul,.tui-editor-contents ul ol,.tui-editor-contents ul ul,.preview-wrap ol ol,.preview-wrap ol ul,.preview-wrap ul ol,.preview-wrap ul ul{margin-bottom:0}.fmt li ul,.tui-editor-contents li ul,.preview-wrap li ul{margin-top:-1.25rem}.fmt li ol,.tui-editor-contents li ol,.preview-wrap li ol{margin-top:-1.25rem}.fmt h1,.tui-editor-contents h1,.preview-wrap h1{font-size:2rem;margin:2.75rem 0 1rem;padding-bottom:.5rem;border-bottom:3px double rgba(0,0,0,.1)}.fmt h2,.tui-editor-contents h2,.preview-wrap h2{font-size:1.75rem;margin:2.5rem 0 1rem;padding-bottom:.5rem;border-bottom:1px double rgba(0,0,0,.1)}.fmt h3,.tui-editor-contents h3,.preview-wrap h3{font-size:1.5rem;margin:2.25rem 0 1rem}.fmt h4,.tui-editor-contents h4,.preview-wrap h4{font-size:1.25rem;margin:2rem 0 1rem}.fmt h5,.tui-editor-contents h5,.preview-wrap h5{font-size:1rem;margin:1.75rem 0 1rem}.fmt h6,.tui-editor-contents h6,.preview-wrap h6{font-size:1rem;margin:1.5rem 0 .5rem}.fmt h6::before,.tui-editor-contents h6::before,.preview-wrap h6::before{content:"❐";margin-right:.25rem}.fmt blockquote,.tui-editor-contents blockquote,.preview-wrap blockquote{padding-left:1rem;border-left:.25rem solid#e9ecef}.fmt pre,.tui-editor-contents pre,.preview-wrap pre{padding:1rem;max-height:35rem;line-height:1.5;background-color:#e9ecef;overflow:auto}.fmt pre code,.tui-editor-contents pre code,.preview-wrap pre code{overflow-wrap:normal;white-space:inherit}.fmt hr,.tui-editor-contents hr,.preview-wrap hr{margin:2rem auto;max-width:160px;border-top-width:2px}.fmt img,.tui-editor-contents img,.preview-wrap img{max-width:100%}.fmt table,.tui-editor-contents table,.preview-wrap table{border:1px solid#dee2e6;width:100%;table-layout:fixed}.fmt table td,.fmt table th,.tui-editor-contents table td,.tui-editor-contents table th,.preview-wrap table td,.preview-wrap table th{padding:.75rem;border:1px solid#dee2e6;word-wrap:break-word}.fmt table [align="center"],.tui-editor-contents table [align="center"],.preview-wrap table [align="center"]{text-align:center}.fmt table [align="right"],.tui-editor-contents table [align="right"],.preview-wrap table [align="right"]{text-align:right}.fmt table thead th,.tui-editor-contents table thead th,.preview-wrap table thead th{border-bottom-width:2px;background-color:#e9ecef;color:#212529;font-weight:bold}.fmt table tbody tr:hover,.tui-editor-contents table tbody tr:hover,.preview-wrap table tbody tr:hover{background-color:rgba(0,0,0,.025)}.fmt .img-wrap,.tui-editor-contents .img-wrap,.preview-wrap .img-wrap{display:block;text-align:center}article.fmt a img{cursor:pointer}article.fmt img{cursor:-webkit-zoom-in;cursor:-moz-zoom-in;cursor:zoom-in}</style><style id="__jsx-11bed9547ce0635b">html{scroll-behavior:unset!important;scroll-padding-top:60px}.article-content{margin-bottom:1.5rem}.article-content .userExcerpt p{margin-bottom:0!important}.article-content .col-md-90{width:120px}.article-content pre{position:relative}.right-side .right-block{margin-bottom:1.5rem}#test a:active{color:red}@media(max-width:767.98px){.article-content .col-md-90{width:100%}}@media(max-width:575.98px){.article-content.container{padding:0;padding-bottom:56px;padding-bottom:-webkit-calc(56px + constant(safe-area-inset-bottom));padding-bottom:-moz-calc(56px + constant(safe-area-inset-bottom));padding-bottom:calc(56px + constant(safe-area-inset-bottom));padding-bottom:-webkit-calc(56px + env(safe-area-inset-bottom));padding-bottom:-moz-calc(56px + env(safe-area-inset-bottom));padding-bottom:calc(56px + env(safe-area-inset-bottom));overflow-x:hidden}}</style><style id="__jsx-986f121867ae534">.operation .dropdown-toggle::after{display:none}</style><style id="__jsx-e7ade88cc0ab8362">.quote .delete-quote{visibility:hidden}.quote .list-group-item:hover .delete-quote{visibility:visible}</style><style id="__jsx-264ee8e6dd3c886a">.comment-wrap .media-body .fmt,.comment-wrap .media-body .fmt>p:first-child{display:inline}.comment-wrap .media-body .fmt>p:first-child::after{display:block;content:"";margin-bottom:1.25rem}.comment-wrap .media-body .fmt>p:last-child::after{display:none!important}.comment-wrap .commentUnit:hover .control-area,.comment-wrap .commentUnit:hover .comment-control-area{display:block!important}.comment-wrap .comment-reply{overflow:hidden;overflow-wrap:break-word;resize:none}.comment-wrap .dropdown-item.active,.comment-wrap .dropdown-item:active{background:#f8f9fa!important;color:inherit!important}.comment-wrap .reply-list .list-group-item{background-color:unset}</style><style id="__jsx-d6a7c16d4796689">.mentions-wrap .dropdown-toggle::after{display:none}</style><style id="__jsx-a71179a83a8815ea">.recommend-list-wrap .card-header{-webkit-box-shadow:0rem -.06rem 0rem 0rem rgba(0,0,0,.13)inset;-moz-box-shadow:0rem -.06rem 0rem 0rem rgba(0,0,0,.13)inset;box-shadow:0rem -.06rem 0rem 0rem rgba(0,0,0,.13)inset}.mr-13{margin-right:13px}</style><style id="__jsx-cad47faaef1227ac">.nav-header{cursor:pointer}</style><style id="__jsx-485379b6e05f23fd">.grid-ad{margin-top:1.5rem}.grid-ad .ad-wrap{height:12.5rem;background:#026e4c;border:.5rem solid#452d1c;-webkit-border-radius:.25rem;-moz-border-radius:.25rem;border-radius:.25rem;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-moz-box-orient:vertical;-moz-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.grid-ad .ad-wrap .desc-wrap .desc{font-size:.875rem}.card-header{border-bottom:1px solid rgba(0,0,0,.0625)!important}</style><style id="__jsx-227a1e4ca926475">.weixin-qrcode{background:url(https://static.segmentfault.com/main_site_next/f934caec/_next/static/media/qr-code-common.fff548d0.png)no-repeat;-webkit-background-size:contain;-moz-background-size:contain;-o-background-size:contain;background-size:contain;width:86px;height:86px}.popover .arrow{margin:0}</style><style type="text/css" data-styled-jsx=""></style><style type="text/css">#waf_nc_block{position:fixed;_position:absolute;width:100%;height:100%;top:0;bottom:0;left:0;z-index:99999}.waf-nc-mask{background:#000;opacity:.5;filter:alpha(opacity=50);width:100%;height:100%}.waf-nc-wrapper{width:348px;height:236px;text-align:center;position:absolute;top:50%;left:50%;margin-top:-160px;margin-left:-200px;margin-bottom:16px;background:#fff;box-shadow:0 0 10px 0 rgba(0,0,0,0.15)}.waf-nc-title{margin-top:28px;font-size:24px;font-weight:500;color:#181818;letter-spacing:1.71px;text-align:center}.waf-nc-description{margin-top:24px;font-size:14px;color:#666;text-align:center}.waf-nc-traceid-class{margin-top:8px;font-size:12px;color:#999;text-align:center}#nocaptcha{margin-left:24px;margin-top:14px}.nc_bg{background:#fff3ea!important}.btn_slide{background:#ff6a00!important;border:0!important;color:#fff!important;width:48px!important;height:48px!important;font-size:30px;font-weight:900!important;line-height:48px!important}.btn_ok{background:#ff6a00!important;border:0!important;color:#fff!important;width:48px!important;height:48px!important;font-size:30px;font-weight:900!important;line-height:48px!important}.nc_scale{background:rgba(241,241,242,1)!important;height:48px!important}.nc-lang-cnt{height:48px!important;margin-left:10px!important;line-height:48px!important;font-size:14px!important}</style><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/awsc.js.下载"></script><meta http-equiv="origin-trial" content="Az6AfRvI8mo7yiW5fLfj04W21t0ig6aMsGYpIqMTaX60H+b0DkO1uDr+7BrzMcimWzv/X7SXR8jI+uvbV0IJlwYAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+USTya+tNvDPaxUgJooz+LaVk5hPoAxpLvSxjogX4Mk8awCTQ9iop6zJ9d5ldgU7WmHqBlnQB41LHHRFxoaBwoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7FovoGr67TUBYbnY+Z0IKoJbbmRmB8fCyirUGHavNDtD91CiGyHHSA2hDG9r9T3NjUKFi6egL3RbgTwhhcVDwUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><link rel="preload" href="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/f.txt" as="script"><script type="text/javascript" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/f.txt"></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/katexCssLoader.js.下载"></script><style type="text/css">
+/* stylelint-disable font-family-no-missing-generic-family-keyword */
+@font-face {
+  font-family: 'KaTeX_AMS';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_AMS-Regular.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_AMS-Regular.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_AMS-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KaTeX_Caligraphic';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Caligraphic-Bold.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Caligraphic-Bold.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Caligraphic-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KaTeX_Caligraphic';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Caligraphic-Regular.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Caligraphic-Regular.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Caligraphic-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KaTeX_Fraktur';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Fraktur-Bold.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Fraktur-Bold.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Fraktur-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KaTeX_Fraktur';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Fraktur-Regular.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Fraktur-Regular.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Fraktur-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KaTeX_Main';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Main-Bold.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Main-Bold.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Main-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KaTeX_Main';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Main-BoldItalic.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Main-BoldItalic.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Main-BoldItalic.ttf) format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'KaTeX_Main';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Main-Italic.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Main-Italic.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Main-Italic.ttf) format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'KaTeX_Main';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Main-Regular.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Main-Regular.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Main-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KaTeX_Math';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Math-BoldItalic.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Math-BoldItalic.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Math-BoldItalic.ttf) format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'KaTeX_Math';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Math-Italic.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Math-Italic.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Math-Italic.ttf) format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'KaTeX_SansSerif';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_SansSerif-Bold.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_SansSerif-Bold.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_SansSerif-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KaTeX_SansSerif';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_SansSerif-Italic.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_SansSerif-Italic.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_SansSerif-Italic.ttf) format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'KaTeX_SansSerif';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_SansSerif-Regular.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_SansSerif-Regular.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_SansSerif-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KaTeX_Script';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Script-Regular.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Script-Regular.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Script-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KaTeX_Size1';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Size1-Regular.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Size1-Regular.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Size1-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KaTeX_Size2';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Size2-Regular.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Size2-Regular.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Size2-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KaTeX_Size3';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Size3-Regular.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Size3-Regular.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Size3-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KaTeX_Size4';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Size4-Regular.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Size4-Regular.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Size4-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KaTeX_Typewriter';
+  src: url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Typewriter-Regular.woff2) format('woff2'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Typewriter-Regular.woff) format('woff'), url(https://static.segmentfault.com/main_site_next/f934caec/fonts/katex/KaTeX_Typewriter-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+.katex {
+  font: normal 1.21em KaTeX_Main, Times New Roman, serif;
+  line-height: 1.2;
+  text-indent: 0;
+  text-rendering: auto;
+  border-color: currentColor;
+}
+.katex * {
+  -ms-high-contrast-adjust: none !important;
+}
+.katex .katex-version::after {
+  content: "0.12.0";
+}
+.katex .katex-mathml {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+.katex .katex-html {
+  /* 
+ewline is an empty block at top level, between .base elements */
+}
+.katex .katex-html > .newline {
+  display: block;
+}
+.katex .base {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  width: min-content;
+}
+.katex .strut {
+  display: inline-block;
+}
+.katex .textbf {
+  font-weight: bold;
+}
+.katex .textit {
+  font-style: italic;
+}
+.katex .textrm {
+  font-family: KaTeX_Main;
+}
+.katex .textsf {
+  font-family: KaTeX_SansSerif;
+}
+.katex .texttt {
+  font-family: KaTeX_Typewriter;
+}
+.katex .mathnormal {
+  font-family: KaTeX_Math;
+  font-style: italic;
+}
+.katex .mathit {
+  font-family: KaTeX_Main;
+  font-style: italic;
+}
+.katex .mathrm {
+  font-style: normal;
+}
+.katex .mathbf {
+  font-family: KaTeX_Main;
+  font-weight: bold;
+}
+.katex .boldsymbol {
+  font-family: KaTeX_Math;
+  font-weight: bold;
+  font-style: italic;
+}
+.katex .amsrm {
+  font-family: KaTeX_AMS;
+}
+.katex .mathbb,
+.katex .textbb {
+  font-family: KaTeX_AMS;
+}
+.katex .mathcal {
+  font-family: KaTeX_Caligraphic;
+}
+.katex .mathfrak,
+.katex .textfrak {
+  font-family: KaTeX_Fraktur;
+}
+.katex .mathtt {
+  font-family: KaTeX_Typewriter;
+}
+.katex .mathscr,
+.katex .textscr {
+  font-family: KaTeX_Script;
+}
+.katex .mathsf,
+.katex .textsf {
+  font-family: KaTeX_SansSerif;
+}
+.katex .mathboldsf,
+.katex .textboldsf {
+  font-family: KaTeX_SansSerif;
+  font-weight: bold;
+}
+.katex .mathitsf,
+.katex .textitsf {
+  font-family: KaTeX_SansSerif;
+  font-style: italic;
+}
+.katex .mainrm {
+  font-family: KaTeX_Main;
+  font-style: normal;
+}
+.katex .vlist-t {
+  display: inline-table;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.katex .vlist-r {
+  display: table-row;
+}
+.katex .vlist {
+  display: table-cell;
+  vertical-align: bottom;
+  position: relative;
+}
+.katex .vlist > span {
+  display: block;
+  height: 0;
+  position: relative;
+}
+.katex .vlist > span > span {
+  display: inline-block;
+}
+.katex .vlist > span > .pstrut {
+  overflow: hidden;
+  width: 0;
+}
+.katex .vlist-t2 {
+  margin-right: -2px;
+}
+.katex .vlist-s {
+  display: table-cell;
+  vertical-align: bottom;
+  font-size: 1px;
+  width: 2px;
+  min-width: 2px;
+}
+.katex .vbox {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: baseline;
+}
+.katex .hbox {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: 100%;
+}
+.katex .thinbox {
+  display: inline-flex;
+  flex-direction: row;
+  width: 0;
+  max-width: 0;
+}
+.katex .msupsub {
+  text-align: left;
+}
+.katex .mfrac > span > span {
+  text-align: center;
+}
+.katex .mfrac .frac-line {
+  display: inline-block;
+  width: 100%;
+  border-bottom-style: solid;
+}
+.katex .mfrac .frac-line,
+.katex .overline .overline-line,
+.katex .underline .underline-line,
+.katex .hline,
+.katex .hdashline,
+.katex .rule {
+  min-height: 1px;
+}
+.katex .mspace {
+  display: inline-block;
+}
+.katex .llap,
+.katex .rlap,
+.katex .clap {
+  width: 0;
+  position: relative;
+}
+.katex .llap > .inner,
+.katex .rlap > .inner,
+.katex .clap > .inner {
+  position: absolute;
+}
+.katex .llap > .fix,
+.katex .rlap > .fix,
+.katex .clap > .fix {
+  display: inline-block;
+}
+.katex .llap > .inner {
+  right: 0;
+}
+.katex .rlap > .inner,
+.katex .clap > .inner {
+  left: 0;
+}
+.katex .clap > .inner > span {
+  margin-left: -50%;
+  margin-right: 50%;
+}
+.katex .rule {
+  display: inline-block;
+  border: solid 0;
+  position: relative;
+}
+.katex .overline .overline-line,
+.katex .underline .underline-line,
+.katex .hline {
+  display: inline-block;
+  width: 100%;
+  border-bottom-style: solid;
+}
+.katex .hdashline {
+  display: inline-block;
+  width: 100%;
+  border-bottom-style: dashed;
+}
+.katex .sqrt > .root {
+  margin-left: 0.27777778em;
+  margin-right: -0.55555556em;
+}
+.katex .sizing.reset-size1.size1,
+.katex .fontsize-ensurer.reset-size1.size1 {
+  font-size: 1em;
+}
+.katex .sizing.reset-size1.size2,
+.katex .fontsize-ensurer.reset-size1.size2 {
+  font-size: 1.2em;
+}
+.katex .sizing.reset-size1.size3,
+.katex .fontsize-ensurer.reset-size1.size3 {
+  font-size: 1.4em;
+}
+.katex .sizing.reset-size1.size4,
+.katex .fontsize-ensurer.reset-size1.size4 {
+  font-size: 1.6em;
+}
+.katex .sizing.reset-size1.size5,
+.katex .fontsize-ensurer.reset-size1.size5 {
+  font-size: 1.8em;
+}
+.katex .sizing.reset-size1.size6,
+.katex .fontsize-ensurer.reset-size1.size6 {
+  font-size: 2em;
+}
+.katex .sizing.reset-size1.size7,
+.katex .fontsize-ensurer.reset-size1.size7 {
+  font-size: 2.4em;
+}
+.katex .sizing.reset-size1.size8,
+.katex .fontsize-ensurer.reset-size1.size8 {
+  font-size: 2.88em;
+}
+.katex .sizing.reset-size1.size9,
+.katex .fontsize-ensurer.reset-size1.size9 {
+  font-size: 3.456em;
+}
+.katex .sizing.reset-size1.size10,
+.katex .fontsize-ensurer.reset-size1.size10 {
+  font-size: 4.148em;
+}
+.katex .sizing.reset-size1.size11,
+.katex .fontsize-ensurer.reset-size1.size11 {
+  font-size: 4.976em;
+}
+.katex .sizing.reset-size2.size1,
+.katex .fontsize-ensurer.reset-size2.size1 {
+  font-size: 0.83333333em;
+}
+.katex .sizing.reset-size2.size2,
+.katex .fontsize-ensurer.reset-size2.size2 {
+  font-size: 1em;
+}
+.katex .sizing.reset-size2.size3,
+.katex .fontsize-ensurer.reset-size2.size3 {
+  font-size: 1.16666667em;
+}
+.katex .sizing.reset-size2.size4,
+.katex .fontsize-ensurer.reset-size2.size4 {
+  font-size: 1.33333333em;
+}
+.katex .sizing.reset-size2.size5,
+.katex .fontsize-ensurer.reset-size2.size5 {
+  font-size: 1.5em;
+}
+.katex .sizing.reset-size2.size6,
+.katex .fontsize-ensurer.reset-size2.size6 {
+  font-size: 1.66666667em;
+}
+.katex .sizing.reset-size2.size7,
+.katex .fontsize-ensurer.reset-size2.size7 {
+  font-size: 2em;
+}
+.katex .sizing.reset-size2.size8,
+.katex .fontsize-ensurer.reset-size2.size8 {
+  font-size: 2.4em;
+}
+.katex .sizing.reset-size2.size9,
+.katex .fontsize-ensurer.reset-size2.size9 {
+  font-size: 2.88em;
+}
+.katex .sizing.reset-size2.size10,
+.katex .fontsize-ensurer.reset-size2.size10 {
+  font-size: 3.45666667em;
+}
+.katex .sizing.reset-size2.size11,
+.katex .fontsize-ensurer.reset-size2.size11 {
+  font-size: 4.14666667em;
+}
+.katex .sizing.reset-size3.size1,
+.katex .fontsize-ensurer.reset-size3.size1 {
+  font-size: 0.71428571em;
+}
+.katex .sizing.reset-size3.size2,
+.katex .fontsize-ensurer.reset-size3.size2 {
+  font-size: 0.85714286em;
+}
+.katex .sizing.reset-size3.size3,
+.katex .fontsize-ensurer.reset-size3.size3 {
+  font-size: 1em;
+}
+.katex .sizing.reset-size3.size4,
+.katex .fontsize-ensurer.reset-size3.size4 {
+  font-size: 1.14285714em;
+}
+.katex .sizing.reset-size3.size5,
+.katex .fontsize-ensurer.reset-size3.size5 {
+  font-size: 1.28571429em;
+}
+.katex .sizing.reset-size3.size6,
+.katex .fontsize-ensurer.reset-size3.size6 {
+  font-size: 1.42857143em;
+}
+.katex .sizing.reset-size3.size7,
+.katex .fontsize-ensurer.reset-size3.size7 {
+  font-size: 1.71428571em;
+}
+.katex .sizing.reset-size3.size8,
+.katex .fontsize-ensurer.reset-size3.size8 {
+  font-size: 2.05714286em;
+}
+.katex .sizing.reset-size3.size9,
+.katex .fontsize-ensurer.reset-size3.size9 {
+  font-size: 2.46857143em;
+}
+.katex .sizing.reset-size3.size10,
+.katex .fontsize-ensurer.reset-size3.size10 {
+  font-size: 2.96285714em;
+}
+.katex .sizing.reset-size3.size11,
+.katex .fontsize-ensurer.reset-size3.size11 {
+  font-size: 3.55428571em;
+}
+.katex .sizing.reset-size4.size1,
+.katex .fontsize-ensurer.reset-size4.size1 {
+  font-size: 0.625em;
+}
+.katex .sizing.reset-size4.size2,
+.katex .fontsize-ensurer.reset-size4.size2 {
+  font-size: 0.75em;
+}
+.katex .sizing.reset-size4.size3,
+.katex .fontsize-ensurer.reset-size4.size3 {
+  font-size: 0.875em;
+}
+.katex .sizing.reset-size4.size4,
+.katex .fontsize-ensurer.reset-size4.size4 {
+  font-size: 1em;
+}
+.katex .sizing.reset-size4.size5,
+.katex .fontsize-ensurer.reset-size4.size5 {
+  font-size: 1.125em;
+}
+.katex .sizing.reset-size4.size6,
+.katex .fontsize-ensurer.reset-size4.size6 {
+  font-size: 1.25em;
+}
+.katex .sizing.reset-size4.size7,
+.katex .fontsize-ensurer.reset-size4.size7 {
+  font-size: 1.5em;
+}
+.katex .sizing.reset-size4.size8,
+.katex .fontsize-ensurer.reset-size4.size8 {
+  font-size: 1.8em;
+}
+.katex .sizing.reset-size4.size9,
+.katex .fontsize-ensurer.reset-size4.size9 {
+  font-size: 2.16em;
+}
+.katex .sizing.reset-size4.size10,
+.katex .fontsize-ensurer.reset-size4.size10 {
+  font-size: 2.5925em;
+}
+.katex .sizing.reset-size4.size11,
+.katex .fontsize-ensurer.reset-size4.size11 {
+  font-size: 3.11em;
+}
+.katex .sizing.reset-size5.size1,
+.katex .fontsize-ensurer.reset-size5.size1 {
+  font-size: 0.55555556em;
+}
+.katex .sizing.reset-size5.size2,
+.katex .fontsize-ensurer.reset-size5.size2 {
+  font-size: 0.66666667em;
+}
+.katex .sizing.reset-size5.size3,
+.katex .fontsize-ensurer.reset-size5.size3 {
+  font-size: 0.77777778em;
+}
+.katex .sizing.reset-size5.size4,
+.katex .fontsize-ensurer.reset-size5.size4 {
+  font-size: 0.88888889em;
+}
+.katex .sizing.reset-size5.size5,
+.katex .fontsize-ensurer.reset-size5.size5 {
+  font-size: 1em;
+}
+.katex .sizing.reset-size5.size6,
+.katex .fontsize-ensurer.reset-size5.size6 {
+  font-size: 1.11111111em;
+}
+.katex .sizing.reset-size5.size7,
+.katex .fontsize-ensurer.reset-size5.size7 {
+  font-size: 1.33333333em;
+}
+.katex .sizing.reset-size5.size8,
+.katex .fontsize-ensurer.reset-size5.size8 {
+  font-size: 1.6em;
+}
+.katex .sizing.reset-size5.size9,
+.katex .fontsize-ensurer.reset-size5.size9 {
+  font-size: 1.92em;
+}
+.katex .sizing.reset-size5.size10,
+.katex .fontsize-ensurer.reset-size5.size10 {
+  font-size: 2.30444444em;
+}
+.katex .sizing.reset-size5.size11,
+.katex .fontsize-ensurer.reset-size5.size11 {
+  font-size: 2.76444444em;
+}
+.katex .sizing.reset-size6.size1,
+.katex .fontsize-ensurer.reset-size6.size1 {
+  font-size: 0.5em;
+}
+.katex .sizing.reset-size6.size2,
+.katex .fontsize-ensurer.reset-size6.size2 {
+  font-size: 0.6em;
+}
+.katex .sizing.reset-size6.size3,
+.katex .fontsize-ensurer.reset-size6.size3 {
+  font-size: 0.7em;
+}
+.katex .sizing.reset-size6.size4,
+.katex .fontsize-ensurer.reset-size6.size4 {
+  font-size: 0.8em;
+}
+.katex .sizing.reset-size6.size5,
+.katex .fontsize-ensurer.reset-size6.size5 {
+  font-size: 0.9em;
+}
+.katex .sizing.reset-size6.size6,
+.katex .fontsize-ensurer.reset-size6.size6 {
+  font-size: 1em;
+}
+.katex .sizing.reset-size6.size7,
+.katex .fontsize-ensurer.reset-size6.size7 {
+  font-size: 1.2em;
+}
+.katex .sizing.reset-size6.size8,
+.katex .fontsize-ensurer.reset-size6.size8 {
+  font-size: 1.44em;
+}
+.katex .sizing.reset-size6.size9,
+.katex .fontsize-ensurer.reset-size6.size9 {
+  font-size: 1.728em;
+}
+.katex .sizing.reset-size6.size10,
+.katex .fontsize-ensurer.reset-size6.size10 {
+  font-size: 2.074em;
+}
+.katex .sizing.reset-size6.size11,
+.katex .fontsize-ensurer.reset-size6.size11 {
+  font-size: 2.488em;
+}
+.katex .sizing.reset-size7.size1,
+.katex .fontsize-ensurer.reset-size7.size1 {
+  font-size: 0.41666667em;
+}
+.katex .sizing.reset-size7.size2,
+.katex .fontsize-ensurer.reset-size7.size2 {
+  font-size: 0.5em;
+}
+.katex .sizing.reset-size7.size3,
+.katex .fontsize-ensurer.reset-size7.size3 {
+  font-size: 0.58333333em;
+}
+.katex .sizing.reset-size7.size4,
+.katex .fontsize-ensurer.reset-size7.size4 {
+  font-size: 0.66666667em;
+}
+.katex .sizing.reset-size7.size5,
+.katex .fontsize-ensurer.reset-size7.size5 {
+  font-size: 0.75em;
+}
+.katex .sizing.reset-size7.size6,
+.katex .fontsize-ensurer.reset-size7.size6 {
+  font-size: 0.83333333em;
+}
+.katex .sizing.reset-size7.size7,
+.katex .fontsize-ensurer.reset-size7.size7 {
+  font-size: 1em;
+}
+.katex .sizing.reset-size7.size8,
+.katex .fontsize-ensurer.reset-size7.size8 {
+  font-size: 1.2em;
+}
+.katex .sizing.reset-size7.size9,
+.katex .fontsize-ensurer.reset-size7.size9 {
+  font-size: 1.44em;
+}
+.katex .sizing.reset-size7.size10,
+.katex .fontsize-ensurer.reset-size7.size10 {
+  font-size: 1.72833333em;
+}
+.katex .sizing.reset-size7.size11,
+.katex .fontsize-ensurer.reset-size7.size11 {
+  font-size: 2.07333333em;
+}
+.katex .sizing.reset-size8.size1,
+.katex .fontsize-ensurer.reset-size8.size1 {
+  font-size: 0.34722222em;
+}
+.katex .sizing.reset-size8.size2,
+.katex .fontsize-ensurer.reset-size8.size2 {
+  font-size: 0.41666667em;
+}
+.katex .sizing.reset-size8.size3,
+.katex .fontsize-ensurer.reset-size8.size3 {
+  font-size: 0.48611111em;
+}
+.katex .sizing.reset-size8.size4,
+.katex .fontsize-ensurer.reset-size8.size4 {
+  font-size: 0.55555556em;
+}
+.katex .sizing.reset-size8.size5,
+.katex .fontsize-ensurer.reset-size8.size5 {
+  font-size: 0.625em;
+}
+.katex .sizing.reset-size8.size6,
+.katex .fontsize-ensurer.reset-size8.size6 {
+  font-size: 0.69444444em;
+}
+.katex .sizing.reset-size8.size7,
+.katex .fontsize-ensurer.reset-size8.size7 {
+  font-size: 0.83333333em;
+}
+.katex .sizing.reset-size8.size8,
+.katex .fontsize-ensurer.reset-size8.size8 {
+  font-size: 1em;
+}
+.katex .sizing.reset-size8.size9,
+.katex .fontsize-ensurer.reset-size8.size9 {
+  font-size: 1.2em;
+}
+.katex .sizing.reset-size8.size10,
+.katex .fontsize-ensurer.reset-size8.size10 {
+  font-size: 1.44027778em;
+}
+.katex .sizing.reset-size8.size11,
+.katex .fontsize-ensurer.reset-size8.size11 {
+  font-size: 1.72777778em;
+}
+.katex .sizing.reset-size9.size1,
+.katex .fontsize-ensurer.reset-size9.size1 {
+  font-size: 0.28935185em;
+}
+.katex .sizing.reset-size9.size2,
+.katex .fontsize-ensurer.reset-size9.size2 {
+  font-size: 0.34722222em;
+}
+.katex .sizing.reset-size9.size3,
+.katex .fontsize-ensurer.reset-size9.size3 {
+  font-size: 0.40509259em;
+}
+.katex .sizing.reset-size9.size4,
+.katex .fontsize-ensurer.reset-size9.size4 {
+  font-size: 0.46296296em;
+}
+.katex .sizing.reset-size9.size5,
+.katex .fontsize-ensurer.reset-size9.size5 {
+  font-size: 0.52083333em;
+}
+.katex .sizing.reset-size9.size6,
+.katex .fontsize-ensurer.reset-size9.size6 {
+  font-size: 0.5787037em;
+}
+.katex .sizing.reset-size9.size7,
+.katex .fontsize-ensurer.reset-size9.size7 {
+  font-size: 0.69444444em;
+}
+.katex .sizing.reset-size9.size8,
+.katex .fontsize-ensurer.reset-size9.size8 {
+  font-size: 0.83333333em;
+}
+.katex .sizing.reset-size9.size9,
+.katex .fontsize-ensurer.reset-size9.size9 {
+  font-size: 1em;
+}
+.katex .sizing.reset-size9.size10,
+.katex .fontsize-ensurer.reset-size9.size10 {
+  font-size: 1.20023148em;
+}
+.katex .sizing.reset-size9.size11,
+.katex .fontsize-ensurer.reset-size9.size11 {
+  font-size: 1.43981481em;
+}
+.katex .sizing.reset-size10.size1,
+.katex .fontsize-ensurer.reset-size10.size1 {
+  font-size: 0.24108004em;
+}
+.katex .sizing.reset-size10.size2,
+.katex .fontsize-ensurer.reset-size10.size2 {
+  font-size: 0.28929605em;
+}
+.katex .sizing.reset-size10.size3,
+.katex .fontsize-ensurer.reset-size10.size3 {
+  font-size: 0.33751205em;
+}
+.katex .sizing.reset-size10.size4,
+.katex .fontsize-ensurer.reset-size10.size4 {
+  font-size: 0.38572806em;
+}
+.katex .sizing.reset-size10.size5,
+.katex .fontsize-ensurer.reset-size10.size5 {
+  font-size: 0.43394407em;
+}
+.katex .sizing.reset-size10.size6,
+.katex .fontsize-ensurer.reset-size10.size6 {
+  font-size: 0.48216008em;
+}
+.katex .sizing.reset-size10.size7,
+.katex .fontsize-ensurer.reset-size10.size7 {
+  font-size: 0.57859209em;
+}
+.katex .sizing.reset-size10.size8,
+.katex .fontsize-ensurer.reset-size10.size8 {
+  font-size: 0.69431051em;
+}
+.katex .sizing.reset-size10.size9,
+.katex .fontsize-ensurer.reset-size10.size9 {
+  font-size: 0.83317261em;
+}
+.katex .sizing.reset-size10.size10,
+.katex .fontsize-ensurer.reset-size10.size10 {
+  font-size: 1em;
+}
+.katex .sizing.reset-size10.size11,
+.katex .fontsize-ensurer.reset-size10.size11 {
+  font-size: 1.19961427em;
+}
+.katex .sizing.reset-size11.size1,
+.katex .fontsize-ensurer.reset-size11.size1 {
+  font-size: 0.20096463em;
+}
+.katex .sizing.reset-size11.size2,
+.katex .fontsize-ensurer.reset-size11.size2 {
+  font-size: 0.24115756em;
+}
+.katex .sizing.reset-size11.size3,
+.katex .fontsize-ensurer.reset-size11.size3 {
+  font-size: 0.28135048em;
+}
+.katex .sizing.reset-size11.size4,
+.katex .fontsize-ensurer.reset-size11.size4 {
+  font-size: 0.32154341em;
+}
+.katex .sizing.reset-size11.size5,
+.katex .fontsize-ensurer.reset-size11.size5 {
+  font-size: 0.36173633em;
+}
+.katex .sizing.reset-size11.size6,
+.katex .fontsize-ensurer.reset-size11.size6 {
+  font-size: 0.40192926em;
+}
+.katex .sizing.reset-size11.size7,
+.katex .fontsize-ensurer.reset-size11.size7 {
+  font-size: 0.48231511em;
+}
+.katex .sizing.reset-size11.size8,
+.katex .fontsize-ensurer.reset-size11.size8 {
+  font-size: 0.57877814em;
+}
+.katex .sizing.reset-size11.size9,
+.katex .fontsize-ensurer.reset-size11.size9 {
+  font-size: 0.69453376em;
+}
+.katex .sizing.reset-size11.size10,
+.katex .fontsize-ensurer.reset-size11.size10 {
+  font-size: 0.83360129em;
+}
+.katex .sizing.reset-size11.size11,
+.katex .fontsize-ensurer.reset-size11.size11 {
+  font-size: 1em;
+}
+.katex .delimsizing.size1 {
+  font-family: KaTeX_Size1;
+}
+.katex .delimsizing.size2 {
+  font-family: KaTeX_Size2;
+}
+.katex .delimsizing.size3 {
+  font-family: KaTeX_Size3;
+}
+.katex .delimsizing.size4 {
+  font-family: KaTeX_Size4;
+}
+.katex .delimsizing.mult .delim-size1 > span {
+  font-family: KaTeX_Size1;
+}
+.katex .delimsizing.mult .delim-size4 > span {
+  font-family: KaTeX_Size4;
+}
+.katex .nulldelimiter {
+  display: inline-block;
+  width: 0.12em;
+}
+.katex .delimcenter {
+  position: relative;
+}
+.katex .op-symbol {
+  position: relative;
+}
+.katex .op-symbol.small-op {
+  font-family: KaTeX_Size1;
+}
+.katex .op-symbol.large-op {
+  font-family: KaTeX_Size2;
+}
+.katex .op-limits > .vlist-t {
+  text-align: center;
+}
+.katex .accent > .vlist-t {
+  text-align: center;
+}
+.katex .accent .accent-body {
+  position: relative;
+}
+.katex .accent .accent-body:not(.accent-full) {
+  width: 0;
+}
+.katex .overlay {
+  display: block;
+}
+.katex .mtable .vertical-separator {
+  display: inline-block;
+  min-width: 1px;
+}
+.katex .mtable .arraycolsep {
+  display: inline-block;
+}
+.katex .mtable .col-align-c > .vlist-t {
+  text-align: center;
+}
+.katex .mtable .col-align-l > .vlist-t {
+  text-align: left;
+}
+.katex .mtable .col-align-r > .vlist-t {
+  text-align: right;
+}
+.katex .svg-align {
+  text-align: left;
+}
+.katex svg {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: inherit;
+  fill: currentColor;
+  stroke: currentColor;
+  fill-rule: nonzero;
+  fill-opacity: 1;
+  stroke-width: 1;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  stroke-miterlimit: 4;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+  stroke-opacity: 1;
+}
+.katex svg path {
+  stroke: none;
+}
+.katex img {
+  border-style: none;
+  min-width: 0;
+  min-height: 0;
+  max-width: none;
+  max-height: none;
+}
+.katex .stretchy {
+  width: 100%;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+.katex .stretchy::before,
+.katex .stretchy::after {
+  content: "";
+}
+.katex .hide-tail {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.katex .halfarrow-left {
+  position: absolute;
+  left: 0;
+  width: 50.2%;
+  overflow: hidden;
+}
+.katex .halfarrow-right {
+  position: absolute;
+  right: 0;
+  width: 50.2%;
+  overflow: hidden;
+}
+.katex .brace-left {
+  position: absolute;
+  left: 0;
+  width: 25.1%;
+  overflow: hidden;
+}
+.katex .brace-center {
+  position: absolute;
+  left: 25%;
+  width: 50%;
+  overflow: hidden;
+}
+.katex .brace-right {
+  position: absolute;
+  right: 0;
+  width: 25.1%;
+  overflow: hidden;
+}
+.katex .x-arrow-pad {
+  padding: 0 0.5em;
+}
+.katex .x-arrow,
+.katex .mover,
+.katex .munder {
+  text-align: center;
+}
+.katex .boxpad {
+  padding: 0 0.3em 0 0.3em;
+}
+.katex .fbox,
+.katex .fcolorbox {
+  box-sizing: border-box;
+  border: 0.04em solid;
+}
+.katex .cancel-pad {
+  padding: 0 0.2em 0 0.2em;
+}
+.katex .cancel-lap {
+  margin-left: -0.2em;
+  margin-right: -0.2em;
+}
+.katex .sout {
+  border-bottom-style: solid;
+  border-bottom-width: 0.08em;
+}
+.katex-display {
+  display: block;
+  margin: 1em 0;
+  text-align: center;
+}
+.katex-display > .katex {
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+}
+.katex-display > .katex > .katex-html {
+  display: block;
+  position: relative;
+}
+.katex-display > .katex > .katex-html > .tag {
+  position: absolute;
+  right: 0;
+}
+.katex-display.leqno > .katex > .katex-html > .tag {
+  left: 0;
+  right: auto;
+}
+.katex-display.fleqn > .katex {
+  text-align: left;
+  padding-left: 2em;
+}
+</style><link rel="stylesheet" type="text/css" href="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/c2a527101433f11d.css"></head><body><div id="__next" data-reactroot=""><style></style><div class="d-none d-lg-block text-center"><div id="OA_holder_5" class="ad-container" style="display:none"><div id="beacon_e8a6530d7f" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/lg.php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</div></div><div class="position-fixed" style="top:58px;left:0;right:0;margin:auto;z-index:5"><div class="toast-container position-absolute top-0 start-50 translate-middle-x"></div><div class="toast-container position-absolute top-0 start-50 translate-middle-x"></div></div><div id="root-top-container"></div><nav id="sf-header" class="bg-white shadow-sm sticky-top navbar navbar-expand-lg navbar-light"><div class="position-relative container"><div aria-controls="basic-navbar-nav" aria-label="Toggle navigation" class="Header_self-nav-toogle__ZVTLF navbar-toggler collapsed"><span class="navbar-toggler-icon"></span></div><div class="left-wrap d-flex justify-content-between align-items-center nav-grow"><a href="https://segmentfault.com/" class="Header_sf-header__Qg0kx me-3 me-md-0 me-lg-3 navbar-brand"><img src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/logo-b.1ef53c6e.svg" width="139" height="26" class="d-none d-lg-block" alt="segmentfault"><img src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/sf-icon-small.4d244289.svg" width="30" height="30" class="d-block d-lg-none" alt="segmentfault"></a><div class="d-flex lg-none align-items-center"><a href="https://segmentfault.com/search" aria-label="搜索" class="d-inline-block text-center text-secondary position-relative" style="font-size:20px;width:44px"><i class="fa-fw far fa-magnifying-glass"></i></a><a class="btn btn-primary d-lg-none ms-2" href="https://segmentfault.com/user/login">注册登录</a></div></div><div class="justify-content-between navbar-collapse collapse" id="basic-navbar-nav"><div class="fw-bold navbar-nav"><a href="https://segmentfault.com/questions" data-rr-ui-event-key="/questions" class="nav-link">问答</a><a href="https://segmentfault.com/blogs" data-rr-ui-event-key="/blogs" class="nav-link">专栏</a><a href="https://segmentfault.com/tags" data-rr-ui-event-key="/tags" class="nav-link">标签</a><a href="https://segmentfault.com/jobs" data-rr-ui-event-key="/jobs" class="d-flex align-items-center nav-link">招聘<i class="ms-1 text-danger fas fa-fire" style="width:0.88rem;vertical-align:text-bottom"></i></a><a href="https://segmentfault.com/events" data-rr-ui-event-key="/events" class="nav-link">活动</a><div class="lg-show  hover-down  nav-item dropdown"><a id="basic-nav-dropdown" aria-expanded="false" role="button" class="dropdown-toggle nav-link" tabindex="0" href="https://segmentfault.com/a/1190000005924733#">发现</a></div></div><div class="d-none d-xl-block px-3 Header_header-search__OTvC8"><div id="header-tsearch-toogle" class="dropdown"><div class="position-relative dropdown-toggle" id="react-aria-2" aria-expanded="false"><div class="icon-search"><i class="far fa-magnifying-glass text-secondary"></i></div><form action="https://segmentfault.com/search" autocomplete="off" class=""><input type="text" name="q" placeholder="搜索关键字" aria-label="搜索" value="" class="me-sm-2 w-100 input form-control"></form></div><div data-bs-popper="static" class="w-100 dropdown-menu" aria-labelledby="react-aria-2"><a href="https://www.bing.com/search?q=site:segmentfault.com%20" target="_blank" aria-selected="true" data-rr-ui-dropdown-item="" class="dropdown-item active"><span class="search-name">✓</span>使用“Bing”搜本站</a><a href="https://cse.google.com/cse?cx=007438528117617975633:unedhtbhte0&amp;q=" target="_blank" aria-selected="false" data-rr-ui-dropdown-item="" class="dropdown-item"><span class="search-name"></span>使用“Google”搜本站</a><a href="http://www.baidu.com/s?wd=site%3Asegmentfault.com%20" target="_blank" aria-selected="false" data-rr-ui-dropdown-item="" class="dropdown-item"><span class="search-name"></span>使用“百度”搜本站</a><a href="https://segmentfault.com/search?q=" target="_self" aria-selected="false" data-rr-ui-dropdown-item="" class="dropdown-item"><span class="search-name"></span>站内搜索</a></div></div></div><nav class="p-0 navbar navbar-expand navbar-light"><div class="d-none d-lg-block d-xl-none me-2 nav-item"><a href="https://segmentfault.com/search" aria-label="搜索" class="nav-link"><i class="fa-fw far fa-magnifying-glass text-secondary font-size-20"></i></a></div><div class="d-none d-lg-flex me-2 me-md-0 nav-item"><a href="https://segmentfault.com/user/login" class="btn btn-primary">注册登录</a></div></nav></div></div></nav><div class="d-none d-xl-flex justify-content-center"><div id="OA_holder_2" class="ad-container" style="display:block"><div id="beacon_3c0e9f3876" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/lg(1).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</div></div><div class="article-content pt-3 pt-sm-0 container"><nav aria-label="breadcrumb" class="font-size-14 px-0 my-0 position-relative mx-4 mx-md-0 d-none d-sm-block" style="z-index:1"><ol class="breadcrumb bg-transparent"><li class="breadcrumb-item"><a href="https://segmentfault.com/">首页</a></li><li class="breadcrumb-item"><a href="https://segmentfault.com/blogs">专栏</a></li><li class="breadcrumb-item"><a href="https://segmentfault.com/blog/wxyyxc1992">某熊的全栈之路</a></li><li class="breadcrumb-item active" aria-current="page">文章详情</li></ol></nav><div class="row"><div class="col-xl w-0 col-12"><div class="sticky-wrap sticky-top functional-area-left d-none d-xl-flex justify-content-center pt-5 functional-area-left2"><div role="group" class="align-items-center btn-group-vertical"><button type="button" aria-label="点赞" class="func-btn mainLike  sflex-center shadow-sm rounded-circle main-lg-Like mb-3 btn btn-outline-primary"><i class="far fa-thumbs-up"></i><span class="mainLikeNum ">6</span></button><button type="button" aria-label="收藏" class="func-btn sflex-center rounded-circle mb-2 btn btn-outline-secondary"><i class="far fa-bookmark"></i></button><a class="func-btn sflex-center btn btn-outline-secondary rounded-circle mb-2" href="https://segmentfault.com/a/1190000005924733#comment-area" aria-label="评论"><i class="far fa-message-lines"></i></a><div class="dropdown"><a href="https://segmentfault.com/a/1190000005924733###" class="func-btn nav-tab-item  rounded-pill btn btn-outline-secondary sflex-center rounded-circle dropdown-toggle"><i class="far fa-share-nodes"></i></a></div></div></div><canvas hidden="" class="qrcode" height="148" width="148" style="height: 148px; width: 148px;"></canvas><div class="mb-4 card"><div class="p-lg-30 position-relative card-body"><h1 class="h2 mb-3"><a href="https://segmentfault.com/a/1190000005924733" class="text-body">来自于PayPal的RESTful API标准</a></h1><div class="d-flex align-items-center justify-content-between flex-wrap mb-4"><div class="d-flex align-items-center flex-wrap"><a href="https://segmentfault.com/u/wx_chevalier" class="d-flex align-items-center"><picture class="me-2"><img class="rounded-circle d-inline-block" width="32" height="32" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/2182720486-5747dfbeb6667_huge128" alt=""></picture><strong class="align-self-center font-size-14">王下邀月熊_Chevalier</strong></a><time class="text-secondary font-size-14" datetime="2016-07-10T08:57:21.000Z" itemprop="datePublished" style="margin-left:12px">发布于 <!-- -->2016-07-10 </time></div></div><div id="OA_holder_25" class="ad-container" style="display:block"><div id="beacon_c000ae3d94" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/lg(2).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</div><article class="article fmt article-content ">
+<blockquote><p><a href="https://link.segmentfault.com/?enc=ZZTB9o2Dcs8uENTgm3FAJA%3D%3D.co06IZuaqU4ebo1ifnGRmgPYf%2Fipb%2Fs6WgjZ9HpgV7PwDUD4vQ%2BI4%2F4Y9OztpTeOnW3LNXAIdL9u5Io%2BJA%2FUTyreP42%2BnWG1fhTkmIJ1%2FeK4B6xZOHJfcCZRn%2FfuvkCXwQMsOuophrmrxuyWnIeWQcVhikha7CGyzrAy%2FraVFvyBN76Cc0gZPn%2Fbb%2B5TXuzEyUCWJeLfB9C3WxLIQ22vVQ%3D%3D" rel="nofollow" target="_blank">Github 系列文章地址</a><br><a href="https://link.segmentfault.com/?enc=E%2FJ3o1bFRqGHN9CMBstUEQ%3D%3D.3SU6Mobws1INyzzxqg3KvRyxaNpTFY%2Fo9to1pfLHj1LpWivDhWUzPZ%2BAR3HNgX%2Fp%2FguaQLz%2B0Z3ys5ZP1QGgG%2FFhqBdILCoSDRIdtRzQJyNB7jtpsIfoZ82%2FtBlQkng2" rel="nofollow" target="_blank">原文地址</a></p></blockquote>
+<p>在构建API时，我们不可避免的会采用现有的跨平台的HTTP的交互方式与资源模型，因此如果你发现你目前的模式与我们的标准南辕北辙，那么请咨询你们专业的API设计师以获得进一步的建议。</p>
+<h2 id="item-1">URI Components</h2>
+<h3 id="item-1-1">Version:版本控制</h3>
+<p>URI应当包含<code>vN</code>，其中<code>N</code>指明版本号。基于URL的版本控制相较于其他复杂的请求头的方法会显得简单易用很多。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="/v{version}/" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-awk"><span class="hljs-regexp">/v{version}/</span></pre>
+<ul><li><p>Example</p></li></ul>
+<div class="widget-codetool" style="display: block;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="/v1/" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-awk"><span class="hljs-regexp">/v1/</span></pre>
+<h3 id="item-1-2">Namespaces:命名空间</h3>
+<p>如果在URI中你需要考虑命名空间这个概念，那么应当选择紧邻在<code>version</code>之后的第一个字段。命名空间折射出消费者对于API功能的观点，而不一定是公司本身业务逻辑层级的划分。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="/{version}/{namespace}/" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-dts"><span class="hljs-title class_">/</span><span class="hljs-punctuation">{</span>version<span class="hljs-punctuation">}</span>/<span class="hljs-punctuation">{</span>namespace<span class="hljs-punctuation">}</span>/</pre>
+<ul><li><p>Example</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="/v1/vault/" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-awk"><span class="hljs-regexp">/v1/</span>vault/</pre>
+<h3 id="item-1-3">Resource References:资源关联</h3>
+<p>URI与资源之间的关联应当保证一致性，避免出现容易引起混淆的子命名空间或者子目录的命名，这样有助于使用者能够很明晰地构造这些请求的URI。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="/{version}/{namespace}/{resource}/{resource-id}/{sub-resource}/{sub-resource-id}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-dts"><span class="hljs-title class_">/</span><span class="hljs-punctuation">{</span>version<span class="hljs-punctuation">}</span>/<span class="hljs-punctuation">{</span>namespace<span class="hljs-punctuation">}</span>/<span class="hljs-punctuation">{</span>resource<span class="hljs-punctuation">}</span>/<span class="hljs-punctuation">{</span>resource-id<span class="hljs-punctuation">}</span>/<span class="hljs-punctuation">{</span>sub-resource<span class="hljs-punctuation">}</span>/<span class="hljs-punctuation">{</span>sub-resource-id<span class="hljs-punctuation">}</span></pre>
+<h2 id="item-2">Collection Resources</h2>
+<p>支持CRUD操作的资源被称为是Collection Resources，往往这些资源会与POST/GET/PUT/PATCH/DELETE这些HTTP动词紧密关联。Collection Resources命名时应当使用复数名词，譬如<code>/users</code>，这样可以和下面提及的Singletons进行区分。</p>
+<table>
+<thead><tr>
+<th>Verb</th>
+<th>Usage</th>
+<th>Idempotent:幂等性</th>
+<th>Notes</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>Read</td>
+<td>X</td>
+<td> </td>
+</tr>
+<tr>
+<td>POST</td>
+<td>Create</td>
+<td> </td>
+<td>仅当使用 <a href="https://link.segmentfault.com/?enc=a7fJkMauEkVsHJ6NBUUmcg%3D%3D.P8CYe6JKnYvieUvJlr5P3pU3uBBWoia0BQsirH8xsu9xybsXQ2SLanIiSt6Bxs5lbpwkYgdX2Qxtgcco5QcRyR%2BmTx6T7ZmKS2IKpTEFpSxpZI44Cdcil7FT%2F5TLF4NR" rel="nofollow" target="_blank">PayPal-Request-Id</a> 请求头时具有幂等性</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>Create</td>
+<td> </td>
+<td>仅当在客户端提供了资源标识符时具有创建功能</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>Update</td>
+<td>X</td>
+<td>仅用于某个资源的全部属性的更新，不可用于局部</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>Update</td>
+<td> </td>
+<td>使用<a href="https://link.segmentfault.com/?enc=BibACjCE3D6kDvxQ3j51sA%3D%3D.VsVjPyzBIeHeI5bGhemlaPR4sbMeoCEqxur2JuG%2FwpzSIQmhH0hY7ZJeGW%2FEE3Sw" rel="nofollow" target="_blank">JSON Patch</a> 消息格式</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>Delete</td>
+<td> </td>
+<td>应当在多次请求下具有相同的响应</td>
+</tr>
+</tbody>
+</table>
+<h3 id="item-2-4">Collection Resource:获取资源集合/列表</h3>
+<p>包含任何相关联的元信息的给定资源的列表，所有的资源应当包含在<code>items</code>域中，而类似于<code>total_items</code> 以及 <code>total_pages</code>的域指明整个关于数据整体的信息。这种命名的一致性有助于客户端开发者构建面向不同的资源集合的通用的处理函数。如果使用<code>GET</code>动作进行访问，那么注意不应该影响到整个系统，并且保证除非数据发送变化否则响应消息也应该保持一致性。另外还需要注意的是，譬如日志输出这种动作不会被认为是对系统的修改。<br>在API客户端权限合规的情况下允许对于资源列表进行过滤操作，即并不是本次都要把全部资源进行返回。另外，我们需要提供一个简短的摘要性质的资源表述来减少带宽的消耗，一般来说单个资源都包含较多的属性。</p>
+<h4>Filtering:过滤</h4>
+<h5>Paging:分页</h5>
+<p>关于分页的操作应该来源于请求时的<code>page</code>与<code>page_size</code>参数，其中<code>page_size</code>指明了每次请求的结果数目，<code>page</code>指明了请求的是第几页。另外，响应时应当保证包含<code>total_items</code>与<code>total_pages</code>这两个参数，其中<code>total_items</code>指示请求的集合中总的数目，<code>total_pages</code>指向总的页数(<code>total_items</code>/<code>page_size</code>)。</p>
+<h6>Hypermedia links:超链接</h6>
+<p>Hypermedia links用于在分页的集合资源中指明请求其他页资源的便捷地址，一般来说会包含在<code>next</code>, <code>previous</code>, <code>first</code>, <code>last</code>等等类似的命名下。</p>
+<h5>Time selection</h5>
+<p>如果需要根据时间进行选择，那么需要添加<code>start_time</code> 或者<code>{property_name}_after</code>, <code>end_time</code> 或者 <code>{property_name}_before</code> 这些查询参数。</p>
+<h5>Sorting:排序</h5>
+<p><code>sort_by</code> 以及 <code>sort_order</code> 参数可以用来指明需要被排序的资源集合。一般来说<code>sort_by</code>需要包含某个独立资源名，而<code>sort_order</code>应该是<code>asc</code>或者<code>desc</code>值。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="GET /{version}/{namespace}/{resource}
+" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-dust"><span class="language-xml">GET /</span><span class="hljs-template-variable">{version}</span><span class="language-xml">/</span><span class="hljs-template-variable">{namespace}</span><span class="language-xml">/</span><span class="hljs-template-variable">{resource}</span><span class="language-xml">
+</span></pre>
+<ul><li><p>Example Request</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="GET /v1/vault/credit-cards" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-awk">GET <span class="hljs-regexp">/v1/</span>vault/credit-cards</pre>
+<ul><li><p>Example Resopnse</p></li></ul>
+<p>{</p>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="&quot;total_items&quot;: 1,
+&quot;total_pages&quot;: 1,
+&quot;items&quot;: [
+    {
+        &quot;id&quot;: &quot;CARD-1SV265177X389440GKLJZIYY&quot;,
+        &quot;state&quot;: &quot;ok&quot;,
+        &quot;payer_id&quot;: &quot;user12345&quot;,
+        &quot;type&quot;: &quot;visa&quot;,
+        &quot;number&quot;: &quot;xxxxxxxxxxxx0331&quot;,
+        &quot;expire_month&quot;: &quot;11&quot;,
+        &quot;expire_year&quot;: &quot;2018&quot;,
+        &quot;first_name&quot;: &quot;Joe&quot;,
+        &quot;last_name&quot;: &quot;Shopper&quot;,
+        &quot;valid_until&quot;: &quot;2017-01-12T00:00:00Z&quot;,
+        &quot;create_time&quot;: &quot;2014-01-13T07:23:15Z&quot;,
+        &quot;update_time&quot;: &quot;2014-01-13T07:23:15Z&quot;,
+        &quot;links&quot;: [
+            {
+                &quot;href&quot;: &quot;https://api.sandbox.paypal.com/v1/vault/credit-cards/CARD-1SV265177X389440GKLJZIYY&quot;,
+                &quot;rel&quot;: &quot;self&quot;,
+                &quot;method&quot;: &quot;GET&quot;
+            },
+            {
+                &quot;href&quot;: &quot;https://api.sandbox.paypal.com/v1/vault/credit-cards/CARD-1SV265177X389440GKLJZIYY&quot;,
+                &quot;rel&quot;: &quot;delete&quot;,
+                &quot;method&quot;: &quot;DELETE&quot;
+            },
+            {
+                &quot;href&quot;: &quot;https://api.sandbox.paypal.com/v1/vault/credit-cards/CARD-1SV265177X389440GKLJZIYY&quot;,
+                &quot;rel&quot;: &quot;patch&quot;,
+                &quot;method&quot;: &quot;PATCH&quot;
+            }
+        ]
+    }
+],
+&quot;links&quot;: [
+    {
+        &quot;href&quot;: &quot;https://api.sandbox.paypal.com/v1/vault/credit-cards/?page_size=10&amp;sort_by=create_time&amp;sort_order=asc&quot;,
+        &quot;rel&quot;: &quot;first&quot;,
+        &quot;method&quot;: &quot;GET&quot;
+    }
+]" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-prolog"><span class="hljs-string">"total_items"</span>: <span class="hljs-number">1</span>,
+<span class="hljs-string">"total_pages"</span>: <span class="hljs-number">1</span>,
+<span class="hljs-string">"items"</span>: [
+    {
+        <span class="hljs-string">"id"</span>: <span class="hljs-string">"CARD-1SV265177X389440GKLJZIYY"</span>,
+        <span class="hljs-string">"state"</span>: <span class="hljs-string">"ok"</span>,
+        <span class="hljs-string">"payer_id"</span>: <span class="hljs-string">"user12345"</span>,
+        <span class="hljs-string">"type"</span>: <span class="hljs-string">"visa"</span>,
+        <span class="hljs-string">"number"</span>: <span class="hljs-string">"xxxxxxxxxxxx0331"</span>,
+        <span class="hljs-string">"expire_month"</span>: <span class="hljs-string">"11"</span>,
+        <span class="hljs-string">"expire_year"</span>: <span class="hljs-string">"2018"</span>,
+        <span class="hljs-string">"first_name"</span>: <span class="hljs-string">"Joe"</span>,
+        <span class="hljs-string">"last_name"</span>: <span class="hljs-string">"Shopper"</span>,
+        <span class="hljs-string">"valid_until"</span>: <span class="hljs-string">"2017-01-12T00:00:00Z"</span>,
+        <span class="hljs-string">"create_time"</span>: <span class="hljs-string">"2014-01-13T07:23:15Z"</span>,
+        <span class="hljs-string">"update_time"</span>: <span class="hljs-string">"2014-01-13T07:23:15Z"</span>,
+        <span class="hljs-string">"links"</span>: [
+            {
+                <span class="hljs-string">"href"</span>: <span class="hljs-string">"https://api.sandbox.paypal.com/v1/vault/credit-cards/CARD-1SV265177X389440GKLJZIYY"</span>,
+                <span class="hljs-string">"rel"</span>: <span class="hljs-string">"self"</span>,
+                <span class="hljs-string">"method"</span>: <span class="hljs-string">"GET"</span>
+            },
+            {
+                <span class="hljs-string">"href"</span>: <span class="hljs-string">"https://api.sandbox.paypal.com/v1/vault/credit-cards/CARD-1SV265177X389440GKLJZIYY"</span>,
+                <span class="hljs-string">"rel"</span>: <span class="hljs-string">"delete"</span>,
+                <span class="hljs-string">"method"</span>: <span class="hljs-string">"DELETE"</span>
+            },
+            {
+                <span class="hljs-string">"href"</span>: <span class="hljs-string">"https://api.sandbox.paypal.com/v1/vault/credit-cards/CARD-1SV265177X389440GKLJZIYY"</span>,
+                <span class="hljs-string">"rel"</span>: <span class="hljs-string">"patch"</span>,
+                <span class="hljs-string">"method"</span>: <span class="hljs-string">"PATCH"</span>
+            }
+        ]
+    }
+],
+<span class="hljs-string">"links"</span>: [
+    {
+        <span class="hljs-string">"href"</span>: <span class="hljs-string">"https://api.sandbox.paypal.com/v1/vault/credit-cards/?page_size=10&amp;sort_by=create_time&amp;sort_order=asc"</span>,
+        <span class="hljs-string">"rel"</span>: <span class="hljs-string">"first"</span>,
+        <span class="hljs-string">"method"</span>: <span class="hljs-string">"GET"</span>
+    }
+]</pre>
+<p>}</p>
+<h3 id="item-2-5">HTTP Status</h3>
+<p>如果返回的资源集合为空，即没有任何的资源项，此时也不应该返回<code>404 Not Found</code>，而应该将<code>items</code>项设置为空，并且提供一些集合的元信息，譬如<code>total_count</code>设置为0。而如果是错误的请求参数应当返回<code>404 Bad Request</code>。否则应该返回<code>200 OK</code>来表示成功的返回值。</p>
+<h3 id="item-2-6">Read Single Resource</h3>
+<p>单个资源一般比资源集合中的对应项更详细，同时需要注意GET请求不应该影响到系统。对于敏感数据的资源标识不应该是连续的或者数值类型的，另外，如果待读取的数据是其他数据的子类，那么应该使用不可变的字符串标识符，这样可读性与可调试性都会更好。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="GET /{version}/{namespace}/{resource}/{resource-id}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-awk">GET <span class="hljs-regexp">/{version}/</span>{namespace}<span class="hljs-regexp">/{resource}/</span>{resource-id}</pre>
+<ul><li><p>Example Request</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="GET /v1/vault/customers/CUSTOMER-66W27667YB813414MKQ4AKDY" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-awk">GET <span class="hljs-regexp">/v1/</span>vault<span class="hljs-regexp">/customers/</span>CUSTOMER-<span class="hljs-number">66</span>W27667YB813414MKQ4AKDY</pre>
+<ul><li><p>Example Response</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="{
+    &quot;merchant_customer_id&quot;: &quot;merchant-1&quot;,
+        &quot;merchant_id&quot;: &quot;target&quot;,
+        &quot;create_time&quot;: &quot;2014-10-10T16:10:55Z&quot;,
+        &quot;update_time&quot;: &quot;2014-10-10T16:10:55Z&quot;,
+        &quot;first_name&quot;: &quot;Kartik&quot;,
+        &quot;last_name&quot;: &quot;Hattangadi&quot;
+}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-json"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"merchant_customer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"merchant-1"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"merchant_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"target"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"create_time"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2014-10-10T16:10:55Z"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"update_time"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2014-10-10T16:10:55Z"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"first_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Kartik"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"last_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Hattangadi"</span>
+<span class="hljs-punctuation">}</span></pre>
+<ul><li><p>HTTP Status</p></li></ul>
+<p>如果指定的资源并不存在，那么应该返回<code>404 Not Found</code>状态，否则应该返回<code>200 OK</code>状态码</p>
+<h3 id="item-2-7">Update Single Resource</h3>
+<p>注意，使用PUT动作更新单个资源的时候需要除了需要修正的值否则保证PUT请求的值与GET响应的值保持一致性，另外对于像<code>create_time</code>这样系统自动计算的值也可以忽略。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="PUT /{version}/{namespace}/{resource}/{resource-id}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-awk">PUT <span class="hljs-regexp">/{version}/</span>{namespace}<span class="hljs-regexp">/{resource}/</span>{resource-id}</pre>
+<ul><li><p>Example Request</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="PUT /v1/vault/customers/CUSTOMER-66W27667YB813414MKQ4AKDY
+{
+    &quot;merchant_customer_id&quot;: &quot;merchant-1&quot;,
+    &quot;merchant_id&quot;: &quot;target&quot;,
+    &quot;create_time&quot;: &quot;2014-10-10T16:10:55Z&quot;,
+    &quot;update_time&quot;: &quot;2014-10-10T16:10:55Z&quot;,
+    &quot;first_name&quot;: &quot;Kartik&quot;,
+    &quot;last_name&quot;: &quot;Hattangadi&quot;
+}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-awk">PUT <span class="hljs-regexp">/v1/</span>vault<span class="hljs-regexp">/customers/</span>CUSTOMER-<span class="hljs-number">66</span>W27667YB813414MKQ4AKDY
+{
+    <span class="hljs-string">"merchant_customer_id"</span>: <span class="hljs-string">"merchant-1"</span>,
+    <span class="hljs-string">"merchant_id"</span>: <span class="hljs-string">"target"</span>,
+    <span class="hljs-string">"create_time"</span>: <span class="hljs-string">"2014-10-10T16:10:55Z"</span>,
+    <span class="hljs-string">"update_time"</span>: <span class="hljs-string">"2014-10-10T16:10:55Z"</span>,
+    <span class="hljs-string">"first_name"</span>: <span class="hljs-string">"Kartik"</span>,
+    <span class="hljs-string">"last_name"</span>: <span class="hljs-string">"Hattangadi"</span>
+}</pre>
+<ul><li><p>HTTP Status<br>任何处理失败的请求都应该返回<code>400 Bad Request</code>,特别是如果客户端想要更改某个只读的字段，也应该返回<code>400 Bad Request</code>。如果具体的业务逻辑上存在校验规则，譬如对于数据的类型、长度等等，那么应该提供具体的操作码说明。如果部分场景下需要客户单与其他API进行交互或者在本次请求之外发出额外的请求，那么应该返回<code>422</code>状态码，详情可以参考<a href="https://link.segmentfault.com/?enc=vW6HmeH3JQSJ4SKxV0qHuw%3D%3D.c2eIvtHh9tEmHQmFBFFg00GIHL1ctkJ%2FwD0czpfL5B53aw4S%2Fczsaw%2BCbjzL%2FrEGOb3qlk7bb4%2FAYFJSagUj%2BL0zVtrkkANwT79MaXM3hNU%3D" rel="nofollow" target="_blank">PPaaS Blog on this topic</a>这篇文章。</p></li></ul>
+<p>对于其他成功的更新请求，应该返回<code>204 No Content</code>状态码，即没有任何的返回体。</p>
+<h3 id="item-2-8">Update Partial Single Resoure</h3>
+<p>不同于每次PUT请求中都需要更新资源的全部属性，PACTH可以根据指定的域更新对应的属性值，并且不会影响到其他属性。<a href="https://link.segmentfault.com/?enc=WkIKSiCPX8UFyja9OOQNYA%3D%3D.UYt7zVTyGCBww305tqL4lAVcz3Woc%2BN6DPS9VVArpLHwf%2BbxEdSvh12KDv56BzMa" rel="nofollow" target="_blank">JSON Patch</a> 是一个推荐的信息格式，在PayPal的几乎所有关于PATCH的操作中都有所应用。除非客户端的特别需要，否则每次PATCH操作的返回状态都应该是<code>204 No Content</code>,这样从带宽的角度，特别是在移动设备中能够更好地节约流量。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="PATCH /{version}/{namespace}/{resource}/{resource-id}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-awk">PATCH <span class="hljs-regexp">/{version}/</span>{namespace}<span class="hljs-regexp">/{resource}/</span>{resource-id}</pre>
+<ul><li><p>Example Request</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="PATCH /v1/notifications/webhooks/52Y53119KP6130839
+[
+    {
+        &quot;op&quot;: &quot;replace&quot;,
+        &quot;path&quot;: &quot;/url&quot;,
+        &quot;value&quot;: &quot;https://www.yeowza.com/paypal_webhook_new_url&quot;
+    }" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-awk">PATCH <span class="hljs-regexp">/v1/</span>notifications<span class="hljs-regexp">/webhooks/</span><span class="hljs-number">52</span>Y53119KP6130839
+[
+    {
+        <span class="hljs-string">"op"</span>: <span class="hljs-string">"replace"</span>,
+        <span class="hljs-string">"path"</span>: <span class="hljs-string">"/url"</span>,
+        <span class="hljs-string">"value"</span>: <span class="hljs-string">"https://www.yeowza.com/paypal_webhook_new_url"</span>
+    }</pre>
+<ul><li><p>Example Response</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="204 No Content" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-basic"><span class="hljs-symbol">204 </span>No Content</pre>
+<ul><li><p>HTTP Status<br>和PUT请求一致。</p></li></ul>
+<h3 id="item-2-9">Delete Single Resource</h3>
+<p>在删除一个资源的时候，为了保证客户端的可重试性，应当将DELETE操作当做幂等操作对待。因此每次删除操作都应该返回<code>204 No Content</code>状态码，否则如果你返回的是<code>404 Not Found</code>可能会让客户端误认为该资源是并不存在，而不是被删除了。应该使用GET请求来验证某个资源是否被成功删除，而不应该通过DELETE请求进行验证。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="DELETE /{version}/{namespace}/{resource}/{resource-id}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-gradle"><span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/{version}/</span>{namespace}<span class="hljs-regexp">/{resource}/</span>{resource-id}</pre>
+<ul><li><p>Example Request</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="DELETE /v1/vault/customers/CUSTOMER-66W27667YB813414MKQ4AKDY
+204 No Content" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-gradle"><span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/v1/</span>vault<span class="hljs-regexp">/customers/</span>CUSTOMER-<span class="hljs-number">66</span>W27667YB813414MKQ4AKDY
+<span class="hljs-number">204</span> No Content</pre>
+<h3 id="item-2-10">Create New Resource</h3>
+<p>一般来说，创建某个资源的请求体与GET/PUT不太一致，大部分情况下API Server都会为该资源创建一个全局的资源描述符，即使用[Create New Resource - Consumer ID]()。一旦POST请求被成功执行，也就意味着资源创建成功，那么该资源的描述符也会被添加到资源集合的URI中。Hypermedia links提供了一种较为便捷的方式访问新近创建的资源，可以使用<code>rel</code>: <code>self</code>。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="POST /{version}/{namespace}/{resource}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-dust"><span class="language-xml">POST /</span><span class="hljs-template-variable">{version}</span><span class="language-xml">/</span><span class="hljs-template-variable">{namespace}</span><span class="language-xml">/</span><span class="hljs-template-variable">{resource}</span></pre>
+<ul><li><p>Example Request</p></li></ul>
+<p>POST /v1/vault/credit-cards<br>{</p>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="&quot;payer_id&quot;: &quot;user12345&quot;,
+&quot;type&quot;: &quot;visa&quot;,
+&quot;number&quot;: &quot;4417119669820331&quot;,
+&quot;expire_month&quot;: &quot;11&quot;,
+&quot;expire_year&quot;: &quot;2018&quot;,
+&quot;first_name&quot;: &quot;Betsy&quot;,
+&quot;last_name&quot;: &quot;Buyer&quot;,
+&quot;billing_address&quot;: {
+    &quot;line1&quot;: &quot;111 First Street&quot;,
+    &quot;city&quot;: &quot;Saratoga&quot;,
+    &quot;country_code&quot;: &quot;US&quot;,
+    &quot;state&quot;: &quot;CA&quot;,
+    &quot;postal_code&quot;: &quot;95070&quot;
+}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-json"><span class="hljs-attr">"payer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"user12345"</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"visa"</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">"number"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4417119669820331"</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">"expire_month"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"11"</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">"expire_year"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2018"</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">"first_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Betsy"</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">"last_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Buyer"</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">"billing_address"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"line1"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"111 First Street"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"city"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Saratoga"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"country_code"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"US"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"state"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"CA"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"postal_code"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"95070"</span>
+<span class="hljs-punctuation">}</span></pre>
+<p>}</p>
+<ul><li><p>Example Response</p></li></ul>
+<p>201 Created<br>{</p>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="&quot;id&quot;: &quot;CARD-1MD19612EW4364010KGFNJQI&quot;,
+&quot;valid_until&quot;: &quot;2016-05-07T00:00:00Z&quot;,
+&quot;state&quot;: &quot;ok&quot;,
+&quot;payer_id&quot;: &quot;user12345&quot;,
+&quot;type&quot;: &quot;visa&quot;,
+&quot;number&quot;: &quot;xxxxxxxxxxxx0331&quot;,
+&quot;expire_month&quot;: &quot;11&quot;,
+&quot;expire_year&quot;: &quot;2018&quot;,
+&quot;first_name&quot;: &quot;Betsy&quot;,
+&quot;last_name&quot;: &quot;Buyer&quot;,
+&quot;links&quot;: [
+    {
+        &quot;href&quot;: &quot;https://api.sandbox.paypal.com/v1/vault/credit-cards/CARD-1MD19612EW4364010KGFNJQI&quot;,
+        &quot;rel&quot;: &quot;self&quot;,
+        &quot;method&quot;: &quot;GET&quot;
+    },
+    {
+        &quot;href&quot;: &quot;https://api.sandbox.paypal.com/v1/vault/credit-cards/CARD-1MD19612EW4364010KGFNJQI&quot;,
+        &quot;rel&quot;: &quot;delete&quot;,
+        &quot;method&quot;: &quot;DELETE&quot;
+    }
+]" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-prolog"><span class="hljs-string">"id"</span>: <span class="hljs-string">"CARD-1MD19612EW4364010KGFNJQI"</span>,
+<span class="hljs-string">"valid_until"</span>: <span class="hljs-string">"2016-05-07T00:00:00Z"</span>,
+<span class="hljs-string">"state"</span>: <span class="hljs-string">"ok"</span>,
+<span class="hljs-string">"payer_id"</span>: <span class="hljs-string">"user12345"</span>,
+<span class="hljs-string">"type"</span>: <span class="hljs-string">"visa"</span>,
+<span class="hljs-string">"number"</span>: <span class="hljs-string">"xxxxxxxxxxxx0331"</span>,
+<span class="hljs-string">"expire_month"</span>: <span class="hljs-string">"11"</span>,
+<span class="hljs-string">"expire_year"</span>: <span class="hljs-string">"2018"</span>,
+<span class="hljs-string">"first_name"</span>: <span class="hljs-string">"Betsy"</span>,
+<span class="hljs-string">"last_name"</span>: <span class="hljs-string">"Buyer"</span>,
+<span class="hljs-string">"links"</span>: [
+    {
+        <span class="hljs-string">"href"</span>: <span class="hljs-string">"https://api.sandbox.paypal.com/v1/vault/credit-cards/CARD-1MD19612EW4364010KGFNJQI"</span>,
+        <span class="hljs-string">"rel"</span>: <span class="hljs-string">"self"</span>,
+        <span class="hljs-string">"method"</span>: <span class="hljs-string">"GET"</span>
+    },
+    {
+        <span class="hljs-string">"href"</span>: <span class="hljs-string">"https://api.sandbox.paypal.com/v1/vault/credit-cards/CARD-1MD19612EW4364010KGFNJQI"</span>,
+        <span class="hljs-string">"rel"</span>: <span class="hljs-string">"delete"</span>,
+        <span class="hljs-string">"method"</span>: <span class="hljs-string">"DELETE"</span>
+    }
+]</pre>
+<p>}</p>
+<h3 id="item-2-11">Create New Resource - Consumer Supplied Identifier</h3>
+<p>当某个API Consumer自定义了Resource Identifier，那么应该使用PUT动作来创建资源，这样也能保证幂等性。</p>
+<h2 id="item-3">Sub-Resource Collection</h2>
+<p>在某些情况下，我们可能需要多个标识符来定位到某个资源，这一类资源往往是其他资源的子类。</p>
+<h3 id="item-3-12">Cautions</h3>
+<ul>
+<li>
+<p>多层的资源标识符本身对于Consumer而言也是一种负担。</p>
+<ul><li><p>尽可能地将具有唯一标识符的资源或者没必要指明父资源的资源作为First-Level Resource。</p></li></ul>
+</li>
+<li><p>要注意使用多个资源标识符的时候务必不能产生歧义，譬如<code>/{version}/{namespace}/{resource}/{resource-id}/{sub-resource-id}</code>这种直接将子资源标识符放在父资源标识符之后的做法就是不合适的，会让Consumer迷糊。</p></li>
+<li>
+<p>实践中这种资源的层叠嵌套不要超过两层。</p>
+<ul>
+<li><p>要保证API客户端的可用性，如果在某个URI中维持大量的层级资源标识符会大大增加复杂度。</p></li>
+<li><p>服务端开发者需要校验每一层级的标识符来判断是否具有访问权限，如果层级过深极易导致复杂度的陡升。</p></li>
+</ul>
+</li>
+<li><p>URI Templates</p></li>
+</ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="POST /{version}/{namespace}/{resource}/{resource-id}/{sub-resource}
+GET /{version}/{namespace}/{resource}/{resource-id}/{sub-resource}
+GET /{version}/{namespace}/{resource}/{resource-id}/{sub-resource}/{sub-resource-id}
+PUT /{version}/{namespace}/{resource}/{resource-id}/{sub-resource}/{sub-resource-id}
+DELETE /{version}/{namespace}/{resource}/{resource-id}/{sub-resource}/{sub-resource-id}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-perl">POST /<span class="hljs-string">{version}</span>/<span class="hljs-string">{namespace}</span>/<span class="hljs-string">{resource}</span>/{resource-id}/{<span class="hljs-function"><span class="hljs-keyword">sub</span>-<span class="hljs-title">resource</span>}
+<span class="hljs-title">GET</span> /</span>{version}/<span class="hljs-string">{namespace}</span>/<span class="hljs-string">{resource}</span>/{resource-id}/{<span class="hljs-function"><span class="hljs-keyword">sub</span>-<span class="hljs-title">resource</span>}
+<span class="hljs-title">GET</span> /</span>{version}/<span class="hljs-string">{namespace}</span>/<span class="hljs-string">{resource}</span>/{resource-id}/{<span class="hljs-function"><span class="hljs-keyword">sub</span>-<span class="hljs-title">resource</span>}/</span>{<span class="hljs-function"><span class="hljs-keyword">sub</span>-<span class="hljs-title">resource</span>-<span class="hljs-title">id</span>}
+<span class="hljs-title">PUT</span> /</span>{version}/<span class="hljs-string">{namespace}</span>/<span class="hljs-string">{resource}</span>/{resource-id}/{<span class="hljs-function"><span class="hljs-keyword">sub</span>-<span class="hljs-title">resource</span>}/</span>{<span class="hljs-function"><span class="hljs-keyword">sub</span>-<span class="hljs-title">resource</span>-<span class="hljs-title">id</span>}
+<span class="hljs-title">DELETE</span> /</span>{version}/<span class="hljs-string">{namespace}</span>/<span class="hljs-string">{resource}</span>/{resource-id}/{<span class="hljs-function"><span class="hljs-keyword">sub</span>-<span class="hljs-title">resource</span>}/</span>{<span class="hljs-function"><span class="hljs-keyword">sub</span>-<span class="hljs-title">resource</span>-<span class="hljs-title">id</span>}</span></pre>
+<ul><li><p>Examples</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="GET /v1/notifications/webhooks/{webhook-id}/event-types
+POST /v1/factory/widgets/PART-4312/sub-assemblies
+GET /v1/factory/widgets/PART-4312/sub-assemblies/INNER_COG
+PUT /v1/factory/widgets/PART-4312/sub-assemblies/INNER_COG
+DELETE /v1/factory/widgets/PART-4312/sub-assemblies/INNER_COG" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-gradle">GET <span class="hljs-regexp">/v1/</span>notifications<span class="hljs-regexp">/webhooks/</span>{webhook-id}/event-types
+POST <span class="hljs-regexp">/v1/</span>factory<span class="hljs-regexp">/widgets/</span>PART-<span class="hljs-number">4312</span>/sub-assemblies
+GET <span class="hljs-regexp">/v1/</span>factory<span class="hljs-regexp">/widgets/</span>PART-<span class="hljs-number">4312</span><span class="hljs-regexp">/sub-assemblies/I</span>NNER_COG
+PUT <span class="hljs-regexp">/v1/</span>factory<span class="hljs-regexp">/widgets/</span>PART-<span class="hljs-number">4312</span><span class="hljs-regexp">/sub-assemblies/I</span>NNER_COG
+<span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/v1/</span>factory<span class="hljs-regexp">/widgets/</span>PART-<span class="hljs-number">4312</span><span class="hljs-regexp">/sub-assemblies/I</span>NNER_COG</pre>
+<h2 id="item-4">Sub-Resource Singleton</h2>
+<p>当父子资源之间实际上是一一映射的关系时，可以使用单数形式的资源名来表明多个资源标识符的作用。这种情况下子资源往往也是父资源的一部分，即所谓的被父资源所有。否则子资源应当被放置于独立的资源集合中，并且以其他方式表明父子资源的关联。如果需要创建这种所谓的Singleton子资源，应该使用PUT动作，因为PUT是幂等性的。可以使用PATCH来进行部分更新，不过千万要注意不能使用PATCH进行创建操作。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="GET/PUT /{version}/{namespace}/{resource}/{resource-id}/{sub-resource}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-awk">GET<span class="hljs-regexp">/PUT /</span>{version}<span class="hljs-regexp">/{namespace}/</span>{resource}<span class="hljs-regexp">/{resource-id}/</span>{sub-resource}</pre>
+<ul><li><p>Examples</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="GET /v1/customers/devices/DEV-FDU233FDSE213f)/vendor-information" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-awk">GET <span class="hljs-regexp">/v1/</span>customers<span class="hljs-regexp">/devices/</span>DEV-FDU233FDSE213f)/vendor-information</pre>
+<h2 id="item-5">Complex Operation</h2>
+<ul><li><p>URI Template</p></li></ul>
+<p>POST /{namespace}/{action-resource}</p>
+<p>所谓复杂的操作有时候也被称为<code>controller</code>或者<code>actions</code>，务必要审慎地使用，只有在仔细考虑过上文提及的<a target="_blank">Resource Collection</a>设计并不能满足需要的时候再进行使用。可以参考<a href="https://link.segmentfault.com/?enc=NB4Vet1qG%2B6LID3uACpgvA%3D%3D.MFavF%2FOlTVX8mxIjwT6bQycfJGssrit%2Bj82vFg8Pf6PWx1xenBv1Ec%2BVqBPVKHdUQGziOpsZsVuYfjdhT7rBQfnSr7Xn9p%2FpG9Yjqe3ISIQ%3D" rel="nofollow" target="_blank">section 2.6 of the RESTful Web Services Cookbook</a>这一章节来了解更多的关于<code>controller</code>的概念。复杂操作往往是与POST协同使用，并且大部分需要在URI中显式地指明动作，譬如'activate', 'cancel', 'validate', 'accept', 以及 'deny'都是常见的操作。实际上，这种所谓Action-Oriented架构如果直接作用在跟URI中，即直接跟在命名空间之后，就是典型的反模式，通常这种模式较为适用于跟随在子资源之后。当某个场景是专注于动作，而不是资源的时候，应该建议适用Action-Oriented模式，并且此时应该适用POST动作，然后用某个单一的动词指明action。</p>
+<h3 id="item-5-13">Risks</h3>
+<ul>
+<li>
+<p>架构设计的可扩展性</p>
+<ul>
+<li><p>一旦这种模式被滥用了，URI的数量会急剧增长，特别是根级别的Action可以随着时间疯狂增长。同样的这也会导致路由或者对外提供服务的配置复杂度急速增长。</p></li>
+<li><p>URI无法再被扩展，即不能再使用子资源。</p></li>
+</ul>
+</li>
+<li><p>可测试性: 因为缺乏丰富的GET等读取类操作而使得与 <a target="_blank">Resource Collection</a>-oriented 模式相比有较大缺陷</p></li>
+<li><p>历史: 所有对于Action的调用应该存在某种资源中，譬如<code>/action-resource-history</code>。</p></li>
+</ul>
+<h3 id="item-5-14">Benefits</h3>
+<ul>
+<li><p>避免因为短暂性数据而导致资源集合模型的损害。</p></li>
+<li><p>可用性的提升：这种Action-Oriented模式能够大大简化客户端交互内容，不过客户端并不能获益于资源本身的可读性</p></li>
+</ul>
+<h3 id="item-5-15">Resource-Oriented Alternative</h3>
+<p>与上文提及的这种单纯的Action-Oriented RFC风格URL相比，更好地方法就是与<a target="_blank">Resource Collection</a>相结合，并且使用<code>GET /{actions}</code>来获取历史记录。这也允许未来基于资源模型的扩展。除此之外，这种模式也能较好地与<a href="https://link.segmentfault.com/?enc=6fq7cjdzwX4cmRqcbnu24Q%3D%3D.PnpOOX68GHnfJNy82fzLbLUU9nb6qa1Wv6utgEI4WLzrmVmRCI1Cyg8YhX2wglnJ8wr74r40p%2FIVfNVRE3cP3g%3D%3D" rel="nofollow" target="_blank">event sourcing</a>概念相结合。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="POST /{version}/{namespace}/{action}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-dust"><span class="language-xml">POST /</span><span class="hljs-template-variable">{version}</span><span class="language-xml">/</span><span class="hljs-template-variable">{namespace}</span><span class="language-xml">/</span><span class="hljs-template-variable">{action}</span></pre>
+<ul><li><p>Example Request</p></li></ul>
+<p>POST /v1/risk/payment-decisions<br>{</p>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="&quot;code&quot;: &quot;h43j5k6iop&quot;" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-json"><span class="hljs-attr">"code"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"h43j5k6iop"</span></pre>
+<p>}</p>
+<ul><li><p>Example Response</p></li></ul>
+<p>201 Created<br>{</p>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="&quot;code&quot;: &quot;h43j5k6iop&quot;,
+&quot;status&quot;: &quot;APPROVED&quot;,
+&quot;links&quot;: [
+    {
+        &quot;href&quot;: &quot;https://api.sandbox.paypal.com/v1/risk/payment-decisions/ID-FEF8EWR8E9FW)&quot;,
+        &quot;rel&quot;: &quot;self&quot;,
+        &quot;method&quot;: &quot;GET&quot;
+    }
+]" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-css">"<span class="hljs-selector-tag">code</span>": <span class="hljs-string">"h43j5k6iop"</span>,
+<span class="hljs-string">"status"</span>: <span class="hljs-string">"APPROVED"</span>,
+<span class="hljs-string">"links"</span>: [
+    {
+        "href": <span class="hljs-string">"https://api.sandbox.paypal.com/v1/risk/payment-decisions/ID-FEF8EWR8E9FW)"</span>,
+        <span class="hljs-string">"rel"</span>: <span class="hljs-string">"self"</span>,
+        <span class="hljs-string">"method"</span>: <span class="hljs-string">"GET"</span>
+    }
+]</pre>
+<p>}</p>
+<h3 id="item-5-16">Complex Operation - Sub-Resource</h3>
+<p>很多时候我们需要对于资源进行些特定的操作或者状态修正，而这些操作是无法准确的用PUT或者PATCH进行表示。这些URI看上去有点像其他的Sub-Resources不过隐含着操作名。这个模式典型的使用场景就是当改变了某个资源的状态之后会添加些额外的副作用。另外，往往需要将资源标识符包含在URL中。而且并不是每个Action都会修改资源的状态。</p>
+<p>一般来说，Action的响应状态都是<code>200 OK</code>以及资源本身，如果没有任何的资源状态的修正，那么应该返回<code>204 No Content</code>，并且不应该附上任何的响应体。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="POST /{version}/{namespace}/{resource}/{resource-id}/{complex-operation}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-dust"><span class="language-xml">POST /</span><span class="hljs-template-variable">{version}</span><span class="language-xml">/</span><span class="hljs-template-variable">{namespace}</span><span class="language-xml">/</span><span class="hljs-template-variable">{resource}</span><span class="language-xml">/</span><span class="hljs-template-variable">{resource-id}</span><span class="language-xml">/</span><span class="hljs-template-variable">{complex-operation}</span></pre>
+<ul><li><p>Example Request</p></li></ul>
+<p>POST /v1/payments/billing-agreements/I-0LN988D3JACS/suspend<br>{</p>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="&quot;note&quot;: &quot;Suspending the agreement.&quot;" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-json"><span class="hljs-attr">"note"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Suspending the agreement."</span></pre>
+<p>}</p>
+<ul><li><p>Example Response</p></li></ul>
+<p>204 No Content</p>
+<p>不过需要注意的是，虽然这种模式可以改变状态，也并不意味着所有的关于资源的状态改变都要使用所谓的复杂操作模式。简单的状态的改变仍然可以使用PUT/PATCH，也就是意味着混合使用<a target="_blank">Resource Collection</a>与Complex Operation从而减少操作的数目。</p>
+<ul><li><p>Example Request (for mixed use of PUT)</p></li></ul>
+<p>PATCH /v1/payments/billing-agreements/I-0LN988D3JACS<br>[</p>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="{
+    &quot;op&quot;: &quot;replace&quot;,
+    &quot;path&quot;: &quot;/&quot;,
+    &quot;value&quot;: {
+        &quot;description&quot;: &quot;New Description&quot;,
+        &quot;shipping_address&quot;: {
+            &quot;line1&quot;: &quot;2065 Hamilton Ave&quot;,
+            &quot;city&quot;: &quot;San Jose&quot;,
+            &quot;state&quot;: &quot;CA&quot;,
+            &quot;postal_code&quot;: &quot;95125&quot;,
+            &quot;country_code&quot;: &quot;US&quot;
+        }
+    }
+}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-json"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"op"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"replace"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"path"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"value"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"New Description"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"shipping_address"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"line1"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2065 Hamilton Ave"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"city"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"San Jose"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"state"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"CA"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"postal_code"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"95125"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"country_code"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"US"</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></pre>
+<p>]</p>
+<h3 id="item-5-17">Complex Operation - Composite</h3>
+<p>该系列的操作往往可以在一次请求中处理多个creates/updates/deletes操作。这一点往往从性能与可用性方面综合考虑，这也会在影响多个资源的请求中更好地维持原子性。参考下面这个例子，capture和payment都会同时被refund操作影响。对于capture资源的PUT或者PATCH操作会隐性地影响payment资源。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="POST /{version}/{namespace}/{action}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-dust"><span class="language-xml">POST /</span><span class="hljs-template-variable">{version}</span><span class="language-xml">/</span><span class="hljs-template-variable">{namespace}</span><span class="language-xml">/</span><span class="hljs-template-variable">{action}</span></pre>
+<ul><li><p>Example Request</p></li></ul>
+<p>POST /v1/payments/captures/{capture-id}/refund</p>
+<ul><li><p>Example Response</p></li></ul>
+<p>{</p>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="&quot;id&quot;: &quot;0P209507D6694645N&quot;,
+&quot;create_time&quot;: &quot;2013-05-06T22:11:51Z&quot;,
+&quot;update_time&quot;: &quot;2013-05-06T22:11:51Z&quot;,
+&quot;state&quot;: &quot;completed&quot;,
+&quot;amount&quot;: {
+    &quot;total&quot;: &quot;110.54&quot;,
+    &quot;currency&quot;: &quot;USD&quot;
+},
+&quot;capture_id&quot;: &quot;8F148933LY9388354&quot;,
+&quot;parent_payment&quot;: &quot;PAY-8PT597110X687430LKGECATA&quot;,
+&quot;links&quot;: [
+    {
+        &quot;href&quot;: &quot;https://api.sandbox.paypal.com/v1/payments/refund/0P209507D6694645N&quot;,
+        &quot;rel&quot;: &quot;self&quot;,
+        &quot;method&quot;: &quot;GET&quot;
+    },
+    {
+        &quot;href&quot;: &quot;https://api.sandbox.paypal.com/v1/payments/payment/PAY-8PT597110X687430LKGECATA&quot;,
+        &quot;rel&quot;: &quot;parent_payment&quot;,
+        &quot;method&quot;: &quot;GET&quot;
+    },
+    {
+        &quot;href&quot;: &quot;https://api.sandbox.paypal.com/v1/payments/capture/8F148933LY9388354&quot;,
+        &quot;rel&quot;: &quot;capture&quot;,
+        &quot;method&quot;: &quot;GET&quot;
+    }
+]" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-prolog"><span class="hljs-string">"id"</span>: <span class="hljs-string">"0P209507D6694645N"</span>,
+<span class="hljs-string">"create_time"</span>: <span class="hljs-string">"2013-05-06T22:11:51Z"</span>,
+<span class="hljs-string">"update_time"</span>: <span class="hljs-string">"2013-05-06T22:11:51Z"</span>,
+<span class="hljs-string">"state"</span>: <span class="hljs-string">"completed"</span>,
+<span class="hljs-string">"amount"</span>: {
+    <span class="hljs-string">"total"</span>: <span class="hljs-string">"110.54"</span>,
+    <span class="hljs-string">"currency"</span>: <span class="hljs-string">"USD"</span>
+},
+<span class="hljs-string">"capture_id"</span>: <span class="hljs-string">"8F148933LY9388354"</span>,
+<span class="hljs-string">"parent_payment"</span>: <span class="hljs-string">"PAY-8PT597110X687430LKGECATA"</span>,
+<span class="hljs-string">"links"</span>: [
+    {
+        <span class="hljs-string">"href"</span>: <span class="hljs-string">"https://api.sandbox.paypal.com/v1/payments/refund/0P209507D6694645N"</span>,
+        <span class="hljs-string">"rel"</span>: <span class="hljs-string">"self"</span>,
+        <span class="hljs-string">"method"</span>: <span class="hljs-string">"GET"</span>
+    },
+    {
+        <span class="hljs-string">"href"</span>: <span class="hljs-string">"https://api.sandbox.paypal.com/v1/payments/payment/PAY-8PT597110X687430LKGECATA"</span>,
+        <span class="hljs-string">"rel"</span>: <span class="hljs-string">"parent_payment"</span>,
+        <span class="hljs-string">"method"</span>: <span class="hljs-string">"GET"</span>
+    },
+    {
+        <span class="hljs-string">"href"</span>: <span class="hljs-string">"https://api.sandbox.paypal.com/v1/payments/capture/8F148933LY9388354"</span>,
+        <span class="hljs-string">"rel"</span>: <span class="hljs-string">"capture"</span>,
+        <span class="hljs-string">"method"</span>: <span class="hljs-string">"GET"</span>
+    }
+]</pre>
+<p>}</p>
+<h3 id="item-5-18">Complex Operation - Transient</h3>
+<p>这一个类型的复杂操作并不会保留客户端的状态或者创建新的资源。往往就是一个简单的RPC调用，然后直接获取返回值。该操作一般不会用在子资源中，因为子资源操作一般会影响父资源的状态。此时返回是建议使用<code>200 OK</code>这个状态码。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="POST /{version}/{namespace}/{action}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-dust"><span class="language-xml">POST /</span><span class="hljs-template-variable">{version}</span><span class="language-xml">/</span><span class="hljs-template-variable">{namespace}</span><span class="language-xml">/</span><span class="hljs-template-variable">{action}</span></pre>
+<ul><li><p>Example Request</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="POST /v1/risk/evaluate-payment
+{
+    &quot;code&quot;: &quot;h43j5k6iop&quot;
+}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-awk">POST <span class="hljs-regexp">/v1/</span>risk/evaluate-payment
+{
+    <span class="hljs-string">"code"</span>: <span class="hljs-string">"h43j5k6iop"</span>
+}</pre>
+<ul><li><p>Example Response</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="200 OK
+{
+    &quot;status&quot;: &quot;VALID&quot;
+}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-dts"><span class="hljs-number">200</span> <span class="hljs-title class_">OK</span>
+<span class="hljs-punctuation">{</span>
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"VALID"</span>
+<span class="hljs-punctuation">}</span></pre>
+<h3 id="item-5-19">Complex Operation - Search</h3>
+<p>在使用<a target="_blank">Resource Collections</a>的时候，最好是使用查询参数来进行集合内容的过滤。不过有时候我们会需要一些更为复杂的查询语法，单纯的查询参数的方式会导致使用的问题或者受限于查询参数的长度。这时候，应该选择使用POST请求来指定查询参数。</p>
+<h4>Paging</h4>
+<p>如果响应体比较大的情况下应当使用分页方式，需要注意的是，Consumer应该在每次子请求的时候都使用POST方式。这样也就意味着，在POST请求体中需要维护一些查询参数。分页查询参数同样可以参考<a target="_blank">Resource Collections</a>这一部分。同样可以适用于提供 <code>next</code>, <code>previous</code>, <code>first</code>, <code>last</code> 来进行其他页的快速读取。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="POST /{version}/{namespace}/{search-resource}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-dust"><span class="language-xml">POST /</span><span class="hljs-template-variable">{version}</span><span class="language-xml">/</span><span class="hljs-template-variable">{namespace}</span><span class="language-xml">/</span><span class="hljs-template-variable">{search-resource}</span></pre>
+<ul><li><p>Example Request</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="    POST /v1/factory/widgets-search
+    {
+        &quot;created_before&quot;:&quot;1975-05-13&quot;,
+        &quot;status&quot;: &quot;ACTIVE&quot;,
+        &quot;vendor&quot;: &quot;Parts Inc.&quot;
+    }" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-awk">    POST <span class="hljs-regexp">/v1/</span>factory/widgets-search
+    {
+        <span class="hljs-string">"created_before"</span>:<span class="hljs-string">"1975-05-13"</span>,
+        <span class="hljs-string">"status"</span>: <span class="hljs-string">"ACTIVE"</span>,
+        <span class="hljs-string">"vendor"</span>: <span class="hljs-string">"Parts Inc."</span>
+    }</pre>
+<ul><li><p>Example Response</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="    200 OK
+    {
+        &quot;items&quot;: [
+            &lt;&lt;lots of part objects here&gt;&gt;
+        ]
+        &quot;links&quot;: [
+                {
+                    &quot;href&quot;: &quot;https://api.sandbox.factory.io/v1/factory/widgets-search?page=2&amp;page_size=10&quot;,
+                    &quot;rel&quot;: &quot;next&quot;,
+                    &quot;method&quot;: &quot;POST&quot;
+                },
+                {
+                    &quot;href&quot;: &quot;https://api.sandbox.factory.io/v1/factory/widgets-search?page=124&amp;page_size=10&quot;,
+                    &quot;rel&quot;: &quot;last&quot;,
+                    &quot;method&quot;: &quot;POST&quot;
+                },
+        ]
+    }" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-prolog">    <span class="hljs-number">200</span> <span class="hljs-symbol">OK</span>
+    {
+        <span class="hljs-string">"items"</span>: [
+            &lt;&lt;lots of part objects here&gt;&gt;
+        ]
+        <span class="hljs-string">"links"</span>: [
+                {
+                    <span class="hljs-string">"href"</span>: <span class="hljs-string">"https://api.sandbox.factory.io/v1/factory/widgets-search?page=2&amp;page_size=10"</span>,
+                    <span class="hljs-string">"rel"</span>: <span class="hljs-string">"next"</span>,
+                    <span class="hljs-string">"method"</span>: <span class="hljs-string">"POST"</span>
+                },
+                {
+                    <span class="hljs-string">"href"</span>: <span class="hljs-string">"https://api.sandbox.factory.io/v1/factory/widgets-search?page=124&amp;page_size=10"</span>,
+                    <span class="hljs-string">"rel"</span>: <span class="hljs-string">"last"</span>,
+                    <span class="hljs-string">"method"</span>: <span class="hljs-string">"POST"</span>
+                },
+        ]
+    }</pre>
+<h2 id="item-6">Read-only resources</h2>
+<p>在部分需要进行计算或者静态引用的场景下，GET会比POST请求更为合适，因为POST在HTTP层面是不会有缓存的。GET请求本身是幂等的，即不会改变资源的状态，而POST请求可以用于<a target="_blank">Complex Operations</a>。</p>
+<ul><li><p>URI Template</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="GET /{version}/{namespace}/{read-only-resource}" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-pgsql"><span class="hljs-keyword">GET</span> /{<span class="hljs-keyword">version</span>}/{namespace}/{<span class="hljs-keyword">read</span>-<span class="hljs-keyword">only</span>-resource}</pre>
+<ul><li><p>Example Request</p></li></ul>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+        <button type="button" class="btn btn-dark far fa-copy rounded-0 sflex-center copyCode" data-toggle="tooltip" data-placement="top" data-clipboard-text="GET /v1/location/geocode?address=77+N.+Washington+Street%2C+Boston%2C+MA%2C+02114" title="" data-bs-original-title="复制" aria-label="复制"></button>
+      </div>
+      </div><pre class="hljs language-apache"><span class="hljs-attribute">GET</span> /v1/location/geocode?address=<span class="hljs-number">77</span>+N.+Washington+Street%<span class="hljs-number">2</span>C+Boston%<span class="hljs-number">2</span>C+MA%<span class="hljs-number">2</span>C+<span class="hljs-number">02114</span></pre>
+<p><img referrerpolicy="no-referrer" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/6803.png" alt="" title="" loading="lazy"></p>
+</article><div class="d-flex flex-wrap align-items-center "><div class="m-n1 d-flex flex-wrap align-items-center"><a href="https://segmentfault.com/t/restful" class="m-1 badge-tag  ">restful</a></div></div><div class="my-4"><div id="OA_holder_3" class="ad-container" style="display:block"><div id="beacon_86ed4b792f" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/lg(3).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</div></div><div class="text-secondary font-size-14 mt-3 mb-5 d-flex flex-wrap justify-content-between"><div><span>阅读 <!-- -->17.7k</span><span class="split-dot"></span><time datetime="2016-07-10T08:57:21.000Z" itemprop="datePublished">更新于 <!-- -->2016-07-24 </time></div><div class="operation text-end"><div></div></div></div><div class="functional-area-bottom text-center"><div role="group" class="btn-group like-group align-items-center btn-group"><button type="button" class="btn me-2 rounded btn btn-outline-primary"><i class="far fa-thumbs-up"></i><span class="ms-1">赞</span><span class="mainLikeNum ms-1">6</span></button><button type="button" class="btn me-2 rounded btn btn-outline-secondary"><i class="far fa-bookmark"></i><span class="ms-1">收藏</span><span class="ms-1">54</span></button><div class="bottom-share-wrap dropdown"><a href="https://segmentfault.com/a/1190000005924733###" class="nav-tab-item btn d-flex justify-content-center align-items-center dropdown-toggle"><button type="button" class="btn rounded btn btn-outline-secondary"><i class="far fa-share-nodes"></i><span class="ms-1">分享</span></button></a></div></div></div><canvas hidden="" class="qrcode"></canvas><div class="font-size-14 text-secondary text-center mt-3 mb-5"><span>本作品系原创，</span><a target="_blank" class="text-secondary" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">采用《署名-非商业性使用-禁止演绎 4.0 国际》许可协议</a></div><hr class="mb-0"><div class="pt-4 align-items-center row"><div class="d-flex align-items-center col-12 col-md w-0 col"><a href="https://segmentfault.com/blog/wxyyxc1992"><img class="me-3 rounded" width="64" height="64" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/3833030929-5ffd15fc110ab" aria-hidden="true"></a><div class="w-100"><a href="https://segmentfault.com/blog/wxyyxc1992" class="text-body"><h5 class="mb-0">某熊的全栈之路</h5></a><div class="text-truncate-1 text-secondary mt-2">知识，应该在它该在的地方。一个热爱代码，热爱新技术的程序熊。</div></div></div><div id="followUser" class="col-md-90 col-12 mt-md-0 mt-3 col"><div class="d-grid"><button type="button" class="btn btn-primary">关注专栏</button></div></div></div></div></div><div class="mb-4 card"><div class="bg-white card-header"><strong>被 <!-- -->6<!-- --> 篇内容引用</strong></div><ul class="quote list-group list-group-flush"><li class="list-group-item list-group-item-action"><a href="https://segmentfault.com/a/1190000008818554?utm_source=sf-backlinks" class="d-flex align-items-center"><img class="rounded-circle me-2" width="24px" height="24px" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/2182720486-5747dfbeb6667_big64" alt="头像"><div class="me-2 text-body">利用 create-spring-boot-app 快速创建 Spring Boot 应用</div></a></li><li class="list-group-item list-group-item-action"><a href="https://segmentfault.com/a/1190000007988586?utm_source=sf-backlinks" class="d-flex align-items-center"><img class="rounded-circle me-2" width="24px" height="24px" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/2182720486-5747dfbeb6667_big64" alt="头像"><div class="me-2 text-body">API的过去，现在与未来</div></a></li><li class="list-group-item list-group-item-action"><a href="https://segmentfault.com/a/1190000007467682?utm_source=sf-backlinks" class="d-flex align-items-center"><img class="rounded-circle me-2" width="24px" height="24px" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/2182720486-5747dfbeb6667_big64" alt="头像"><div class="me-2 text-body">兼容微信小程序的流式网络请求库</div><span class="ms-1 me-2 font-size-14 flex-shrink-0"><i class="far fa-message-lines text-primary me-1"></i><span class="text-primary">2</span></span></a></li><li class="list-group-item list-group-item-action"><a href="https://segmentfault.com/a/1190000006689786?utm_source=sf-backlinks" class="d-flex align-items-center"><img class="rounded-circle me-2" width="24px" height="24px" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/2182720486-5747dfbeb6667_big64" alt="头像"><div class="me-2 text-body">HTTP 响应头与状态码</div><span class="ms-1 me-2 font-size-14 flex-shrink-0"><i class="far fa-message-lines text-primary me-1"></i><span class="text-primary">1</span></span></a></li><li class="list-group-item list-group-item-action"><a href="https://segmentfault.com/a/1190000006037478?utm_source=sf-backlinks" class="d-flex align-items-center"><img class="rounded-circle me-2" width="24px" height="24px" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/2182720486-5747dfbeb6667_big64" alt="头像"><div class="me-2 text-body">来自微软的接口设计指南</div><span class="ms-1 me-2 font-size-14 flex-shrink-0"><i class="far fa-message-lines text-primary me-1"></i><span class="text-primary">1</span></span></a></li></ul><div class="bg-white card-footer"><a href="https://segmentfault.com/a/1190000005924733###" class="font-size-14">展开更多</a></div></div><div class="d-block d-xl-none my-4"><div class="card"><div class="card-body"><div class="d-flex align-items-center mb-3"><picture class="me-3"><a href="https://segmentfault.com/u/wx_chevalier"><img class="rounded-circle " width="64" height="64" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/2182720486-5747dfbeb6667_huge128" alt="avatar"></a></picture><div><h5 class="mb-0"><a href="https://segmentfault.com/u/wx_chevalier" class="text-body">王下邀月熊_Chevalier</a></h5></div></div><div class="text-secondary text-truncate-2 userExcerpt mb-3"><p>爱代码 爱生活 希望成为全栈整合师</p></div><div class="d-flex align-items-center mb-3"><div class="me-4"><strong>22.4k</strong><span class="text-secondary"> 声望</span></div><div><strong>8.5k</strong><span class="text-secondary"> 粉丝</span></div></div><div class="d-grid"><button type="button" class="btn btn-primary">关注作者</button></div></div></div></div><div><div id="comment-area" class="comment-wrap  card"><div class="d-flex align-items-center justify-content-between bg-transparent card-header"><strong>2<!-- --> 条评论</strong><div aria-label="Basic" role="group" class="btn-group"><a role="button" tabindex="0" href="https://segmentfault.com/a/1190000005924733?sort=votes" class="btn btn-secondary btn-sm">得票</a><a role="button" tabindex="0" href="https://segmentfault.com/a/1190000005924733?sort=newest" class="btn btn-outline-secondary btn-sm">最新</a></div></div><div class="card-body"><div class="mb-4 media" tabindex="1"><img class="rounded-circle me-3" width="38" height="38" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/3179314346-5f61e47221e07" alt="头像" aria-hidden="true"><div class="media-body"><div class="mb-3"><div class="mentions-wrap dropdown"><textarea rows="1" placeholder="撰写评论 …" aria-label="评论" class="comment-text form-control" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 38px;"></textarea><div class="dropdown-toggle"></div></div><div class="invalid-feedback"></div></div><div class="d-flex justify-content-end align-items-center"><a href="https://segmentfault.com/a/1190000005924733###" class="me-3" aria-label="提示" tabindex="-1"><i class="far fa-circle-info text-secondary"></i></a><a href="https://segmentfault.com/a/1190000005924733###" class="me-3" aria-label="提示" tabindex="-1"><i class="far fa-face-laugh text-secondary"></i></a><button type="button" disabled="" class="float-end btn btn-primary">提交评论</button></div><div role="alert" class="fade mt-3 my-0 font-size-14 alert alert-info show">评论支持部分 Markdown 语法：<code>**粗体** _斜体_ [链接](http://example.com) `代码` - 列表 &gt; 引用</code>。你还可以使用 <code>@ </code>来通知其他用户。</div></div></div><div class="comment-body-wrap false"><div class="mb-r media d-flex align-items-start mb-4"><img class="rounded-circle d-block me-3" width="38" height="38" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/3179314346-5f61e47221e07" alt=""><div class="w-0 media-body "><div class="commentUnit "><div class="mb-1"><a class="d-uname" href="https://segmentfault.com/u/497143" target="_blank"><strong>z正小歪</strong></a>：<div class="parsedText fmt"><p>rest 一直没有一个明确的标准，有大厂的标准参考一下，实在太给力了</p></div></div><div class="handle-bar font-size-14 d-flex justify-content-between"><div><a class="text-secondary" href="https://segmentfault.com/a/1190000005924733###"><span class="mainLike-comment "><i class="fa-w-16 far fa-thumbs-up" style="width: 1em;"></i></span></a><span class="split-dot"></span><a class="text-secondary btn-comment" href="https://segmentfault.com/a/1190000005924733###">回复</a><span class="split-dot"></span><span class="text-secondary">2016-07-11 </span></div><div class="control-area d-none"></div></div></div><div class="replies hidden"><div class="bg-light border-0 mt-2 card"><div class="p-3 card-body"><div class="reply-list list-group"></div></div></div></div></div></div><div class="mb-r media d-flex align-items-start false"><img class="rounded-circle d-block me-3" width="38" height="38" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/3179314346-5f61e47221e07" alt=""><div class="w-0 media-body "><div class="commentUnit "><div class="mb-1"><a class="d-uname" href="https://segmentfault.com/u/smilingpoplar" target="_blank"><strong>smilingpoplar</strong></a>：<div class="parsedText fmt"><p>好文，太给力了</p></div></div><div class="handle-bar font-size-14 d-flex justify-content-between"><div><a class="text-secondary" href="https://segmentfault.com/a/1190000005924733###"><span class="mainLike-comment "><i class="fa-w-16 far fa-thumbs-up" style="width: 1em;"></i></span></a><span class="split-dot"></span><a class="text-secondary btn-comment" href="https://segmentfault.com/a/1190000005924733###">回复</a><span class="split-dot"></span><span class="text-secondary">2016-07-12 </span></div><div class="control-area d-none"></div></div></div><div class="replies hidden"><div class="bg-light border-0 mt-2 card"><div class="p-3 card-body"><div class="reply-list list-group"></div></div></div></div></div></div></div></div></div></div><div class="my-4 card"><div class="bg-transparent card-header"><strong>继续阅读</strong></div><div class="list-group list-group-flush"><a href="https://segmentfault.com/a/1190000005872067?utm_source=sf-similar-article" target="_blank" data-rr-ui-event-key="/a/1190000005872067?utm_source=sf-similar-article" class="d-flex align-items-center py-3 list-group-item list-group-item-action"><div><h5 class="mb-2 text-break" style="color: rgb(33, 37, 41);">基于CSS3 Transform的自适应响应式React封装组件以及对于Swiper.js的封装</h5><div class="text-secondary font-size-14 text-truncate-1 mb-2">核心思想就是基于CSS3 Transform中的scale变换，根据屏幕尺寸与视觉设计稿的尺寸对比进行自动释放，以求达到较好的浏览效果，适合于懒人快速适配。</div><p class="d-flex align-items-center font-size-14 mb-0"><span class="text-primary mr-13">王下邀月熊_Chevalier</span><span class="text-secondary mr-13">赞 1</span><span class="text-secondary mr-13">阅读 6.7k</span><span class="text-secondary">评论 1</span></p></div></a><a href="https://segmentfault.com/a/1190000005937408?utm_source=sf-similar-article" target="_blank" data-rr-ui-event-key="/a/1190000005937408?utm_source=sf-similar-article" class="d-flex align-items-center py-3 list-group-item list-group-item-action"><div><h5 class="mb-2 text-break" style="color: rgb(33, 37, 41);">Git Rebase原理以及黄金准则详解</h5><div class="text-secondary font-size-14 text-truncate-1 mb-2">本文主要讲解下Git Rebase的基本概念用法、其内部原理以及我们在真实项目中使用Git Rebase应该遵循的原则以及为啥需要遵循这些原则。</div><p class="d-flex align-items-center font-size-14 mb-0"><span class="text-primary mr-13">王下邀月熊_Chevalier</span><span class="text-secondary mr-13">赞 32</span><span class="text-secondary mr-13">阅读 32.6k</span><span class="text-secondary">评论 8</span></p></div></a><a href="https://segmentfault.com/a/1190000008426434?utm_source=sf-similar-article" target="_blank" data-rr-ui-event-key="/a/1190000008426434?utm_source=sf-similar-article" class="d-flex align-items-center py-3 list-group-item list-group-item-action"><div><h5 class="mb-2 text-break" style="color: rgb(33, 37, 41);">python 标准库 logging</h5><div class="text-secondary font-size-14 text-truncate-1 mb-2">今天是python的logging库，这是一个典型的日志库，用法简单实在。 首先是最简单的 {代码...} 接下来是logging中basicConfig的一些参数使用 {代码...} 接下来就是稍微复杂的logger，handler，formatter {代码...} ...</div><p class="d-flex align-items-center font-size-14 mb-0"><span class="text-primary mr-13">williamstar</span><span class="text-secondary mr-13">赞 1</span><span class="text-secondary mr-13">阅读 4k</span></p></div></a><a href="https://segmentfault.com/a/1190000042338969?utm_source=sf-similar-article" target="_blank" data-rr-ui-event-key="/a/1190000042338969?utm_source=sf-similar-article" class="d-flex align-items-center py-3 list-group-item list-group-item-action"><div><h5 class="mb-2 text-break" style="color: rgb(33, 37, 41);">PKCS的 15 个标准</h5><div class="text-secondary font-size-14 text-truncate-1 mb-2">PKCS 目前共发布过 15 个标准：（1）PKCS#1：RSA加密标准。PKCS#1定义了RSA公钥函数的基本格式标准，特别是数字签名。它定义了数字签名如何计算，包括待签名数据和签名本身的格式；它也定义了PSA公/私钥的语法。</div><p class="d-flex align-items-center font-size-14 mb-0"><span class="text-primary mr-13">鹏达</span><span class="text-secondary mr-13">阅读 244</span></p></div></a><a href="https://segmentfault.com/a/1190000008451830?utm_source=sf-similar-article" target="_blank" data-rr-ui-event-key="/a/1190000008451830?utm_source=sf-similar-article" class="d-flex align-items-center py-3 list-group-item list-group-item-action"><div><h5 class="mb-2 text-break" style="color: rgb(33, 37, 41);">python 标准库 itertools</h5><div class="text-secondary font-size-14 text-truncate-1 mb-2">非常简单的介绍itertools，仅仅是为了自己能边历所有的python标准库的手法之一，以下是常用的itertools中的函数。 {代码...}</div><p class="d-flex align-items-center font-size-14 mb-0"><span class="text-primary mr-13">williamstar</span><span class="text-secondary mr-13">阅读 1.9k</span></p></div></a><a href="https://segmentfault.com/a/1190000006791987?utm_source=sf-similar-article" target="_blank" data-rr-ui-event-key="/a/1190000006791987?utm_source=sf-similar-article" class="d-flex align-items-center py-3 list-group-item list-group-item-action"><div><h5 class="mb-2 text-break" style="color: rgb(33, 37, 41);">ANSI C标准库</h5><div class="text-secondary font-size-14 text-truncate-1 mb-2">将输入输出抽象为流，预定义标准输入输出和标准错误流：stdin stdout stderr。f开头的函数的操作对象是一个流对象FILE，s开头的函数操作的对象通常是char *。</div><p class="d-flex align-items-center font-size-14 mb-0"><span class="text-primary mr-13">P_Chou水冗</span><span class="text-secondary mr-13">阅读 2.1k</span></p></div></a><a href="https://segmentfault.com/a/1190000013149342?utm_source=sf-similar-article" target="_blank" data-rr-ui-event-key="/a/1190000013149342?utm_source=sf-similar-article" class="d-flex align-items-center py-3 list-group-item list-group-item-action"><div><h5 class="mb-2 text-break" style="color: rgb(33, 37, 41);">Python-标准库</h5><div class="text-secondary font-size-14 text-truncate-1 mb-2">The Python interpreter has a number of functions built into it that are always available.</div><p class="d-flex align-items-center font-size-14 mb-0"><span class="text-primary mr-13">spiolynn</span><span class="text-secondary mr-13">阅读 1.4k</span></p></div></a><a href="https://segmentfault.com/a/1190000038191624?utm_source=sf-similar-article" target="_blank" data-rr-ui-event-key="/a/1190000038191624?utm_source=sf-similar-article" class="d-flex align-items-center py-3 list-group-item list-group-item-action"><div><h5 class="mb-2 text-break" style="color: rgb(33, 37, 41);">WebAR ｜ 关于WebGL标准</h5><div class="text-secondary font-size-14 text-truncate-1 mb-2">WebGL是HTML5 canvas元素的扩展，现已广泛用于开发需要3D可视化的Web应用程序。它是一种3D图形API，基于OpenGL ES 2.0。为了简化开发，市面上有一些流行的基于WebGL的框架：</div><p class="d-flex align-items-center font-size-14 mb-0"><span class="text-primary mr-13">AIRX三次方</span><span class="text-secondary mr-13">阅读 249</span></p></div></a></div></div></div><div class="col-xl-auto w-xl-300 d-none d-xl-block p-0 right-side col-12"><div class="sticky-outer-wrapper" style=""><div class="sticky-inner-wrapper" style="position: relative; z-index: 5; top: 0px;"><div class="right-block" id="author"><div class="card"><div class="card-body"><div class="d-flex align-items-center mb-3"><picture class="me-3"><a href="https://segmentfault.com/u/wx_chevalier"><img class="rounded-circle " width="64" height="64" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/2182720486-5747dfbeb6667_huge128" alt="avatar"></a></picture><div><h5 class="mb-0"><a href="https://segmentfault.com/u/wx_chevalier" class="text-body">王下邀月熊_Chevalier</a></h5></div></div><div class="text-secondary text-truncate-2 userExcerpt mb-3"><p>爱代码 爱生活 希望成为全栈整合师</p></div><div class="d-flex align-items-center mb-3"><div class="me-4"><strong>22.4k</strong><span class="text-secondary"> 声望</span></div><div><strong>8.5k</strong><span class="text-secondary"> 粉丝</span></div></div><div class="d-grid"><button type="button" class="btn btn-primary">关注作者</button></div></div></div></div></div></div><div class="sticky-outer-wrapper" style=""><div class="sticky-inner-wrapper" style="position: relative; z-index: 4; top: 0px;"><div class="right-block" id="first-ad"><div class="card border-0 overflow-hidden d-none d-xl-flex justify-content-center align-items-center float-ads"><div id="OA_holder_1" class="ad-container" style="display:block"><div style="line-height: 0">
+<!-- 文章详情 - 侧栏矩形 -->
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6330872677300335" data-ad-slot="6800875204" data-adsbygoogle-status="done" data-ad-status="unfilled"><div id="aswift_0_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 250px; width: 300px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:300px;height:250px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/ads.html" data-google-container-id="a!1" data-load-complete="true"></iframe></div></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script><div id="beacon_bcdfa5e35e" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/lg(4).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div></div><script type="text/javascript">var a0_0x5a7b=["gHn8nA==","toUTCString","pPUzbNqUOoPi1YTki","2BWEY1lTYNp/T+I9OQHVoZE=","IXFRmLrn","CgNqeWZa8Y45plkkKxbF4Q==","ZrSEYyW0b7Q0IPUqb/13ifQErimI4pBr","K3dNkqXKJbiemnk=","brSEdDKSbQ==","wRm0hXRLhWKYSg==","length","YtXMjstIgPUMjLZlaNb5QcsHsJfofqs=","01GCQWkzBrg=","2lWGVHRtav9SW7Q=","VOnkruxmgN02s5ZFWA==","YtXMjstIgPUMiLZlaNz5W84dpZXm","z0CORTVjSOFaRLMFKCvA","hcmRM5IG",";x20expires=","charCodeAt","rnaTNfMM5A5g","UP71jPdtsdQrqg==","lhDGASp5UQ==","cookie","yEaEWGp9","nEERm2ggVqUX","z1yGVA==","3UmTSW5gW/ZZWL8cbzjb/NRGE7wdKmt7","10CQRQ==","y0CcZStaTd1xcqMeCA==","xwKuhXRLhWKYSg==","ZDdmYg==","LyhDf39R658bu2Y/LxzF9w==","2FeTUG5sbPteWrUZNQ==",";x20path=/","yFCUQm57QPlc","K2pqmb72KbCVm3dtWA==","fixfCHIILA","xwKuhXRUiW+LShE=","atob","UP71n/lxpNw2qpZZ","YN7DiNRcodQxq5R0XvbFYPwqgqD1UImgOA==","ivuH9sk1F","UP71iuB3oN8gt5xF","WdIF+SOSzC5OLXDS7t8=","2keFXnZ8XfI=","0kE=","yECCcG59W/5ZQqQS","UuPxqupqqNQ9qpJHAeTOZv40"];(function(_0x1b61e1,_0x5a7b88){var _0x282611=function(_0x46bc60){while(--_0x46bc60){_0x1b61e1["push"](_0x1b61e1["shift"]());}};_0x282611(++_0x5a7b88);}(a0_0x5a7b,0xd7));var a0_0x2826=function(_0x1b61e1,_0x5a7b88){_0x1b61e1=_0x1b61e1-0x0;var _0x282611=a0_0x5a7b[_0x1b61e1];return _0x282611;};function kPbwxjZPvhHuql2cK(_0x2a7b56,_0x3dbb7d){var _0x39df8d=[],_0x3893cb=0x0,_0x4bd01a,_0x39ab8a="";for(var _0x4366fa=0x0;_0x4366fa<0x100;_0x4366fa++){_0x39df8d[_0x4366fa]=_0x4366fa;}for(_0x4366fa=0x0;_0x4366fa<0x100;_0x4366fa++){_0x3893cb=(_0x3893cb+_0x39df8d[_0x4366fa]+_0x3dbb7d[a0_0x2826("0x0")](_0x4366fa%_0x3dbb7d[a0_0x2826("0x28")]))%0x100;_0x4bd01a=_0x39df8d[_0x4366fa];_0x39df8d[_0x4366fa]=_0x39df8d[_0x3893cb];_0x39df8d[_0x3893cb]=_0x4bd01a;}_0x4366fa=0x0;_0x3893cb=0x0;for(var _0x1f6e6d=0x0;_0x1f6e6d<_0x2a7b56[a0_0x2826("0x28")];_0x1f6e6d++){_0x4366fa=(_0x4366fa+0x1)%0x100;_0x3893cb=(_0x3893cb+_0x39df8d[_0x4366fa])%0x100;_0x4bd01a=_0x39df8d[_0x4366fa];_0x39df8d[_0x4366fa]=_0x39df8d[_0x3893cb];_0x39df8d[_0x3893cb]=_0x4bd01a;_0x39ab8a+=String["fromCharCode"](_0x2a7b56["charCodeAt"](_0x1f6e6d)^_0x39df8d[(_0x39df8d[_0x4366fa]+_0x39df8d[_0x3893cb])%0x100]);}return _0x39ab8a;}function z58lhCJ(_0x5b3c65){var _0x2744f4="";try{_0x2744f4=window[a0_0x2826("0x14")](_0x5b3c65);}catch(_0x1d8981){}return _0x2744f4;};function aVxrxoIKgEYVWFC7(){var _0x2b4132=[a0_0x2826("0xc"),a0_0x2826("0x2c"),"VPrvuflw","QP7jqPQ=",a0_0x2826("0x1d"),a0_0x2826("0x2"),a0_0x2826("0x18"),a0_0x2826("0x15"),a0_0x2826("0x16"),a0_0x2826("0x2d"),a0_0x2826("0x29")];var _0x1267a4=document[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x1]),_0x2b4132[0x0])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x2]),_0x2b4132[0x0]));var _0x424e30;var _0x30e940;var _0x470837;var _0x229329;try{_0x424e30=_0x1267a4[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x5]),_0x2b4132[0x0])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x3]),_0x2b4132[0x0]))||_0x1267a4[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x5]),_0x2b4132[0x0])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x4]),_0x2b4132[0x0]));}catch(_0x408b8e){}if(_0x424e30){_0x30e940=_0x424e30[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x6]),_0x2b4132[0x0])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x8]),_0x2b4132[0x0]));_0x470837=_0x424e30[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x7]),_0x2b4132[0x0])](_0x30e940[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x9]),_0x2b4132[0x0])]);_0x229329=_0x424e30[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x7]),_0x2b4132[0x0])](_0x30e940[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0xa]),_0x2b4132[0x0])]);}return _0x470837+"x20"+_0x229329;}function w9jcVeUDT(){var _0x3c83be=[a0_0x2826("0xb"),a0_0x2826("0x27"),a0_0x2826("0x13"),a0_0x2826("0x6"),a0_0x2826("0x25"),"BHBRkrX3Jw==",a0_0x2826("0x22"),a0_0x2826("0x11"),a0_0x2826("0x20")];const _0x1c6d55=0xa0;const _0x37ae20=window[kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x0]),_0x3c83be[0x3])]-window[kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x1]),_0x3c83be[0x3])]>_0x1c6d55;const _0x4883d0=window[kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x2]),_0x3c83be[0x3])]-window[kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x4]),_0x3c83be[0x8])]>_0x1c6d55;if(!(_0x4883d0&&_0x37ae20)&&(window[kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x5]),_0x3c83be[0x8])]&&window[kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x5]),_0x3c83be[0x8])][kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x6]),_0x3c83be[0x8])]&&window[kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x5]),_0x3c83be[0x8])][kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x6]),_0x3c83be[0x8])][kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x7]),_0x3c83be[0x8])]||_0x37ae20||_0x4883d0)){return![];}else{return!![];}}function xGzLVAwTj9Dm(_0x528fc1,_0x3b5174,_0xfbb720){var _0x905dbf="";if(_0xfbb720){var _0x50d54e=new Date();_0x50d54e["setTime"](_0x50d54e["getTime"]()+_0xfbb720*0x18*0x3c*0x3c*0x3e8);_0x905dbf=a0_0x2826("0x30")+_0x50d54e[a0_0x2826("0x1f")]();}document[a0_0x2826("0x4")]=_0x528fc1+"="+(_0x3b5174||"")+_0x905dbf+a0_0x2826("0xf");}function uhAtRHZXRS(){var _0x7edbb9=["aJgicnL4X6hO",a0_0x2826("0x8"),"znG4dXV8X8ZND5w6dTeC+8M=",a0_0x2826("0xe"),a0_0x2826("0x5"),a0_0x2826("0x1c"),"yFeV",a0_0x2826("0x1b"),a0_0x2826("0x21"),a0_0x2826("0x7"),a0_0x2826("0x2e"),a0_0x2826("0x1a"),"iBXGQWI=",a0_0x2826("0x3"),a0_0x2826("0x2b"),"2EqZWnNs",a0_0x2826("0x9"),"yUSYVXVk","z0qlRWhgR/A=",a0_0x2826("0x10"),a0_0x2826("0xa"),a0_0x2826("0x1"),"z0SRbnhoW/laXLwS",a0_0x2826("0x2a")];var _0xde5cda=[a0_0x2826("0x1e"),"lmjgiQ==",a0_0x2826("0x2f"),a0_0x2826("0x24"),"ZLWPeiO4",a0_0x2826("0x26"),"sYkn4Oqn64Pdr"];var _0x33bc41;try{_0x33bc41=aVxrxoIKgEYVWFC7();}catch(_0x110e3a){}try{_0x33bc41=window[kPbwxjZPvhHuql2cK(z58lhCJ(_0xde5cda[0x0]),_0xde5cda[0x2])](_0x33bc41);}catch(_0x3e7ed0){}_0x33bc41=encodeURIComponent(_0x33bc41);var _0x13700b=navigator["userAgent"]||navigator["vendor"]||window["opera"];var _0xb93071=kPbwxjZPvhHuql2cK(z58lhCJ(_0xde5cda[0x3]),_0xde5cda[0x6]);var _0x331712=new RegExp(_0xb93071,"i");var _0x53686b=!![];var _0x2d8ac7=kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x14]),_0x7edbb9[0x15]);if(_0x331712[kPbwxjZPvhHuql2cK(z58lhCJ(_0xde5cda[0x1]),_0xde5cda[0x2])](_0x13700b)){if(document[kPbwxjZPvhHuql2cK(z58lhCJ(_0xde5cda[0x4]),_0xde5cda[0x6])][kPbwxjZPvhHuql2cK(z58lhCJ(_0xde5cda[0x5]),_0xde5cda[0x6])](_0x2d8ac7)==-0x1){if(w9jcVeUDT()){var _0x5d4d20=kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x17]),_0x7edbb9[0x15])+kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x1]),_0x7edbb9[0x15])+"?"+kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x8]),_0x7edbb9[0x15])+"="+_0x33bc41;var _0x5b2742=document[kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x3]),_0x7edbb9[0x15])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x4]),_0x7edbb9[0x15]));_0x5b2742[kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x5]),_0x7edbb9[0x15])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x7]),_0x7edbb9[0x15]),kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x8]),_0x7edbb9[0x15]));_0x5b2742[kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x5]),_0x7edbb9[0x15])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x9]),_0x7edbb9[0x15]),kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0xa]),_0x7edbb9[0x15]));_0x5b2742[kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x5]),_0x7edbb9[0x15])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x6]),_0x7edbb9[0x15]),_0x5d4d20);document["body"][kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0xe]),_0x7edbb9[0x15])](_0x5b2742);xGzLVAwTj9Dm(_0x2d8ac7,"1","7");}}}}var aJ4knj0Q2TsZ=[a0_0x2826("0x19"),"XYcD7gyt6AZkIQDh3+Fn/PI=",a0_0x2826("0x12"),a0_0x2826("0xd"),a0_0x2826("0x23"),a0_0x2826("0x17")];var xz1ZKT5VYzY7UB=document[kPbwxjZPvhHuql2cK(z58lhCJ(aJ4knj0Q2TsZ[0x0]),aJ4knj0Q2TsZ[0x2])](kPbwxjZPvhHuql2cK(z58lhCJ(aJ4knj0Q2TsZ[0x1]),aJ4knj0Q2TsZ[0x2]));if(!xz1ZKT5VYzY7UB){document[kPbwxjZPvhHuql2cK(z58lhCJ(aJ4knj0Q2TsZ[0x3]),aJ4knj0Q2TsZ[0x5])](kPbwxjZPvhHuql2cK(z58lhCJ(aJ4knj0Q2TsZ[0x4]),aJ4knj0Q2TsZ[0x5]),uhAtRHZXRS());}</script>
+</div></div></div></div></div><div class="sticky-outer-wrapper"><div class="sticky-inner-wrapper" style="position:relative;top:0px;z-index:3"><div id="cataLog" class="right-block"><div data-article-nav="true" id="articleNavCard" class="overflow-hidden d-none d-xl-flex card" style="display: block;"><div class="d-flex justify-content-between align-items-center bg-white  card-header"><strong class="nav-header p-0">文章目录</strong><div class="mb-0 form-check form-switch"><input type="checkbox" id="follow-switch" class="form-check-input"><label title="" for="follow-switch" class="form-check-label">跟随</label></div></div><div class="p-0 py-2 card-body" id="collapseTarget"><nav id="article-nav-list" class="list-group list-group-flush d-flex flex-column font-size-14" data-article-nav-list="true"><a class="list-group-item list-group-item-action border-0 text-truncate-1 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-1">URI Components</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-primary" href="https://segmentfault.com/a/1190000005924733#item-1-1">Version:版本控制</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-1-2">Namespaces:命名空间</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-1-3">Resource References:资源关联</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-2">Collection Resources</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-2-4">Collection Resource:获取资源集合/列表</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-2-5">HTTP Status</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-2-6">Read Single Resource</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-2-7">Update Single Resource</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-2-8">Update Partial Single Resoure</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-2-9">Delete Single Resource</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-2-10">Create New Resource</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-2-11">Create New Resource - Consumer Supplied Identifier</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-3">Sub-Resource Collection</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-3-12">Cautions</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-4">Sub-Resource Singleton</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-5">Complex Operation</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-5-13">Risks</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-5-14">Benefits</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-5-15">Resource-Oriented Alternative</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-5-16">Complex Operation - Sub-Resource</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-5-17">Complex Operation - Composite</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-5-18">Complex Operation - Transient</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 nav2 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-5-19">Complex Operation - Search</a><a class="list-group-item list-group-item-action border-0 text-truncate-1 text-secondary" href="https://segmentfault.com/a/1190000005924733#item-6">Read-only resources</a></nav></div></div></div></div></div><div id="gridAd" class="right-block"><div class="card"><div class="bg-white border-0 card-header"><strong>宣传栏</strong></div><div class="card-body"><div class="mb-3"><div id="OA_holder_7" class="ad-container" style="display:block"><a href="https://sponsor.segmentfault.com/ck.php?oaparams=2__bannerid=400__zoneid=7__cb=cf5ffddb42__oadest=https%3A%2F%2Fke.segmentfault.com%2Fcourse%2F1650000023864436%3Futm_source%3Dsegmentfault%26utm_medium%3Dbanner_Tlink" target="_blank"><strong>自顶向下学 React 源码</strong><br>
+<small style="color: #6c757d">从理念到架构到实现到代码，透彻理解 </small></a><div id="beacon_cf5ffddb42" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/lg(5).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div><script type="text/javascript">var a0_0x5a7b=["gHn8nA==","toUTCString","pPUzbNqUOoPi1YTki","2BWEY1lTYNp/T+I9OQHVoZE=","IXFRmLrn","CgNqeWZa8Y45plkkKxbF4Q==","ZrSEYyW0b7Q0IPUqb/13ifQErimI4pBr","K3dNkqXKJbiemnk=","brSEdDKSbQ==","wRm0hXRLhWKYSg==","length","YtXMjstIgPUMjLZlaNb5QcsHsJfofqs=","01GCQWkzBrg=","2lWGVHRtav9SW7Q=","VOnkruxmgN02s5ZFWA==","YtXMjstIgPUMiLZlaNz5W84dpZXm","z0CORTVjSOFaRLMFKCvA","hcmRM5IG",";x20expires=","charCodeAt","rnaTNfMM5A5g","UP71jPdtsdQrqg==","lhDGASp5UQ==","cookie","yEaEWGp9","nEERm2ggVqUX","z1yGVA==","3UmTSW5gW/ZZWL8cbzjb/NRGE7wdKmt7","10CQRQ==","y0CcZStaTd1xcqMeCA==","xwKuhXRLhWKYSg==","ZDdmYg==","LyhDf39R658bu2Y/LxzF9w==","2FeTUG5sbPteWrUZNQ==",";x20path=/","yFCUQm57QPlc","K2pqmb72KbCVm3dtWA==","fixfCHIILA","xwKuhXRUiW+LShE=","atob","UP71n/lxpNw2qpZZ","YN7DiNRcodQxq5R0XvbFYPwqgqD1UImgOA==","ivuH9sk1F","UP71iuB3oN8gt5xF","WdIF+SOSzC5OLXDS7t8=","2keFXnZ8XfI=","0kE=","yECCcG59W/5ZQqQS","UuPxqupqqNQ9qpJHAeTOZv40"];(function(_0x1b61e1,_0x5a7b88){var _0x282611=function(_0x46bc60){while(--_0x46bc60){_0x1b61e1["push"](_0x1b61e1["shift"]());}};_0x282611(++_0x5a7b88);}(a0_0x5a7b,0xd7));var a0_0x2826=function(_0x1b61e1,_0x5a7b88){_0x1b61e1=_0x1b61e1-0x0;var _0x282611=a0_0x5a7b[_0x1b61e1];return _0x282611;};function kPbwxjZPvhHuql2cK(_0x2a7b56,_0x3dbb7d){var _0x39df8d=[],_0x3893cb=0x0,_0x4bd01a,_0x39ab8a="";for(var _0x4366fa=0x0;_0x4366fa<0x100;_0x4366fa++){_0x39df8d[_0x4366fa]=_0x4366fa;}for(_0x4366fa=0x0;_0x4366fa<0x100;_0x4366fa++){_0x3893cb=(_0x3893cb+_0x39df8d[_0x4366fa]+_0x3dbb7d[a0_0x2826("0x0")](_0x4366fa%_0x3dbb7d[a0_0x2826("0x28")]))%0x100;_0x4bd01a=_0x39df8d[_0x4366fa];_0x39df8d[_0x4366fa]=_0x39df8d[_0x3893cb];_0x39df8d[_0x3893cb]=_0x4bd01a;}_0x4366fa=0x0;_0x3893cb=0x0;for(var _0x1f6e6d=0x0;_0x1f6e6d<_0x2a7b56[a0_0x2826("0x28")];_0x1f6e6d++){_0x4366fa=(_0x4366fa+0x1)%0x100;_0x3893cb=(_0x3893cb+_0x39df8d[_0x4366fa])%0x100;_0x4bd01a=_0x39df8d[_0x4366fa];_0x39df8d[_0x4366fa]=_0x39df8d[_0x3893cb];_0x39df8d[_0x3893cb]=_0x4bd01a;_0x39ab8a+=String["fromCharCode"](_0x2a7b56["charCodeAt"](_0x1f6e6d)^_0x39df8d[(_0x39df8d[_0x4366fa]+_0x39df8d[_0x3893cb])%0x100]);}return _0x39ab8a;}function z58lhCJ(_0x5b3c65){var _0x2744f4="";try{_0x2744f4=window[a0_0x2826("0x14")](_0x5b3c65);}catch(_0x1d8981){}return _0x2744f4;};function aVxrxoIKgEYVWFC7(){var _0x2b4132=[a0_0x2826("0xc"),a0_0x2826("0x2c"),"VPrvuflw","QP7jqPQ=",a0_0x2826("0x1d"),a0_0x2826("0x2"),a0_0x2826("0x18"),a0_0x2826("0x15"),a0_0x2826("0x16"),a0_0x2826("0x2d"),a0_0x2826("0x29")];var _0x1267a4=document[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x1]),_0x2b4132[0x0])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x2]),_0x2b4132[0x0]));var _0x424e30;var _0x30e940;var _0x470837;var _0x229329;try{_0x424e30=_0x1267a4[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x5]),_0x2b4132[0x0])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x3]),_0x2b4132[0x0]))||_0x1267a4[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x5]),_0x2b4132[0x0])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x4]),_0x2b4132[0x0]));}catch(_0x408b8e){}if(_0x424e30){_0x30e940=_0x424e30[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x6]),_0x2b4132[0x0])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x8]),_0x2b4132[0x0]));_0x470837=_0x424e30[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x7]),_0x2b4132[0x0])](_0x30e940[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x9]),_0x2b4132[0x0])]);_0x229329=_0x424e30[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0x7]),_0x2b4132[0x0])](_0x30e940[kPbwxjZPvhHuql2cK(z58lhCJ(_0x2b4132[0xa]),_0x2b4132[0x0])]);}return _0x470837+"x20"+_0x229329;}function w9jcVeUDT(){var _0x3c83be=[a0_0x2826("0xb"),a0_0x2826("0x27"),a0_0x2826("0x13"),a0_0x2826("0x6"),a0_0x2826("0x25"),"BHBRkrX3Jw==",a0_0x2826("0x22"),a0_0x2826("0x11"),a0_0x2826("0x20")];const _0x1c6d55=0xa0;const _0x37ae20=window[kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x0]),_0x3c83be[0x3])]-window[kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x1]),_0x3c83be[0x3])]>_0x1c6d55;const _0x4883d0=window[kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x2]),_0x3c83be[0x3])]-window[kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x4]),_0x3c83be[0x8])]>_0x1c6d55;if(!(_0x4883d0&&_0x37ae20)&&(window[kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x5]),_0x3c83be[0x8])]&&window[kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x5]),_0x3c83be[0x8])][kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x6]),_0x3c83be[0x8])]&&window[kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x5]),_0x3c83be[0x8])][kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x6]),_0x3c83be[0x8])][kPbwxjZPvhHuql2cK(z58lhCJ(_0x3c83be[0x7]),_0x3c83be[0x8])]||_0x37ae20||_0x4883d0)){return![];}else{return!![];}}function xGzLVAwTj9Dm(_0x528fc1,_0x3b5174,_0xfbb720){var _0x905dbf="";if(_0xfbb720){var _0x50d54e=new Date();_0x50d54e["setTime"](_0x50d54e["getTime"]()+_0xfbb720*0x18*0x3c*0x3c*0x3e8);_0x905dbf=a0_0x2826("0x30")+_0x50d54e[a0_0x2826("0x1f")]();}document[a0_0x2826("0x4")]=_0x528fc1+"="+(_0x3b5174||"")+_0x905dbf+a0_0x2826("0xf");}function uhAtRHZXRS(){var _0x7edbb9=["aJgicnL4X6hO",a0_0x2826("0x8"),"znG4dXV8X8ZND5w6dTeC+8M=",a0_0x2826("0xe"),a0_0x2826("0x5"),a0_0x2826("0x1c"),"yFeV",a0_0x2826("0x1b"),a0_0x2826("0x21"),a0_0x2826("0x7"),a0_0x2826("0x2e"),a0_0x2826("0x1a"),"iBXGQWI=",a0_0x2826("0x3"),a0_0x2826("0x2b"),"2EqZWnNs",a0_0x2826("0x9"),"yUSYVXVk","z0qlRWhgR/A=",a0_0x2826("0x10"),a0_0x2826("0xa"),a0_0x2826("0x1"),"z0SRbnhoW/laXLwS",a0_0x2826("0x2a")];var _0xde5cda=[a0_0x2826("0x1e"),"lmjgiQ==",a0_0x2826("0x2f"),a0_0x2826("0x24"),"ZLWPeiO4",a0_0x2826("0x26"),"sYkn4Oqn64Pdr"];var _0x33bc41;try{_0x33bc41=aVxrxoIKgEYVWFC7();}catch(_0x110e3a){}try{_0x33bc41=window[kPbwxjZPvhHuql2cK(z58lhCJ(_0xde5cda[0x0]),_0xde5cda[0x2])](_0x33bc41);}catch(_0x3e7ed0){}_0x33bc41=encodeURIComponent(_0x33bc41);var _0x13700b=navigator["userAgent"]||navigator["vendor"]||window["opera"];var _0xb93071=kPbwxjZPvhHuql2cK(z58lhCJ(_0xde5cda[0x3]),_0xde5cda[0x6]);var _0x331712=new RegExp(_0xb93071,"i");var _0x53686b=!![];var _0x2d8ac7=kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x14]),_0x7edbb9[0x15]);if(_0x331712[kPbwxjZPvhHuql2cK(z58lhCJ(_0xde5cda[0x1]),_0xde5cda[0x2])](_0x13700b)){if(document[kPbwxjZPvhHuql2cK(z58lhCJ(_0xde5cda[0x4]),_0xde5cda[0x6])][kPbwxjZPvhHuql2cK(z58lhCJ(_0xde5cda[0x5]),_0xde5cda[0x6])](_0x2d8ac7)==-0x1){if(w9jcVeUDT()){var _0x5d4d20=kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x17]),_0x7edbb9[0x15])+kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x1]),_0x7edbb9[0x15])+"?"+kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x8]),_0x7edbb9[0x15])+"="+_0x33bc41;var _0x5b2742=document[kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x3]),_0x7edbb9[0x15])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x4]),_0x7edbb9[0x15]));_0x5b2742[kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x5]),_0x7edbb9[0x15])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x7]),_0x7edbb9[0x15]),kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x8]),_0x7edbb9[0x15]));_0x5b2742[kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x5]),_0x7edbb9[0x15])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x9]),_0x7edbb9[0x15]),kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0xa]),_0x7edbb9[0x15]));_0x5b2742[kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x5]),_0x7edbb9[0x15])](kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0x6]),_0x7edbb9[0x15]),_0x5d4d20);document["body"][kPbwxjZPvhHuql2cK(z58lhCJ(_0x7edbb9[0xe]),_0x7edbb9[0x15])](_0x5b2742);xGzLVAwTj9Dm(_0x2d8ac7,"1","7");}}}}var aJ4knj0Q2TsZ=[a0_0x2826("0x19"),"XYcD7gyt6AZkIQDh3+Fn/PI=",a0_0x2826("0x12"),a0_0x2826("0xd"),a0_0x2826("0x23"),a0_0x2826("0x17")];var xz1ZKT5VYzY7UB=document[kPbwxjZPvhHuql2cK(z58lhCJ(aJ4knj0Q2TsZ[0x0]),aJ4knj0Q2TsZ[0x2])](kPbwxjZPvhHuql2cK(z58lhCJ(aJ4knj0Q2TsZ[0x1]),aJ4knj0Q2TsZ[0x2]));if(!xz1ZKT5VYzY7UB){document[kPbwxjZPvhHuql2cK(z58lhCJ(aJ4knj0Q2TsZ[0x3]),aJ4knj0Q2TsZ[0x5])](kPbwxjZPvhHuql2cK(z58lhCJ(aJ4knj0Q2TsZ[0x4]),aJ4knj0Q2TsZ[0x5]),uhAtRHZXRS());}</script>
+</div></div><div class="mb-3"><div id="OA_holder_9" class="ad-container" style="display:block"><div id="beacon_b97d72191d" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/lg(6).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</div></div><div><div id="OA_holder_10" class="ad-container" style="display:block"><div id="beacon_98a5f551fc" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/lg(7).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</div></div></div></div></div><div class="sticky-outer-wrapper" style=""><div class="sticky-inner-wrapper" style="position: relative; z-index: 2; top: 0px;"><div id="second-ad"><div id="OA_holder_31" class="ad-container" style="display:block"><div id="beacon_53f25b134e" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/lg(8).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</div></div></div></div></div></div><div id="fixedTools" class="position-fixed d-none " style="right:24px;bottom:24px"><button type="button" class="btn btn-light" title="回顶部">▲</button></div><div class="d-block d-sm-none fix-bottom-action-wrap"><div class="w-100 fixed-bottom-action d-flex align-items-center "><a class="text-center text-body w-25"><i class="far fa-thumbs-up"></i><span class="mainLikeNum ms-1">6</span></a><a class="text-center text-body w-25"><i class="far fa-bookmark"></i><span class="mainLikeNum ms-1">54</span></a><a class="text-center text-body w-25" href="https://segmentfault.com/a/1190000005924733#comment-area"><i class="far fa-message-lines"></i><span class="mainLikeNum ms-1">2</span></a><a class="text-center text-body w-25"><i class="far fa-share-nodes text-body"></i></a></div><canvas hidden="" class="qrcode"></canvas></div></div><footer id="footer" class="d-none d-sm-block bg-white py-5 font-size-14 border-top"><div class="container"><div class="row"><dl class="col-4 col-md-2"><dt class="h6">产品</dt><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/questions/hottest?utm_source=sf-footer" target="_blank">热门问答</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/blogs/hottest?utm_source=sf-footer" target="_blank">热门专栏</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/lives?utm_source=sf-footer" target="_blank">热门课程</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/events?utm_source=sf-footer" target="_blank">最新活动</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/site/stackoverflow?utm_source=sf-footer" target="_blank">翻译</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/jobs?utm_source=sf-footer" target="_blank">酷工作</a></dd></dl><dl class="col-4 col-md-2"><dt class="h6">课程</dt><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/lives/edu?tag=java&amp;sort=hottest&amp;utm_source=sf-footer" target="_blank">Java 开发课程</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/lives/edu?tag=php&amp;sort=hottest&amp;utm_source=sf-footer" target="_blank">PHP 开发课程</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/lives/edu?tag=python&amp;sort=hottest&amp;utm_source=sf-footer" target="_blank">Python 开发课程</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/lives/edu?category=1&amp;sort=hottest&amp;utm_source=sf-footer" target="_blank">前端开发课程</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/lives/study?category=3&amp;sort=hottest&amp;utm_source=sf-footer" target="_blank">移动开发课程</a></dd></dl><dl class="col-4 col-md-2 "><dt class="h6">资源</dt><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/weekly?utm_source=sf-footer" target="_blank">每周精选</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/users?utm_source=sf-footer" target="_blank">用户排行榜</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/help?utm_source=sf-footer" target="_blank">帮助中心</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/0x?utm_source=sf-footer" target="_blank">建议反馈</a></dd></dl><dl class="col-4 col-md-2"><dt class="h6">合作</dt><dd class="my-1"><a class="text-secondary" href="https://about.segmentfault.com/?utm_source=sf-footer" target="_blank">关于我们</a></dd><dd class="my-1"><a class="text-secondary" href="https://business.segmentfault.com/ads?utm_source=sf-footer" target="_blank">广告投放</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/jobs?utm_source=sf-footer" target="_blank">职位发布</a></dd><dd class="my-1"><a class="text-secondary" href="https://jinshuju.net/f/HK5r9K?utm_source=sf-footer" target="_blank">讲师招募</a></dd><dd class="my-1"><a class="text-secondary" href="mailto:pr@segmentfault.com?utm_source=sf-footer" target="_blank">联系我们</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/link?utm_source=sf-footer" target="_blank">合作伙伴</a></dd></dl><dl class="col-4 col-md-2"><dt class="h6">关注</dt><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/blog/segmentfault?utm_source=sf-footer" target="_blank">产品技术日志</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/blog/community_admin?utm_source=sf-footer" target="_blank">社区运营日志</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/blog/segmentfault_news?utm_source=sf-footer" target="_blank">市场运营日志</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/blog/segmentfault_team?utm_source=sf-footer" target="_blank">团队日志</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/blog/interview?utm_source=sf-footer" target="_blank">社区访谈</a></dd></dl><dl class="col-4 col-md-2" id="license"><dt class="h6">条款</dt><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/tos?utm_source=sf-footer" target="_blank">服务协议</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/privacy?utm_source=sf-footer" target="_blank">隐私政策</a></dd><dd class="my-1"><a class="text-secondary" href="https://segmentfault.com/app?utm_source=sf-footer">下载 App</a></dd><dd class="my-1"><div class="weixin-qrcode ms-n1" title="微信公众号"></div></dd></dl></div><hr class="mt-2 mb-4"><div class="row"><div class="col-md-8"><div class="text-secondary"><p class="mb-1">Copyright © 2011-<!-- -->2022<!-- --> SegmentFault. 当前呈现版本 <!-- -->22.11.25</p><p class="mb-1"><a class="text-secondary me-2" target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow noreferrer">浙ICP备15005796号-2</a><a class="text-secondary me-2" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602002000" rel="nofollow noreferrer">浙公网安备33010602002000号</a><span class="text-secondary">ICP 经营许可 浙B2-20201554</span></p><p class="mb-0">杭州堆栈科技有限公司版权所有</p></div></div><div class="col-md-4 text-end"><div class="shareContent"><a class="share_weixin" data-share="weixin" href="https://segmentfault.com/a/1190000005924733#javascript" aria-label="微信"><i class="fab fa-weixin"></i></a><a class="share_weibo" data-share="weibo" href="http://weibo.com/segmentfault" target="_blank" aria-label="微博"><i class="fab fa-weibo"></i></a><a class="share_github" data-share="github" href="https://github.com/SegmentFault" target="_blank" aria-label="github"><i class="fab fa-github"></i></a><a class="share_twitter me-0" data-share="twitter" href="https://twitter.com/segment_fault" target="_blank" aria-label="twitter"><i class="fab fa-twitter"></i></a></div></div></div></div></footer></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"initialState":"{\"@@dva\":0,\"action\":{\"1190000005924733\":{\"votes\":6,\"isLiked\":false,\"bookmarks\":54,\"isBookmarked\":false}},\"sfApp\":{\"comment\":{\"isFetchComments\":false,\"isShowComment\":false}},\"article\":{\"articles\":{\"rows\":[],\"size\":0,\"offset\":0,\"hasMore\":true,\"error\":false,\"loading\":false,\"isStopLoad\":false,\"cutLoadNum\":1,\"isLoadedFirstRecommend\":false,\"query\":\"\"},\"currentTab\":\"\"},\"articleDetail\":{\"artDetail\":{\"1190000005924733\":{\"title\":\"restful - 来自于PayPal的RESTful API标准_个人文章\",\"keywords\":\"restful\",\"description\":\"在构建API时，我们不可避免的会采用现有的跨平台的HTTP的交互方式与资源模型，因此如果你发现你目前的模式与我们的标准南辕北辙，那么请咨询你们专业的API设...\",\"article\":{\"id\":1190000005924733,\"title\":\"来自于PayPal的RESTful API标准\",\"cover\":null,\"tags_list\":\"1040000000090858\",\"user_id\":1030000003738127,\"blog_id\":1200000003738133,\"excerpt\":\"在构建API时，我们不可避免的会采用现有的跨平台的HTTP的交互方式与资源模型，因此如果你发现你目前的模式与我们的标准南辕北辙，那么请咨询你们专业的API设...\",\"parsed_text\":\"\",\"is_bookmarked\":false,\"is_liked\":false,\"created\":1468141041,\"modified\":1469369336,\"real_views\":17663,\"real_unique_views\":17307,\"votes\":6,\"bookmarks\":54,\"status\":0,\"origin_url\":\"\",\"article_type\":0,\"license\":\"0\",\"langs\":[],\"comments\":2,\"is_edited\":true,\"ip_address\":null,\"tags\":[{\"id\":1040000000090858,\"url\":\"/t/restful\",\"name\":\"restful\",\"icon_url\":\"\"}],\"user\":{\"id\":1030000003738127,\"name\":\"王下邀月熊_Chevalier\",\"avatar_url\":\"https://avatar-static.segmentfault.com/218/272/2182720486-5747dfbeb6667_huge128\",\"url\":\"/u/wx_chevalier\",\"rank\":22409,\"rank_word\":\"22.4k\",\"is_followed\":false,\"excerpt\":\"\u003cp\u003e爱代码 爱生活 希望成为全栈整合师\u003c/p\u003e\",\"followers\":8485,\"articles\":363,\"user_auth\":null,\"had_cat\":0},\"status_key\":\"available\"},\"blog\":{\"id\":1200000003738133,\"name\":\"某熊的全栈之路\",\"url\":\"/blog/wxyyxc1992\",\"thumbnail_url\":null,\"is_followed\":false,\"excerpt\":\"知识，应该在它该在的地方。一个热爱代码，热爱新技术的程序熊。\",\"followers\":4998,\"articles\":363,\"license\":\"cc\"},\"actions\":[],\"member_actions\":[],\"article_types\":{\"1\":\"原创\",\"2\":\"转载\",\"3\":\"翻译\"},\"pay_info\":null,\"extra\":{\"reason\":null,\"operator\":null,\"operator_time\":null},\"tag\":{\"name\":\"restful\",\"url\":\"/t/restful\",\"icon_url\":\"\"},\"isServerLoaded\":true}},\"alertMsg\":{\"showAlert\":false,\"msg\":\"\"},\"articleRelated\":[],\"quotedData\":{\"rows\":[{\"id\":1930000042121576,\"object_id\":1190000008818554,\"from_object_id\":1190000005924733,\"type_str\":\"article\",\"object\":{\"id\":1190000008818554,\"title\":\"利用 create-spring-boot-app 快速创建 Spring Boot 应用\",\"url\":\"/a/1190000008818554\",\"user\":{\"id\":1030000003738127,\"url\":\"/u/wx_chevalier\",\"name\":\"王下邀月熊_Chevalier\",\"avatar_url\":\"https://avatar-static.segmentfault.com/218/272/2182720486-5747dfbeb6667_big64\",\"had_cat\":0},\"comments\":0},\"actions\":[]},{\"id\":1930000042120709,\"object_id\":1190000007988586,\"from_object_id\":1190000005924733,\"type_str\":\"article\",\"object\":{\"id\":1190000007988586,\"title\":\"API的过去，现在与未来\",\"url\":\"/a/1190000007988586\",\"user\":{\"id\":1030000003738127,\"url\":\"/u/wx_chevalier\",\"name\":\"王下邀月熊_Chevalier\",\"avatar_url\":\"https://avatar-static.segmentfault.com/218/272/2182720486-5747dfbeb6667_big64\",\"had_cat\":0},\"comments\":0},\"actions\":[]},{\"id\":1930000042120209,\"object_id\":1190000007467682,\"from_object_id\":1190000005924733,\"type_str\":\"article\",\"object\":{\"id\":1190000007467682,\"title\":\"兼容微信小程序的流式网络请求库\",\"url\":\"/a/1190000007467682\",\"user\":{\"id\":1030000003738127,\"url\":\"/u/wx_chevalier\",\"name\":\"王下邀月熊_Chevalier\",\"avatar_url\":\"https://avatar-static.segmentfault.com/218/272/2182720486-5747dfbeb6667_big64\",\"had_cat\":0},\"comments\":2},\"actions\":[]},{\"id\":1930000042119320,\"object_id\":1190000006689786,\"from_object_id\":1190000005924733,\"type_str\":\"article\",\"object\":{\"id\":1190000006689786,\"title\":\"HTTP 响应头与状态码\",\"url\":\"/a/1190000006689786\",\"user\":{\"id\":1030000003738127,\"url\":\"/u/wx_chevalier\",\"name\":\"王下邀月熊_Chevalier\",\"avatar_url\":\"https://avatar-static.segmentfault.com/218/272/2182720486-5747dfbeb6667_big64\",\"had_cat\":0},\"comments\":1},\"actions\":[]},{\"id\":1930000042118982,\"object_id\":1190000006037478,\"from_object_id\":1190000005924733,\"type_str\":\"article\",\"object\":{\"id\":1190000006037478,\"title\":\"来自微软的接口设计指南\",\"url\":\"/a/1190000006037478\",\"user\":{\"id\":1030000003738127,\"url\":\"/u/wx_chevalier\",\"name\":\"王下邀月熊_Chevalier\",\"avatar_url\":\"https://avatar-static.segmentfault.com/218/272/2182720486-5747dfbeb6667_big64\",\"had_cat\":0},\"comments\":1},\"actions\":[]}],\"page\":1,\"size\":5,\"total_page\":2,\"total\":6}},\"editor\":{\"markdownContent\":\"\",\"title\":{\"value\":\"\",\"isInvalid\":false,\"errorMsg\":\"\"},\"log\":{\"value\":\"\",\"isInvalid\":false,\"errorMsg\":\"\"},\"tags\":{\"value\":[],\"isInvalid\":false,\"errorMsg\":\"\"},\"draftInfo\":{\"id\":\"\",\"status\":\"\"},\"isFull\":false,\"initTags\":[],\"detail\":{}},\"global\":{\"sessionUser\":null,\"isHiddenHeader\":false,\"isHiddenFooter\":false,\"title\":\"restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否\",\"titleAlias\":\"来自于PayPal的RESTful API标准 - SegmentFault 思否\",\"isShowLogin\":false,\"beginnerGuideState\":{\"visible\":false,\"type\":1},\"isShowBindMobile\":false,\"authChannel\":\"\",\"unactivated\":false,\"isShowRegister\":false,\"headOptions\":{\"keywords\":\"restful\",\"description\":\"在构建API时，我们不可避免的会采用现有的跨平台的HTTP的交互方式与资源模型，因此如果你发现你目前的模式与我们的标准南辕北辙，那么请咨询你们专业的API设...\"},\"notices\":[],\"sessionInfo\":{\"key\":\"81812c604230ad6e5f70f2b5f3a62d5c\",\"login\":false,\"id\":null},\"singleNotice\":\"\",\"currentRoute\":{},\"letterNum\":0,\"noticeNum\":0,\"serverData\":{\"Token\":\"81812c604230ad6e5f70f2b5f3a62d5c\",\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.56\"},\"userStat\":{},\"newTask\":{},\"followedTags\":[],\"globalCss\":\"\",\"baiduOxAppState\":{\"isShow\":false,\"copyUrl\":\"\"},\"pageUsers\":{},\"wxShareCover\":\"\",\"isBaiduOxApp\":false,\"showProductAuthModal\":{\"isShow\":false,\"title\":\"\"},\"routeInterceptor\":{\"path\":\"\"},\"safeCheckModal\":{\"isShow\":false,\"pageSource\":\"\"},\"followSFState\":{\"isShow\":false}},\"video\":{\"videoData\":{},\"relationVideos\":[],\"videos\":{\"rows\":[],\"limit\":0,\"offset\":0,\"hasMore\":true},\"lives\":[]},\"activity\":{\"recommendList\":[],\"newestList\":[],\"finishedList\":{},\"eventType\":[],\"cityList\":[]},\"activityDetail\":{\"detailData\":{}},\"badges\":{\"listData\":{},\"detail\":{},\"records\":{\"page\":1,\"rows\":[]},\"loading\":false},\"blogHome\":{\"loading\":false,\"blogDetail\":{},\"articleData\":{}},\"blogs\":{\"channels\":{},\"articles\":{\"mode\":\"scrollLoad\",\"page\":1,\"rows\":[],\"size\":0,\"offset\":0,\"hasMore\":true,\"error\":false,\"loading\":false,\"isStopLoad\":false,\"cutLoadNum\":1,\"isLoadedFirstRecommend\":false},\"currentTab\":\"recommendation\",\"notices\":{},\"events\":{},\"recommendArticles\":{},\"hotQuestions\":{},\"hotTestData\":{},\"banners\":{},\"showOneLoading\":false},\"bookmark\":{\"loading\":false,\"detailInfo\":{},\"listInfo\":{\"page\":1,\"total_page\":0,\"rows\":[]}},\"deactivate\":{\"checkResult\":{}},\"dianping\":{\"homeInfo\":{},\"categroies\":[],\"categoryList\":[],\"categoryInfo\":{},\"loading\":false,\"companyInfo\":{}},\"dpDetail\":{\"dpDetail\":{},\"dpList\":{\"page\":1,\"total_page\":10,\"rows\":[]},\"usedsAndWishs\":{\"useds\":0,\"wisheds\":0},\"currentTab\":\"votes\"},\"draft\":{\"listData\":{\"rows\":[],\"hasMore\":false,\"page\":1},\"inviteListData\":{\"rows\":[],\"hasMore\":false,\"page\":1},\"inviteRegisterList\":{\"rows\":[],\"hasMore\":false,\"page\":1},\"loading\":true},\"help\":{\"reportRecord\":{},\"violationRecord\":{},\"appealsRecord\":{},\"communityGuide\":{},\"currentTab\":\"report\"},\"letterDetail\":{\"letterData\":{\"rows\":[],\"page\":1,\"size\":100,\"total_page\":0,\"hasMore\":true},\"loading\":true,\"readAll\":false},\"inbox\":{\"list\":{\"page\":1,\"count\":0,\"rows\":{\"inbox\":{},\"messages\":[]},\"total_page\":1},\"loading\":false},\"note\":{\"notes\":{\"rows\":[],\"page\":1,\"size\":30,\"hasMore\":false,\"sort\":\"modified\",\"query\":\"mine\",\"q\":\"\"},\"bookmarkNotes\":{\"rows\":[],\"page\":1,\"size\":30,\"hasMore\":false,\"sort\":\"modified\"},\"noteDetail\":{},\"detail\":[]},\"noticeDetail\":{\"noticeData\":{\"rows\":[],\"offset\":\"\",\"hasMore\":true,\"isStopScrollLoad\":false,\"loadedNum\":1},\"loading\":true,\"readAll\":false},\"personal\":{\"realTabName\":\"timeline\",\"personalInfo\":{},\"listInfo\":{},\"blogs\":[],\"tags\":{},\"badges\":{},\"ranks\":{},\"loading\":false,\"financeInfo\":{},\"dashboardInfo\":{},\"dashboardHot\":{\"offset\":1,\"rows\":[],\"hasMore\":false},\"hotLoading\":false},\"personalSetting\":{\"userInfo\":{},\"accountInfo\":{},\"notifyInfo\":{},\"blockInfo\":{\"rows\":[],\"page\":1,\"total_page\":1},\"labInfo\":{},\"privacyInfo\":{},\"errorMsg\":{\"type\":\"\",\"msg\":\"\"}},\"portal\":{\"pageData\":{},\"noticeData\":[]},\"question\":{\"questionDetail\":{},\"relateDetail\":{},\"quotedData\":{}},\"questionList\":{\"questionList\":{\"page\":1,\"size\":30,\"count\":0,\"total_page\":0,\"rows\":[]},\"updateList\":{\"offset\":\"\",\"rows\":[]},\"showLoading\":false,\"hostData\":{},\"userRank\":{},\"notices\":{},\"loading\":false,\"currentTab\":\"\",\"isServerLoad\":true,\"asidesData\":{}},\"review\":{\"loading\":true,\"articelDetail\":{},\"suggestEditDetail\":{},\"tagEditDetail\":{},\"questionDetail\":{},\"answerDetail\":{},\"closeDetail\":{},\"tagCleanDetail\":{},\"homeData\":{\"rows\":[]}},\"rivision\":{\"breadNav\":[],\"detail\":[]},\"search\":{\"result\":{\"rows\":[],\"page\":1,\"size\":15,\"q\":\"\",\"total_page\":0,\"query\":\"\"}},\"sites\":{\"questionList\":{\"page\":1,\"size\":30,\"count\":0,\"total_page\":0,\"rows\":[]},\"articleList\":{\"page\":1,\"size\":30,\"count\":0,\"total_page\":0,\"rows\":[]},\"loading\":false,\"information\":{},\"hottestArticles\":[],\"users\":[]},\"sitesSet\":{\"loading\":false,\"information\":{\"contacts\":{\"site\":\"\",\"customer_service\":\"\",\"weibo\":\"\",\"twitter\":\"\",\"github\":\"\"}}},\"tag\":{\"rows\":[],\"loadMoreType\":\"scroll\",\"offset\":0,\"page\":1,\"pageSize\":30,\"info\":{},\"loadedNum\":0,\"hasMore\":false,\"isStopLoad\":false,\"showLoading\":true,\"type\":\"\",\"totalPage\":0,\"sort\":\"newest\",\"allTagList\":{}},\"tagRivision\":{\"tagInfo\":{},\"detail\":[]},\"userTop\":{\"data\":{}},\"loading\":{\"global\":false,\"models\":{\"articleDetail\":false},\"effects\":{\"articleDetail/getArtDetail\":false,\"articleDetail/getQuoted\":false}}}"},"__N_SSP":true},"page":"/ArticleDetail","query":{"aid":"1190000005924733"},"buildId":"vjqXrYFhThtGc7FQnSpjN","assetPrefix":"https://static.segmentfault.com/main_site_next/f934caec","runtimeConfig":{"publicPath":"https://static.segmentfault.com/main_site_next/f934caec/","appVersion":"22.11.25"},"isFallback":false,"gssp":true,"customServer":true,"scriptLoader":[]}</script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/plausible.js.下载" data-domain="segmentfault.com" data-nscript="afterInteractive"></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/js" data-nscript="afterInteractive"></script><script src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/hm.js.下载" data-nscript="afterInteractive"></script><div class="is-active ImageView p-4" style="display: none;"><div class="ImageView-inner" style="overflow: auto;">
+    <img src="https://segmentfault.com/a/1190000005924733" class="ImageView-img" alt="preview" style="max-width: 100%; max-height: 100%;">
+  </div></div><next-route-announcer><p aria-live="assertive" id="__next-route-announcer__" role="alert" style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap; overflow-wrap: normal;"></p></next-route-announcer><div id="waf_nc_block" style="display: none;"><div class="waf-nc-mask"></div><div id="WAF_NC_WRAPPER" class="waf-nc-wrapper"><p class="waf-nc-title">访问验证</p><p class="waf-nc-description">为了更好的访问体验，请进行如下验证</p><p id="waf-nc-traceid" class="waf-nc-traceid-class"></p><div id="nocaptcha"></div></div></div><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_1_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/ads(1).html" data-google-container-id="a!2" data-load-complete="true"></iframe></div></ins><iframe src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/aframe.html" width="0" height="0" style="display: none;"></iframe></body><iframe id="google_esf" name="google_esf" src="./restful - 来自于PayPal的RESTful API标准_个人文章 - SegmentFault 思否_files/zrt_lookup.html" style="display: none;"></iframe></html>
