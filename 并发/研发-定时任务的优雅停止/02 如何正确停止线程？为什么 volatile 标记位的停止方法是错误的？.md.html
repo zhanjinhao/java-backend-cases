@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<!-- saved from url=(0369)https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/02%20%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%81%9C%E6%AD%A2%E7%BA%BF%E7%A8%8B%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%20volatile%20%E6%A0%87%E8%AE%B0%E4%BD%8D%E7%9A%84%E5%81%9C%E6%AD%A2%E6%96%B9%E6%B3%95%E6%98%AF%E9%94%99%E8%AF%AF%E7%9A%84%EF%BC%9F.md -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+        <link rel="icon" href="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/favicon.png">
+        <title>02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md</title>
+        <!-- Spectre.css framework -->
+        <link rel="stylesheet" href="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/index.css">
+        <link rel="stylesheet" href="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/highlight.min.css">
+        <script src="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/f.txt"></script><script src="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/f(1).txt" id="google_shimpl"></script><script src="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/highlight.min.js.下载"></script>
+        <!-- theme css & js -->
+        <meta name="generator" content="Hexo 4.2.0">
+        <script async="" src="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/f(2).txt" crossorigin="anonymous" data-checked-head="true"></script>
+        <script async="" defer="" data-website-id="83e5d5db-9d06-40e3-b780-cbae722fdf8c" src="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/umami.js.下载"></script>
+    <meta http-equiv="origin-trial" content="Az6AfRvI8mo7yiW5fLfj04W21t0ig6aMsGYpIqMTaX60H+b0DkO1uDr+7BrzMcimWzv/X7SXR8jI+uvbV0IJlwYAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+USTya+tNvDPaxUgJooz+LaVk5hPoAxpLvSxjogX4Mk8awCTQ9iop6zJ9d5ldgU7WmHqBlnQB41LHHRFxoaBwoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7FovoGr67TUBYbnY+Z0IKoJbbmRmB8fCyirUGHavNDtD91CiGyHHSA2hDG9r9T3NjUKFi6egL3RbgTwhhcVDwUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><link rel="preload" href="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/f(3).txt" as="script"><script type="text/javascript" src="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/f(3).txt"></script><link rel="preload" href="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/f(4).txt" as="script"><script type="text/javascript" src="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/f(4).txt"></script></head>
+
+<body>
+
+    <div class="book-container">
+        <div class="book-sidebar">
+            <div class="book-brand">
+                <a href="https://learn.lianglianglee.com/">
+                    <img src="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/favicon.png">
+                    <span>技术文章摘抄</span>
+                </a>
+            </div>
+            <div class="book-menu uncollapsible">
+                <ul class="uncollapsible">
+                    <li><a href="https://learn.lianglianglee.com/" class="current-tab">首页</a></li>
+                </ul>
+
+                <ul class="uncollapsible">
+                    <li><a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/">上一级</a></li>
+                </ul>
+
+                <ul class="uncollapsible">
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/00%20%E7%94%B1%E7%82%B9%E5%8F%8A%E9%9D%A2%EF%BC%8C%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%20Java%20%E5%B9%B6%E5%8F%91%E7%9F%A5%E8%AF%86%E7%BD%91.md">00 由点及面，搭建你的 Java 并发知识网.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/01%20%E4%B8%BA%E4%BD%95%E8%AF%B4%E5%8F%AA%E6%9C%89%201%20%E7%A7%8D%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9F.md">01 为何说只有 1 种实现线程的方法？.md</a>
+
+                    </li>
+                    <li>
+
+                        <a class="current-tab" href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/02%20%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%81%9C%E6%AD%A2%E7%BA%BF%E7%A8%8B%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%20volatile%20%E6%A0%87%E8%AE%B0%E4%BD%8D%E7%9A%84%E5%81%9C%E6%AD%A2%E6%96%B9%E6%B3%95%E6%98%AF%E9%94%99%E8%AF%AF%E7%9A%84%EF%BC%9F.md">02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md</a>
+                        
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/03%20%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%A6%82%E4%BD%95%E5%9C%A8%206%20%E7%A7%8D%E7%8A%B6%E6%80%81%E4%B9%8B%E9%97%B4%E8%BD%AC%E6%8D%A2%E7%9A%84%EF%BC%9F.md">03 线程是如何在 6 种状态之间转换的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/04%20waitnotifynotifyAll%20%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9F.md">04 waitnotifynotifyAll 方法的使用注意事项？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/05%20%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9F.md">05 有哪几种实现生产者消费者模式的方法？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/06%20%E4%B8%80%E5%85%B1%E6%9C%89%E5%93%AA%203%20%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%EF%BC%9F.md">06 一共有哪 3 类线程安全问题？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/07%20%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E6%B3%A8%E6%84%8F%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%EF%BC%9F.md">07 哪些场景需要额外注意线程安全问题？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/08%20%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BC%9A%E5%B8%A6%E6%9D%A5%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98%EF%BC%9F.md">08 为什么多线程会带来性能问题？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/09%20%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%AF%94%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%A5%BD%E5%9C%A8%E5%93%AA%E9%87%8C%EF%BC%9F.md">09 使用线程池比手动创建线程好在哪里？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/10%20%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%90%84%E4%B8%AA%E5%8F%82%E6%95%B0%E7%9A%84%E5%90%AB%E4%B9%89%EF%BC%9F.md">10 线程池的各个参数的含义？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/11%20%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%9C%89%E5%93%AA%204%20%E7%A7%8D%E6%8B%92%E7%BB%9D%E7%AD%96%E7%95%A5%EF%BC%9F.md">11 线程池有哪 4 种拒绝策略？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/12%20%E6%9C%89%E5%93%AA%206%20%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AF%20Java8%20%E7%9A%84%20ForkJoinPool%EF%BC%9F.md">12 有哪 6 种常见的线程池？什么是 Java8 的 ForkJoinPool？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/13%20%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B8%B8%E7%94%A8%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F.md">13 线程池常用的阻塞队列有哪些？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/14%20%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%BA%94%E8%AF%A5%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9F.md">14 为什么不应该自动创建线程池？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/15%20%E5%90%88%E9%80%82%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%95%B0%E9%87%8F%E6%98%AF%E5%A4%9A%E5%B0%91%EF%BC%9FCPU%20%E6%A0%B8%E5%BF%83%E6%95%B0%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%95%B0%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%9F.md">15 合适的线程数量是多少？CPU 核心数和线程数的关系？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/16%20%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%99%85%E9%9C%80%E8%A6%81%EF%BC%8C%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9F.md">16 如何根据实际需要，定制自己的线程池？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/17%20%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%85%B3%E9%97%AD%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9Fshutdown%20%E5%92%8C%20shutdownNow%20%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F.md">17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/18%20%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E2%80%9C%E7%BA%BF%E7%A8%8B%E5%A4%8D%E7%94%A8%E2%80%9D%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%9F.md">18 线程池实现“线程复用”的原理？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/19%20%E4%BD%A0%E7%9F%A5%E9%81%93%E5%93%AA%E5%87%A0%E7%A7%8D%E9%94%81%EF%BC%9F%E5%88%86%E5%88%AB%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9%EF%BC%9F.md">19 你知道哪几种锁？分别有什么特点？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/20%20%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F.md">20 悲观锁和乐观锁的本质是什么？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/21%20%E5%A6%82%E4%BD%95%E7%9C%8B%E5%88%B0%20synchronized%20%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9Cmonitor%20%E9%94%81%E2%80%9D%EF%BC%9F.md">21 如何看到 synchronized 背后的“monitor 锁”？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/22%20synchronized%20%E5%92%8C%20Lock%20%E5%AD%B0%E4%BC%98%E5%AD%B0%E5%8A%A3%EF%BC%8C%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F.md">22 synchronized 和 Lock 孰优孰劣，如何选择？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/23%20Lock%20%E6%9C%89%E5%93%AA%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9F%E5%88%86%E5%88%AB%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%EF%BC%9F.md">23 Lock 有哪几个常用方法？分别有什么用？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/24%20%E8%AE%B2%E4%B8%80%E8%AE%B2%E5%85%AC%E5%B9%B3%E9%94%81%E5%92%8C%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E2%80%9C%E9%9D%9E%E5%85%AC%E5%B9%B3%E2%80%9D%EF%BC%9F.md">24 讲一讲公平锁和非公平锁，为什么要“非公平”？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/25%20%E8%AF%BB%E5%86%99%E9%94%81%20ReadWriteLock%20%E8%8E%B7%E5%8F%96%E9%94%81%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%84%E5%88%99%EF%BC%9F.md">25 读写锁 ReadWriteLock 获取锁有哪些规则？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/26%20%E8%AF%BB%E9%94%81%E5%BA%94%E8%AF%A5%E6%8F%92%E9%98%9F%E5%90%97%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%BB%E5%86%99%E9%94%81%E7%9A%84%E5%8D%87%E9%99%8D%E7%BA%A7%EF%BC%9F.md">26 读锁应该插队吗？什么是读写锁的升降级？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/27%20%E4%BB%80%E4%B9%88%E6%98%AF%E8%87%AA%E6%97%8B%E9%94%81%EF%BC%9F%E8%87%AA%E6%97%8B%E7%9A%84%E5%A5%BD%E5%A4%84%E5%92%8C%E5%90%8E%E6%9E%9C%E6%98%AF%E4%BB%80%E4%B9%88%E5%91%A2%EF%BC%9F.md">27 什么是自旋锁？自旋的好处和后果是什么呢？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/28%20JVM%20%E5%AF%B9%E9%94%81%E8%BF%9B%E8%A1%8C%E4%BA%86%E5%93%AA%E4%BA%9B%E4%BC%98%E5%8C%96%EF%BC%9F.md">28 JVM 对锁进行了哪些优化？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/29%20HashMap%20%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%EF%BC%9F.md">29 HashMap 为什么是线程不安全的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/30%20ConcurrentHashMap%20%E5%9C%A8%20Java7%20%E5%92%8C%208%20%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C%EF%BC%9F.md">30 ConcurrentHashMap 在 Java7 和 8 有何不同？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/31%20%E4%B8%BA%E4%BB%80%E4%B9%88%20Map%20%E6%A1%B6%E4%B8%AD%E8%B6%85%E8%BF%87%208%20%E4%B8%AA%E6%89%8D%E8%BD%AC%E4%B8%BA%E7%BA%A2%E9%BB%91%E6%A0%91%EF%BC%9F.md">31 为什么 Map 桶中超过 8 个才转为红黑树？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/32%20%E5%90%8C%E6%A0%B7%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%EF%BC%8CConcurrentHashMap%20%E5%92%8C%20Hashtable%20%E7%9A%84%E5%8C%BA%E5%88%AB.md">32 同样是线程安全，ConcurrentHashMap 和 Hashtable 的区别.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/33%20CopyOnWriteArrayList%20%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9%EF%BC%9F.md">33 CopyOnWriteArrayList 有什么特点？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/34%20%E4%BB%80%E4%B9%88%E6%98%AF%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%EF%BC%9F.md">34 什么是阻塞队列？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/35%20%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E5%8C%85%E5%90%AB%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9Fadd%E3%80%81offer%E3%80%81put%20%E7%AD%89%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F.md">35 阻塞队列包含哪些常用的方法？add、offer、put 等方法的区别？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/36%20%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%EF%BC%9F.md">36 有哪几种常见的阻塞队列？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/37%20%E9%98%BB%E5%A1%9E%E5%92%8C%E9%9D%9E%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E7%9A%84%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F.md">37 阻塞和非阻塞队列的并发安全原理是什么？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/38%20%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E9%80%82%E5%90%88%E8%87%AA%E5%B7%B1%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%EF%BC%9F.md">38 如何选择适合自己的阻塞队列？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/39%20%E5%8E%9F%E5%AD%90%E7%B1%BB%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%20CAS%20%E4%BF%9D%E8%AF%81%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%EF%BC%9F.md">39 原子类是如何利用 CAS 保证线程安全的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/40%20AtomicInteger%20%E5%9C%A8%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B8%8B%E6%80%A7%E8%83%BD%E4%B8%8D%E5%A5%BD%EF%BC%8C%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F.md">40 AtomicInteger 在高并发下性能不好，如何解决？为什么？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/41%20%E5%8E%9F%E5%AD%90%E7%B1%BB%E5%92%8C%20volatile%20%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C%EF%BC%9F.md">41 原子类和 volatile 有什么异同？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/42%20AtomicInteger%20%E5%92%8C%20synchronized%20%E7%9A%84%E5%BC%82%E5%90%8C%E7%82%B9%EF%BC%9F.md">42 AtomicInteger 和 synchronized 的异同点？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/43%20Java%208%20%E4%B8%AD%20Adder%20%E5%92%8C%20Accumulator%20%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F.md">43 Java 8 中 Adder 和 Accumulator 有什么区别？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/44%20ThreadLocal%20%E9%80%82%E5%90%88%E7%94%A8%E5%9C%A8%E5%93%AA%E4%BA%9B%E5%AE%9E%E9%99%85%E7%94%9F%E4%BA%A7%E7%9A%84%E5%9C%BA%E6%99%AF%E4%B8%AD%EF%BC%9F.md">44 ThreadLocal 适合用在哪些实际生产的场景中？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/45%20ThreadLocal%20%E6%98%AF%E7%94%A8%E6%9D%A5%E8%A7%A3%E5%86%B3%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98%E5%90%97%EF%BC%9F.md">45 ThreadLocal 是用来解决共享资源的多线程访问的问题吗？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/46%20%E5%A4%9A%E4%B8%AA%20ThreadLocal%20%E5%9C%A8%20Thread%20%E4%B8%AD%E7%9A%84%20threadlocals%20%E9%87%8C%E6%98%AF%E6%80%8E%E4%B9%88%E5%AD%98%E5%82%A8%E7%9A%84%EF%BC%9F.md">46 多个 ThreadLocal 在 Thread 中的 threadlocals 里是怎么存储的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/47%20%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E2%80%94%E2%80%94%E4%B8%BA%E4%BD%95%E6%AF%8F%E6%AC%A1%E7%94%A8%E5%AE%8C%20ThreadLocal%20%E9%83%BD%E8%A6%81%E8%B0%83%E7%94%A8%20remove()%EF%BC%9F.md">47 内存泄漏——为何每次用完 ThreadLocal 都要调用 remove()？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/48%20Callable%20%E5%92%8C%20Runnable%20%E7%9A%84%E4%B8%8D%E5%90%8C%EF%BC%9F.md">48 Callable 和 Runnable 的不同？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/49%20Future%20%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F.md">49 Future 的主要功能是什么？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/50%20%E4%BD%BF%E7%94%A8%20Future%20%E6%9C%89%E5%93%AA%E4%BA%9B%E6%B3%A8%E6%84%8F%E7%82%B9%EF%BC%9FFuture%20%E4%BA%A7%E7%94%9F%E6%96%B0%E7%9A%84%E7%BA%BF%E7%A8%8B%E4%BA%86%E5%90%97%EF%BC%9F.md">50 使用 Future 有哪些注意点？Future 产生新的线程了吗？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/51%20%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%20CompletableFuture%20%E5%AE%9E%E7%8E%B0%E2%80%9C%E6%97%85%E6%B8%B8%E5%B9%B3%E5%8F%B0%E2%80%9D%E9%97%AE%E9%A2%98%EF%BC%9F.md">51 如何利用 CompletableFuture 实现“旅游平台”问题？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/52%20%E4%BF%A1%E5%8F%B7%E9%87%8F%E8%83%BD%E8%A2%AB%20FixedThreadPool%20%E6%9B%BF%E4%BB%A3%E5%90%97%EF%BC%9F.md">52 信号量能被 FixedThreadPool 替代吗？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/53%20CountDownLatch%20%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%89%E6%8E%92%E7%BA%BF%E7%A8%8B%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%E7%9A%84%EF%BC%9F.md">53 CountDownLatch 是如何安排线程执行顺序的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/54%20CyclicBarrier%20%E5%92%8C%20CountdownLatch%20%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C%EF%BC%9F.md">54 CyclicBarrier 和 CountdownLatch 有什么异同？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/55%20Condition%E3%80%81object.wait()%20%E5%92%8C%20notify()%20%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%9F.md">55 Condition、object.wait() 和 notify() 的关系？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/56%20%E8%AE%B2%E4%B8%80%E8%AE%B2%E4%BB%80%E4%B9%88%E6%98%AF%20Java%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%EF%BC%9F.md">56 讲一讲什么是 Java 内存模型？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/57%20%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%E5%BA%8F%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%87%8D%E6%8E%92%E5%BA%8F%EF%BC%9F.md">57 什么是指令重排序？为什么要重排序？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/58%20Java%20%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C%E6%9C%89%E5%93%AA%E4%BA%9B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9F.md">58 Java 中的原子操作有哪些注意事项？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/59%20%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E5%86%85%E5%AD%98%E5%8F%AF%E8%A7%81%E6%80%A7%E2%80%9D%E9%97%AE%E9%A2%98%EF%BC%9F.md">59 什么是“内存可见性”问题？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/60%20%E4%B8%BB%E5%86%85%E5%AD%98%E5%92%8C%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AD%98%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%9F.md">60 主内存和工作内存的关系？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/61%20%E4%BB%80%E4%B9%88%E6%98%AF%20happens-before%20%E8%A7%84%E5%88%99%EF%BC%9F.md">61 什么是 happens-before 规则？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/62%20volatile%20%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E4%B8%8E%20synchronized%20%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C%EF%BC%9F.md">62 volatile 的作用是什么？与 synchronized 有什么异同？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/63%20%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8F%8C%E9%87%8D%E6%A3%80%E6%9F%A5%E9%94%81%E6%A8%A1%E5%BC%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E5%8A%A0%20volatile%EF%BC%9F.md">63 单例模式的双重检查锁模式为什么必须加 volatile？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/64%20%E4%BD%A0%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E6%98%AF%20CAS%20%E5%90%97%EF%BC%9F.md">64 你知道什么是 CAS 吗？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/65%20CAS%20%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%8C%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E7%94%A8%E5%88%B0%20CAS%EF%BC%9F.md">65 CAS 和乐观锁的关系，什么时候会用到 CAS？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/66%20CAS%20%E6%9C%89%E4%BB%80%E4%B9%88%E7%BC%BA%E7%82%B9%EF%BC%9F.md">66 CAS 有什么缺点？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/67%20%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AA%E5%BF%85%E7%84%B6%E6%AD%BB%E9%94%81%E7%9A%84%E4%BE%8B%E5%AD%90%EF%BC%9F.md">67 如何写一个必然死锁的例子？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/68%20%E5%8F%91%E7%94%9F%E6%AD%BB%E9%94%81%E5%BF%85%E9%A1%BB%E6%BB%A1%E8%B6%B3%E5%93%AA%204%20%E4%B8%AA%E6%9D%A1%E4%BB%B6%EF%BC%9F.md">68 发生死锁必须满足哪 4 个条件？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/69%20%E5%A6%82%E4%BD%95%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%92%8C%E4%BB%A3%E7%A0%81%E5%AE%9A%E4%BD%8D%E6%AD%BB%E9%94%81%EF%BC%9F.md">69 如何用命令行和代码定位死锁？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/70%20%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%A3%E5%86%B3%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E7%9A%84%E7%AD%96%E7%95%A5%EF%BC%9F.md">70 有哪些解决死锁问题的策略？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/71%20%E8%AE%B2%E4%B8%80%E8%AE%B2%E7%BB%8F%E5%85%B8%E7%9A%84%E5%93%B2%E5%AD%A6%E5%AE%B6%E5%B0%B1%E9%A4%90%E9%97%AE%E9%A2%98.md">71 讲一讲经典的哲学家就餐问题.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/72%20final%20%E7%9A%84%E4%B8%89%E7%A7%8D%E7%94%A8%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F.md">72 final 的三种用法是什么？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/73%20%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8A%A0%E4%BA%86%20final%20%E5%8D%B4%E4%BE%9D%E7%84%B6%E6%97%A0%E6%B3%95%E6%8B%A5%E6%9C%89%E2%80%9C%E4%B8%8D%E5%8F%98%E6%80%A7%E2%80%9D%EF%BC%9F.md">73 为什么加了 final 却依然无法拥有“不变性”？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/74%20%E4%B8%BA%E4%BB%80%E4%B9%88%20String%20%E8%A2%AB%E8%AE%BE%E8%AE%A1%E4%B8%BA%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84%EF%BC%9F.md">74 为什么 String 被设计为是不可变的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/75%20%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%20AQS%EF%BC%9FAQS%20%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E9%87%8D%E8%A6%81%E6%80%A7%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F.md">75 为什么需要 AQS？AQS 的作用和重要性是什么？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/76%20AQS%20%E7%9A%84%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%EF%BC%9F.md">76 AQS 的内部原理是什么样的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/77%20AQS%20%E5%9C%A8%20CountDownLatch%20%E7%AD%89%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F.md">77 AQS 在 CountDownLatch 等类中的应用原理是什么？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/78%20%E4%B8%80%E4%BB%BD%E7%8B%AC%E5%AE%B6%E7%9A%84%20Java%20%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E5%9B%BE%E8%B0%B1.md">78 一份独家的 Java 并发工具图谱.md</a>
+
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+            <div class="sidebar-toggle-inner"></div>
+        </div>
+
+        <script>
+            function add_inner() {
+                let inner = document.querySelector('.sidebar-toggle-inner')
+                inner.classList.add('show')
+            }
+
+            function remove_inner() {
+                let inner = document.querySelector('.sidebar-toggle-inner')
+                inner.classList.remove('show')
+            }
+
+            function sidebar_toggle() {
+                let sidebar_toggle = document.querySelector('.sidebar-toggle')
+                let sidebar = document.querySelector('.book-sidebar')
+                let content = document.querySelector('.off-canvas-content')
+                if (sidebar_toggle.classList.contains('extend')) { // show
+                    sidebar_toggle.classList.remove('extend')
+                    sidebar.classList.remove('hide')
+                    content.classList.remove('extend')
+                } else { // hide
+                    sidebar_toggle.classList.add('extend')
+                    sidebar.classList.add('hide')
+                    content.classList.add('extend')
+                }
+            }
+
+
+            function open_sidebar() {
+                let sidebar = document.querySelector('.book-sidebar')
+                let overlay = document.querySelector('.off-canvas-overlay')
+                sidebar.classList.add('show')
+                overlay.classList.add('show')
+            }
+            function hide_canvas() {
+                let sidebar = document.querySelector('.book-sidebar')
+                let overlay = document.querySelector('.off-canvas-overlay')
+                sidebar.classList.remove('show')
+                overlay.classList.remove('show')
+            }
+
+        </script>
+
+        <div class="off-canvas-content">
+            <div class="columns">
+                <div class="column col-12 col-lg-12">
+                    <div class="book-navbar">
+                        <!-- For Responsive Layout -->
+                        <header class="navbar">
+                            <section class="navbar-section">
+                                <a onclick="open_sidebar()">
+                                    <i class="icon icon-menu"></i>
+                                </a>
+                            </section>
+                        </header>
+                    </div>
+                    <div class="book-content" style="max-width: 960px; margin: 0 auto;
+    overflow-x: auto;
+    overflow-y: hidden;">
+                        <div class="book-post">
+                            <p id="tip" align="center"></p>
+                            <div><h1>02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？</h1>
+<p>在本课时我们主要学习如何正确停止一个线程？以及为什么用 volatile 标记位的停止方法是错误的？</p>
+<p>首先，我们来复习如何启动一个线程，想要启动线程需要调用 Thread 类的 start() 方法，并在 run() 方法中定义需要执行的任务。启动一个线程非常简单，但如果想要正确停止它就没那么容易了。</p>
+<h3>原理介绍</h3>
+<p>通常情况下，我们不会手动停止一个线程，而是允许线程运行到结束，然后让它自然停止。但是依然会有许多特殊的情况需要我们提前停止线程，比如：用户突然关闭程序，或程序运行出错重启等。</p>
+<p>在这种情况下，即将停止的线程在很多业务场景下仍然很有价值。尤其是我们想写一个健壮性很好，能够安全应对各种场景的程序时，正确停止线程就显得格外重要。但是Java 并没有提供简单易用，能够直接安全停止线程的能力。</p>
+<h3>为什么不强制停止？而是通知、协作</h3>
+<p>对于 Java 而言，最正确的停止线程的方式是使用 interrupt。但 interrupt 仅仅起到通知被停止线程的作用。而对于被停止的线程而言，它拥有完全的自主权，它既可以选择立即停止，也可以选择一段时间后停止，也可以选择压根不停止。那么为什么 Java 不提供强制停止线程的能力呢？</p>
+<p>事实上，Java 希望程序间能够相互通知、相互协作地管理线程，因为如果不了解对方正在做的工作，贸然强制停止线程就可能会造成一些安全的问题，为了避免造成问题就需要给对方一定的时间来整理收尾工作。比如：线程正在写入一个文件，这时收到终止信号，它就需要根据自身业务判断，是选择立即停止，还是将整个文件写入成功后停止，而如果选择立即停止就可能造成数据不完整，不管是中断命令发起者，还是接收者都不希望数据出现问题。</p>
+<h3>如何用 interrupt 停止线程</h3>
+<pre><code class="hljs language-bash"><span class="hljs-keyword">while</span> (!Thread.currentThread().isInterrupted() &amp;&amp; more work to <span class="hljs-keyword">do</span>) {
+
+    <span class="hljs-keyword">do</span> more work
+
+}
+</code></pre>
+<p>明白 Java 停止线程的设计原则之后，我们看看如何用代码实现停止线程的逻辑。我们一旦调用某个线程的 interrupt() 之后，这个线程的中断标记位就会被设置成 true。每个线程都有这样的标记位，当线程执行时，应该定期检查这个标记位，如果标记位被设置成 true，就说明有程序想终止该线程。回到源码，可以看到在 while 循环体判断语句中，首先通过 Thread.currentThread().isInterrupt() 判断线程是否被中断，随后检查是否还有工作要做。&amp;&amp; 逻辑表示只有当两个判断条件同时满足的情况下，才会去执行下面的工作。</p>
+<p>我们再看看具体例子。</p>
+<pre><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StopThread</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> {
+
+    <span class="hljs-meta">@Override</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> {
+
+        <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">while</span> (!Thread.currentThread().isInterrupted() &amp;&amp; count &lt; <span class="hljs-number">1000</span>) {
+
+            System.out.println(<span class="hljs-string">"count = "</span> + count++);
+
+        }
+
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException {
+
+        <span class="hljs-type">Thread</span> <span class="hljs-variable">thread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StopThread</span>());
+
+        thread.start();
+
+        Thread.sleep(<span class="hljs-number">5</span>);
+
+        thread.interrupt();
+
+    }
+
+}
+</code></pre>
+<p>在 StopThread 类的 run() 方法中，首先判断线程是否被中断，然后判断 count 值是否小于 1000。这个线程的工作内容很简单，就是打印 0~999 的数字，每打印一个数字 count 值加 1，可以看到，线程会在每次循环开始之前，检查是否被中断了。接下来在 main 函数中会启动该线程，然后休眠 5 毫秒后立刻中断线程，该线程会检测到中断信号，于是在还没打印完1000个数的时候就会停下来，这种就属于通过 interrupt 正确停止线程的情况。</p>
+<h3>sleep 期间能否感受到中断</h3>
+<pre><code class="hljs language-markdown">Runnable runnable = () -&gt; {
+
+<span class="hljs-code">    int num = 0;
+</span>
+<span class="hljs-code">    try {
+</span>
+<span class="hljs-code">        while (!Thread.currentThread().isInterrupted() &amp;&amp; 
+</span>
+<span class="hljs-code">        num &lt;= 1000) {
+</span>
+<span class="hljs-code">            System.out.println(num);
+</span>
+<span class="hljs-code">            num++;
+</span>
+<span class="hljs-code">            Thread.sleep(1000000);
+</span>
+<span class="hljs-code">        }
+</span>
+<span class="hljs-code">    } catch (InterruptedException e) {
+</span>
+<span class="hljs-code">        e.printStackTrace();
+</span>
+<span class="hljs-code">    }
+</span>
+};
+</code></pre>
+<p>那么我们考虑一种特殊情况，改写上面的代码，如果线程在执行任务期间有休眠需求，也就是每打印一个数字，就进入一次 sleep ，而此时将 Thread.sleep() 的休眠时间设置为 1000 秒钟。</p>
+<pre><code class="hljs language-markdown">public class StopDuringSleep {
+
+<span class="hljs-code">    public static void main(String[] args) throws InterruptedException {
+</span>
+<span class="hljs-code">        Runnable runnable = () -&gt; {
+</span>
+<span class="hljs-code">            int num = 0;
+</span>
+<span class="hljs-code">            try {
+</span>
+<span class="hljs-code">                while (!Thread.currentThread().isInterrupted() &amp;&amp; num &lt;= 1000) {
+</span>
+<span class="hljs-code">                    System.out.println(num);
+</span>
+<span class="hljs-code">                    num++;
+</span>
+<span class="hljs-code">                    Thread.sleep(1000000);
+</span>
+<span class="hljs-code">                }
+</span>
+<span class="hljs-code">            } catch (InterruptedException e) {
+</span>
+<span class="hljs-code">                e.printStackTrace();
+</span>
+<span class="hljs-code">            }
+</span>
+<span class="hljs-code">        };
+</span>
+<span class="hljs-code">        Thread thread = new Thread(runnable);
+</span>
+<span class="hljs-code">        thread.start();
+</span>
+<span class="hljs-code">        Thread.sleep(5);
+</span>
+<span class="hljs-code">        thread.interrupt();
+</span>
+<span class="hljs-code">    }
+</span>
+}
+</code></pre>
+<p>主线程休眠 5 毫秒后，通知子线程中断，此时子线程仍在执行 sleep 语句，处于休眠中。那么就需要考虑一点，在休眠中的线程是否能够感受到中断通知呢？是否需要等到休眠结束后才能中断线程呢？如果是这样，就会带来严重的问题，因为响应中断太不及时了。正因为如此，Java 设计者在设计之初就考虑到了这一点。</p>
+<p>如果 sleep、wait 等可以让线程进入阻塞的方法使线程休眠了，而处于休眠中的线程被中断，那么线程是可以感受到中断信号的，并且会抛出一个 InterruptedException 异常，同时清除中断信号，将中断标记位设置成 false。这样一来就不用担心长时间休眠中线程感受不到中断了，因为即便线程还在休眠，仍然能够响应中断通知，并抛出异常。</p>
+<h3>两种最佳处理方式</h3>
+<p>在实际开发中肯定是团队协作的，不同的人负责编写不同的方法，然后相互调用来实现整个业务的逻辑。那么如果我们负责编写的方法需要被别人调用，同时我们的方法内调用了 sleep 或者 wait 等能响应中断的方法时，仅仅 catch 住异常是不够的。</p>
+<pre><code class="hljs language-csharp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">subTas</span>()</span> {
+
+    <span class="hljs-keyword">try</span> {
+
+        Thread.sleep(<span class="hljs-number">1000</span>);
+
+    } <span class="hljs-keyword">catch</span> (InterruptedException e) {
+
+        <span class="hljs-comment">// 在这里不处理该异常是非常不好的</span>
+
+    }
+
+}
+</code></pre>
+<p>我们可以在方法中使用 try/catch 或在方法签名中声明 throws  InterruptedException。</p>
+<h3>方法签名抛异常，run() 强制 try/catch</h3>
+<p>我们先来看下 try/catch 的处理逻辑。如上面的代码所示，catch 语句块里代码是空的，它并没有进行任何处理。假设线程执行到这个方法，并且正在 sleep，此时有线程发送 interrupt 通知试图中断线程，就会立即抛出异常，并清除中断信号。抛出的异常被 catch 语句块捕捉。</p>
+<p>但是，捕捉到异常的 catch 没有进行任何处理逻辑，相当于把中断信号给隐藏了，这样做是非常不合理的，那么究竟应该怎么处理呢？首先，可以选择在方法签名中抛出异常。</p>
+<pre><code class="hljs language-csharp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">subTask2</span>() throws InterruptedException</span> {
+
+    Thread.sleep(<span class="hljs-number">1000</span>);
+
+}
+</code></pre>
+<p>正如代码所示，要求每一个方法的调用方有义务去处理异常。调用方要不使用 try/catch 并在 catch 中正确处理异常，要不将异常声明到方法签名中。如果每层逻辑都遵守规范，便可以将中断信号层层传递到顶层，最终让 run() 方法可以捕获到异常。而对于 run() 方法而言，它本身没有抛出 checkedException 的能力，只能通过 try/catch 来处理异常。层层传递异常的逻辑保障了异常不会被遗漏，而对 run() 方法而言，就可以根据不同的业务逻辑来进行相应的处理。</p>
+<h3>再次中断</h3>
+<pre><code class="hljs language-scss">private void <span class="hljs-built_in">reInterrupt</span>() {
+
+    try {
+
+        Thread<span class="hljs-selector-class">.sleep</span>(<span class="hljs-number">2000</span>);
+
+    } catch (InterruptedException e) {
+
+        Thread<span class="hljs-selector-class">.currentThread</span>()<span class="hljs-selector-class">.interrupt</span>();
+
+        e<span class="hljs-selector-class">.printStackTrace</span>();
+
+    }
+
+}
+</code></pre>
+<p>除了刚才推荐的将异常声明到方法签名中的方式外，还可以在 catch 语句中再次中断线程。如代码所示，需要在 catch 语句块中调用 Thread.currentThread().interrupt() 函数。因为如果线程在休眠期间被中断，那么会自动清除中断信号。如果这时手动添加中断信号，中断信号依然可以被捕捉到。这样后续执行的方法依然可以检测到这里发生过中断，可以做出相应的处理，整个线程可以正常退出。</p>
+<p>我们需要注意，我们在实际开发中不能盲目吞掉中断，如果不在方法签名中声明，也不在 catch 语句块中再次恢复中断，而是在 catch 中不作处理，我们称这种行为是“屏蔽了中断请求”。如果我们盲目地屏蔽了中断请求，会导致中断信号被完全忽略，最终导致线程无法正确停止。</p>
+<h3>为什么用 volatile 标记位的停止方法是错误的</h3>
+<p>下面我们来看一看本课时的第二个问题，为什么用 volatile 标记位的停止方法是错误的？</p>
+<h4>错误的停止方法</h4>
+<p>首先，我们来看几种停止线程的错误方法。比如 stop()，suspend() 和 resume()，这些方法已经被 Java 直接标记为 @Deprecated。如果再调用这些方法，IDE 会友好地提示，我们不应该再使用它们了。但为什么它们不能使用了呢？是因为 stop() 会直接把线程停止，这样就没有给线程足够的时间来处理想要在停止前保存数据的逻辑，任务戛然而止，会导致出现数据完整性等问题。</p>
+<p>而对于 suspend() 和 resume() 而言，它们的问题在于如果线程调用 suspend()，它并不会释放锁，就开始进入休眠，但此时有可能仍持有锁，这样就容易导致死锁问题，因为这把锁在线程被 resume() 之前，是不会被释放的。</p>
+<p>假设线程 A 调用了 suspend() 方法让线程 B 挂起，线程 B 进入休眠，而线程 B 又刚好持有一把锁，此时假设线程 A 想访问线程 B 持有的锁，但由于线程 B 并没有释放锁就进入休眠了，所以对于线程 A 而言，此时拿不到锁，也会陷入阻塞，那么线程 A 和线程 B 就都无法继续向下执行。</p>
+<p>正是因为有这样的风险，所以 suspend() 和 resume() 组合使用的方法也被废弃了。那么接下来我们来看看，为什么用 volatile 标记位的停止方法也是错误的？</p>
+<h4>volatile 修饰标记位适用的场景</h4>
+<pre><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">VolatileCanStop</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> {
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">volatile</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">canceled</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;
+
+    <span class="hljs-meta">@Override</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> {
+
+        <span class="hljs-type">int</span> <span class="hljs-variable">num</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">try</span> {
+
+            <span class="hljs-keyword">while</span> (!canceled &amp;&amp; num &lt;= <span class="hljs-number">1000000</span>) {
+
+                <span class="hljs-keyword">if</span> (num % <span class="hljs-number">10</span> == <span class="hljs-number">0</span>) {
+
+                    System.out.println(num + <span class="hljs-string">"是10的倍数。"</span>);
+
+                }
+
+                num++;
+
+                Thread.sleep(<span class="hljs-number">1</span>);
+
+            }
+
+        } <span class="hljs-keyword">catch</span> (InterruptedException e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException {
+
+        <span class="hljs-type">VolatileCanStop</span> <span class="hljs-variable">r</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">VolatileCanStop</span>();
+
+        <span class="hljs-type">Thread</span> <span class="hljs-variable">thread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(r);
+
+        thread.start();
+
+        Thread.sleep(<span class="hljs-number">3000</span>);
+
+        r.canceled = <span class="hljs-literal">true</span>;
+
+    }
+
+}
+</code></pre>
+<p>什么场景下 volatile 修饰标记位可以让线程正常停止呢？如代码所示，声明了一个叫作 VolatileStopThread 的类， 它实现了 Runnable 接口，然后在 run() 中进行 while 循环，在循环体中又进行了两层判断，首先判断 canceled 变量的值，canceled 变量是一个被 volatile 修饰的初始值为 false 的布尔值，当该值变为 true 时，while 跳出循环，while 的第二个判断条件是 num 值小于1000000（一百万），在while 循环体里，只要是 10 的倍数就打印出来，然后 num++。</p>
+<p>接下来，首先启动线程，然后经过 3 秒钟的时间，把用 volatile 修饰的布尔值的标记位设置成 true，这样，正在运行的线程就会在下一次 while 循环中判断出 canceled 的值已经变成 true 了，这样就不再满足 while 的判断条件，跳出整个 while 循环，线程就停止了，这种情况是演示 volatile 修饰的标记位可以正常工作的情况，但是如果我们说某个方法是正确的，那么它应该不仅仅是在一种情况下适用，而在其他情况下也应该是适用的。</p>
+<h4>volatile 修饰标记位不适用的场景</h4>
+<p>接下来我们就用一个生产者/消费者模式的案例来演示为什么说  volatile 标记位的停止方法是不完美的。</p>
+<pre><code class="hljs language-markdown">class Producer implements Runnable {
+
+<span class="hljs-code">    public volatile boolean canceled = false;
+</span>
+<span class="hljs-code">    BlockingQueue storage;
+</span>
+<span class="hljs-code">    public Producer(BlockingQueue storage) {
+</span>
+<span class="hljs-code">        this.storage = storage;
+</span>
+<span class="hljs-code">    }
+</span>
+<span class="hljs-code">    @Override
+</span>
+<span class="hljs-code">    public void run() {
+</span>
+<span class="hljs-code">        int num = 0;
+</span>
+<span class="hljs-code">        try {
+</span>
+<span class="hljs-code">            while (num &lt;= 100000 &amp;&amp; !canceled) {
+</span>
+<span class="hljs-code">                if (num % 50 == 0) {
+</span>
+<span class="hljs-code">                    storage.put(num);
+</span>
+<span class="hljs-code">                    System.out.println(num + "是50的倍数,被放到仓库中了。");
+</span>
+<span class="hljs-code">                }
+</span>
+<span class="hljs-code">                num++;
+</span>
+<span class="hljs-code">            }
+</span>
+<span class="hljs-code">        } catch (InterruptedException e) {
+</span>
+<span class="hljs-code">            e.printStackTrace();
+</span>
+<span class="hljs-code">        } finally {
+</span>
+<span class="hljs-code">            System.out.println("生产者结束运行");
+</span>
+<span class="hljs-code">        }
+</span>
+<span class="hljs-code">    }
+</span>
+}
+</code></pre>
+<p>首先，声明了一个生产者 Producer，通过 volatile 标记的初始值为 false 的布尔值 canceled 来停止线程。而在 run() 方法中，while 的判断语句是 num 是否小于 100000 及 canceled 是否被标记。while 循环体中判断 num 如果是 50 的倍数就放到 storage 仓库中，storage 是生产者与消费者之间进行通信的存储器，当 num 大于 100000 或被通知停止时，会跳出 while 循环并执行 finally 语句块，告诉大家“生产者结束运行”。</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Consumer</span> {
+
+    <span class="hljs-title class_">BlockingQueue</span> storage;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title class_">Consumer</span>(<span class="hljs-title class_">BlockingQueue</span> storage) {
+
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">storage</span> = storage;
+
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">boolean</span> <span class="hljs-title function_">needMoreNums</span>(<span class="hljs-params"></span>) {
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() &gt; <span class="hljs-number">0.97</span>) {
+
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+
+    }
+
+}
+</code></pre>
+<p>而对于消费者 Consumer，它与生产者共用同一个仓库 storage，并且在方法内通过 needMoreNums() 方法判断是否需要继续使用更多的数字，刚才生产者生产了一些 50 的倍数供消费者使用，消费者是否继续使用数字的判断条件是产生一个随机数并与 0.97 进行比较，大于 0.97 就不再继续使用数字。</p>
+<pre><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException {
+
+        <span class="hljs-type">ArrayBlockingQueue</span> <span class="hljs-variable">storage</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayBlockingQueue</span>(<span class="hljs-number">8</span>);
+
+        <span class="hljs-type">Producer</span> <span class="hljs-variable">producer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Producer</span>(storage);
+
+        <span class="hljs-type">Thread</span> <span class="hljs-variable">producerThread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(producer);
+
+        producerThread.start();
+
+        Thread.sleep(<span class="hljs-number">500</span>);
+
+        <span class="hljs-type">Consumer</span> <span class="hljs-variable">consumer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Consumer</span>(storage);
+
+        <span class="hljs-keyword">while</span> (consumer.needMoreNums()) {
+
+            System.out.println(consumer.storage.take() + <span class="hljs-string">"被消费了"</span>);
+
+            Thread.sleep(<span class="hljs-number">100</span>);
+
+        }
+
+        System.out.println(<span class="hljs-string">"消费者不需要更多数据了。"</span>);
+
+        <span class="hljs-comment">//一旦消费不需要更多数据了，我们应该让生产者也停下来，但是实际情况却停不下来</span>
+
+        producer.canceled = <span class="hljs-literal">true</span>;
+
+        System.out.println(producer.canceled);
+
+    }
+
+}
+</code></pre>
+<p>下面来看下 main 函数，首先创建了生产者/消费者共用的仓库 BlockingQueue storage，仓库容量是 8，并且建立生产者并将生产者放入线程后启动线程，启动后进行 500 毫秒的休眠，休眠时间保障生产者有足够的时间把仓库塞满，而仓库达到容量后就不会再继续往里塞，这时生产者会阻塞，500 毫秒后消费者也被创建出来，并判断是否需要使用更多的数字，然后每次消费后休眠 100 毫秒，这样的业务逻辑是有可能出现在实际生产中的。</p>
+<p>当消费者不再需要数据，就会将 canceled 的标记位设置为 true，理论上此时生产者会跳出 while 循环，并打印输出“生产者运行结束”。</p>
+<p>然而结果却不是我们想象的那样，尽管已经把 canceled 设置成 true，但生产者仍然没有停止，这是因为在这种情况下，生产者在执行 storage.put(num) 时发生阻塞，在它被叫醒之前是没有办法进入下一次循环判断 canceled 的值的，所以在这种情况下用 volatile 是没有办法让生产者停下来的，相反如果用 interrupt 语句来中断，即使生产者处于阻塞状态，仍然能够感受到中断信号，并做响应处理。</p>
+<h3>总结</h3>
+<p>好了，本课时的内容就全部讲完了，我们来总结下学到了什么，首先学习了如何正确停止线程，其次是掌握了为什么说 volatile 修饰标记位停止方法是错误的。</p>
+<p>如果我们在面试中被问到“你知不知道如何正确停止线程”这样的问题，我想你一定可以完美地回答了，首先，从原理上讲应该用 interrupt 来请求中断，而不是强制停止，因为这样可以避免数据错乱，也可以让线程有时间结束收尾工作。</p>
+<p>如果我们是子方法的编写者，遇到了 interruptedException，应该如何处理呢？</p>
+<p>我们可以把异常声明在方法中，以便顶层方法可以感知捕获到异常，或者也可以在 catch 中再次声明中断，这样下次循环也可以感知中断，所以要想正确停止线程就要求我们停止方，被停止方，子方法的编写者相互配合，大家都按照一定的规范来编写代码，就可以正确地停止线程了。</p>
+<p>最后我们再来看下有哪些方法是不够好的，比如说已经被舍弃的 stop()、suspend() 和 resume()，它们由于有很大的安全风险比如死锁风险而被舍弃，而 volatile 这种方法在某些特殊的情况下，比如线程被长时间阻塞的情况，就无法及时感受中断，所以 volatile 是不够全面的停止线程的方法。</p>
+</div>
+                        </div>
+                        <div>
+                            <div style="float: left">
+                                <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/01%20%E4%B8%BA%E4%BD%95%E8%AF%B4%E5%8F%AA%E6%9C%89%201%20%E7%A7%8D%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9F.md">上一页</a>
+                            </div>
+                            <div style="float: right">
+                                <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/03%20%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%A6%82%E4%BD%95%E5%9C%A8%206%20%E7%A7%8D%E7%8A%B6%E6%80%81%E4%B9%8B%E9%97%B4%E8%BD%AC%E6%8D%A2%E7%9A%84%EF%BC%9F.md">下一页</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+    </div><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_0_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/ads.html" data-google-container-id="a!1" data-load-complete="true"></iframe></div></ins>
+<script defer="" src="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/vaafb692b2aea4879b33c060e79fe94621666317369993" integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA==" data-cf-beacon="{&quot;rayId&quot;:&quot;7879ac9888f3110f&quot;,&quot;version&quot;:&quot;2022.11.3&quot;,&quot;r&quot;:1,&quot;token&quot;:&quot;1f5d475227ce4f0089a7cff1ab17c0f5&quot;,&quot;si&quot;:100}" crossorigin="anonymous"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/js"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-NPSEEVD756');
+    var path = window.location.pathname
+    var cookie = getCookie("lastPath");
+    console.log(path)
+    if (path.replace("/", "") === "") {
+        if (cookie.replace("/", "") !== "") {
+            console.log(cookie)
+            document.getElementById("tip").innerHTML = "<a href='" + cookie + "'>跳转到上次进度</a>"
+        }
+    } else {
+        setCookie("lastPath", path)
+    }
+
+    function setCookie(cname, cvalue) {
+        var d = new Date();
+        d.setTime(d.getTime() + (180 * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + "; " + expires + ";path = /";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
+
+    hljs.initHighlightingOnLoad()
+
+</script>
+
+
+</body><iframe id="google_esf" name="google_esf" src="./02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md_files/zrt_lookup.html" style="display: none;"></iframe></html>

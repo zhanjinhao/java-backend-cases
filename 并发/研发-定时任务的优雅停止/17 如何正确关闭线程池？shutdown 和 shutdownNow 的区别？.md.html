@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<!-- saved from url=(0293)https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/17%20%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%85%B3%E9%97%AD%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9Fshutdown%20%E5%92%8C%20shutdownNow%20%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F.md -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+        <link rel="icon" href="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/favicon.png">
+        <title>17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md</title>
+        <!-- Spectre.css framework -->
+        <link rel="stylesheet" href="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/index.css">
+        <link rel="stylesheet" href="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/highlight.min.css">
+        <script src="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/f.txt"></script><script src="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/f(1).txt" id="google_shimpl"></script><script src="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/highlight.min.js.下载"></script>
+        <!-- theme css & js -->
+        <meta name="generator" content="Hexo 4.2.0">
+        <script async="" src="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/f(2).txt" crossorigin="anonymous" data-checked-head="true"></script>
+        <script async="" defer="" data-website-id="83e5d5db-9d06-40e3-b780-cbae722fdf8c" src="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/umami.js.下载"></script>
+    <meta http-equiv="origin-trial" content="Az6AfRvI8mo7yiW5fLfj04W21t0ig6aMsGYpIqMTaX60H+b0DkO1uDr+7BrzMcimWzv/X7SXR8jI+uvbV0IJlwYAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+USTya+tNvDPaxUgJooz+LaVk5hPoAxpLvSxjogX4Mk8awCTQ9iop6zJ9d5ldgU7WmHqBlnQB41LHHRFxoaBwoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7FovoGr67TUBYbnY+Z0IKoJbbmRmB8fCyirUGHavNDtD91CiGyHHSA2hDG9r9T3NjUKFi6egL3RbgTwhhcVDwUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><link rel="preload" href="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/f(3).txt" as="script"><script type="text/javascript" src="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/f(3).txt"></script><link rel="preload" href="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/f(4).txt" as="script"><script type="text/javascript" src="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/f(4).txt"></script></head>
+
+<body>
+
+    <div class="book-container">
+        <div class="book-sidebar">
+            <div class="book-brand">
+                <a href="https://learn.lianglianglee.com/">
+                    <img src="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/favicon.png">
+                    <span>技术文章摘抄</span>
+                </a>
+            </div>
+            <div class="book-menu uncollapsible">
+                <ul class="uncollapsible">
+                    <li><a href="https://learn.lianglianglee.com/" class="current-tab">首页</a></li>
+                </ul>
+
+                <ul class="uncollapsible">
+                    <li><a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/">上一级</a></li>
+                </ul>
+
+                <ul class="uncollapsible">
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/00%20%E7%94%B1%E7%82%B9%E5%8F%8A%E9%9D%A2%EF%BC%8C%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%20Java%20%E5%B9%B6%E5%8F%91%E7%9F%A5%E8%AF%86%E7%BD%91.md">00 由点及面，搭建你的 Java 并发知识网.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/01%20%E4%B8%BA%E4%BD%95%E8%AF%B4%E5%8F%AA%E6%9C%89%201%20%E7%A7%8D%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9F.md">01 为何说只有 1 种实现线程的方法？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/02%20%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%81%9C%E6%AD%A2%E7%BA%BF%E7%A8%8B%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%20volatile%20%E6%A0%87%E8%AE%B0%E4%BD%8D%E7%9A%84%E5%81%9C%E6%AD%A2%E6%96%B9%E6%B3%95%E6%98%AF%E9%94%99%E8%AF%AF%E7%9A%84%EF%BC%9F.md">02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/03%20%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%A6%82%E4%BD%95%E5%9C%A8%206%20%E7%A7%8D%E7%8A%B6%E6%80%81%E4%B9%8B%E9%97%B4%E8%BD%AC%E6%8D%A2%E7%9A%84%EF%BC%9F.md">03 线程是如何在 6 种状态之间转换的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/04%20waitnotifynotifyAll%20%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9F.md">04 waitnotifynotifyAll 方法的使用注意事项？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/05%20%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9F.md">05 有哪几种实现生产者消费者模式的方法？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/06%20%E4%B8%80%E5%85%B1%E6%9C%89%E5%93%AA%203%20%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%EF%BC%9F.md">06 一共有哪 3 类线程安全问题？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/07%20%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E6%B3%A8%E6%84%8F%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%EF%BC%9F.md">07 哪些场景需要额外注意线程安全问题？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/08%20%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BC%9A%E5%B8%A6%E6%9D%A5%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98%EF%BC%9F.md">08 为什么多线程会带来性能问题？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/09%20%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%AF%94%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%A5%BD%E5%9C%A8%E5%93%AA%E9%87%8C%EF%BC%9F.md">09 使用线程池比手动创建线程好在哪里？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/10%20%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%90%84%E4%B8%AA%E5%8F%82%E6%95%B0%E7%9A%84%E5%90%AB%E4%B9%89%EF%BC%9F.md">10 线程池的各个参数的含义？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/11%20%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%9C%89%E5%93%AA%204%20%E7%A7%8D%E6%8B%92%E7%BB%9D%E7%AD%96%E7%95%A5%EF%BC%9F.md">11 线程池有哪 4 种拒绝策略？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/12%20%E6%9C%89%E5%93%AA%206%20%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AF%20Java8%20%E7%9A%84%20ForkJoinPool%EF%BC%9F.md">12 有哪 6 种常见的线程池？什么是 Java8 的 ForkJoinPool？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/13%20%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B8%B8%E7%94%A8%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F.md">13 线程池常用的阻塞队列有哪些？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/14%20%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%BA%94%E8%AF%A5%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9F.md">14 为什么不应该自动创建线程池？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/15%20%E5%90%88%E9%80%82%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%95%B0%E9%87%8F%E6%98%AF%E5%A4%9A%E5%B0%91%EF%BC%9FCPU%20%E6%A0%B8%E5%BF%83%E6%95%B0%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%95%B0%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%9F.md">15 合适的线程数量是多少？CPU 核心数和线程数的关系？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/16%20%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%99%85%E9%9C%80%E8%A6%81%EF%BC%8C%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9F.md">16 如何根据实际需要，定制自己的线程池？.md</a>
+
+                    </li>
+                    <li>
+
+                        <a class="current-tab" href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/17%20%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%85%B3%E9%97%AD%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9Fshutdown%20%E5%92%8C%20shutdownNow%20%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F.md">17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md</a>
+                        
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/18%20%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E2%80%9C%E7%BA%BF%E7%A8%8B%E5%A4%8D%E7%94%A8%E2%80%9D%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%9F.md">18 线程池实现“线程复用”的原理？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/19%20%E4%BD%A0%E7%9F%A5%E9%81%93%E5%93%AA%E5%87%A0%E7%A7%8D%E9%94%81%EF%BC%9F%E5%88%86%E5%88%AB%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9%EF%BC%9F.md">19 你知道哪几种锁？分别有什么特点？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/20%20%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F.md">20 悲观锁和乐观锁的本质是什么？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/21%20%E5%A6%82%E4%BD%95%E7%9C%8B%E5%88%B0%20synchronized%20%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9Cmonitor%20%E9%94%81%E2%80%9D%EF%BC%9F.md">21 如何看到 synchronized 背后的“monitor 锁”？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/22%20synchronized%20%E5%92%8C%20Lock%20%E5%AD%B0%E4%BC%98%E5%AD%B0%E5%8A%A3%EF%BC%8C%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F.md">22 synchronized 和 Lock 孰优孰劣，如何选择？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/23%20Lock%20%E6%9C%89%E5%93%AA%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9F%E5%88%86%E5%88%AB%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%EF%BC%9F.md">23 Lock 有哪几个常用方法？分别有什么用？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/24%20%E8%AE%B2%E4%B8%80%E8%AE%B2%E5%85%AC%E5%B9%B3%E9%94%81%E5%92%8C%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E2%80%9C%E9%9D%9E%E5%85%AC%E5%B9%B3%E2%80%9D%EF%BC%9F.md">24 讲一讲公平锁和非公平锁，为什么要“非公平”？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/25%20%E8%AF%BB%E5%86%99%E9%94%81%20ReadWriteLock%20%E8%8E%B7%E5%8F%96%E9%94%81%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%84%E5%88%99%EF%BC%9F.md">25 读写锁 ReadWriteLock 获取锁有哪些规则？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/26%20%E8%AF%BB%E9%94%81%E5%BA%94%E8%AF%A5%E6%8F%92%E9%98%9F%E5%90%97%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%BB%E5%86%99%E9%94%81%E7%9A%84%E5%8D%87%E9%99%8D%E7%BA%A7%EF%BC%9F.md">26 读锁应该插队吗？什么是读写锁的升降级？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/27%20%E4%BB%80%E4%B9%88%E6%98%AF%E8%87%AA%E6%97%8B%E9%94%81%EF%BC%9F%E8%87%AA%E6%97%8B%E7%9A%84%E5%A5%BD%E5%A4%84%E5%92%8C%E5%90%8E%E6%9E%9C%E6%98%AF%E4%BB%80%E4%B9%88%E5%91%A2%EF%BC%9F.md">27 什么是自旋锁？自旋的好处和后果是什么呢？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/28%20JVM%20%E5%AF%B9%E9%94%81%E8%BF%9B%E8%A1%8C%E4%BA%86%E5%93%AA%E4%BA%9B%E4%BC%98%E5%8C%96%EF%BC%9F.md">28 JVM 对锁进行了哪些优化？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/29%20HashMap%20%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%EF%BC%9F.md">29 HashMap 为什么是线程不安全的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/30%20ConcurrentHashMap%20%E5%9C%A8%20Java7%20%E5%92%8C%208%20%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C%EF%BC%9F.md">30 ConcurrentHashMap 在 Java7 和 8 有何不同？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/31%20%E4%B8%BA%E4%BB%80%E4%B9%88%20Map%20%E6%A1%B6%E4%B8%AD%E8%B6%85%E8%BF%87%208%20%E4%B8%AA%E6%89%8D%E8%BD%AC%E4%B8%BA%E7%BA%A2%E9%BB%91%E6%A0%91%EF%BC%9F.md">31 为什么 Map 桶中超过 8 个才转为红黑树？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/32%20%E5%90%8C%E6%A0%B7%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%EF%BC%8CConcurrentHashMap%20%E5%92%8C%20Hashtable%20%E7%9A%84%E5%8C%BA%E5%88%AB.md">32 同样是线程安全，ConcurrentHashMap 和 Hashtable 的区别.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/33%20CopyOnWriteArrayList%20%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9%EF%BC%9F.md">33 CopyOnWriteArrayList 有什么特点？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/34%20%E4%BB%80%E4%B9%88%E6%98%AF%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%EF%BC%9F.md">34 什么是阻塞队列？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/35%20%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E5%8C%85%E5%90%AB%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9Fadd%E3%80%81offer%E3%80%81put%20%E7%AD%89%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F.md">35 阻塞队列包含哪些常用的方法？add、offer、put 等方法的区别？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/36%20%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%EF%BC%9F.md">36 有哪几种常见的阻塞队列？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/37%20%E9%98%BB%E5%A1%9E%E5%92%8C%E9%9D%9E%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E7%9A%84%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F.md">37 阻塞和非阻塞队列的并发安全原理是什么？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/38%20%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E9%80%82%E5%90%88%E8%87%AA%E5%B7%B1%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%EF%BC%9F.md">38 如何选择适合自己的阻塞队列？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/39%20%E5%8E%9F%E5%AD%90%E7%B1%BB%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%20CAS%20%E4%BF%9D%E8%AF%81%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%EF%BC%9F.md">39 原子类是如何利用 CAS 保证线程安全的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/40%20AtomicInteger%20%E5%9C%A8%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B8%8B%E6%80%A7%E8%83%BD%E4%B8%8D%E5%A5%BD%EF%BC%8C%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F.md">40 AtomicInteger 在高并发下性能不好，如何解决？为什么？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/41%20%E5%8E%9F%E5%AD%90%E7%B1%BB%E5%92%8C%20volatile%20%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C%EF%BC%9F.md">41 原子类和 volatile 有什么异同？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/42%20AtomicInteger%20%E5%92%8C%20synchronized%20%E7%9A%84%E5%BC%82%E5%90%8C%E7%82%B9%EF%BC%9F.md">42 AtomicInteger 和 synchronized 的异同点？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/43%20Java%208%20%E4%B8%AD%20Adder%20%E5%92%8C%20Accumulator%20%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F.md">43 Java 8 中 Adder 和 Accumulator 有什么区别？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/44%20ThreadLocal%20%E9%80%82%E5%90%88%E7%94%A8%E5%9C%A8%E5%93%AA%E4%BA%9B%E5%AE%9E%E9%99%85%E7%94%9F%E4%BA%A7%E7%9A%84%E5%9C%BA%E6%99%AF%E4%B8%AD%EF%BC%9F.md">44 ThreadLocal 适合用在哪些实际生产的场景中？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/45%20ThreadLocal%20%E6%98%AF%E7%94%A8%E6%9D%A5%E8%A7%A3%E5%86%B3%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98%E5%90%97%EF%BC%9F.md">45 ThreadLocal 是用来解决共享资源的多线程访问的问题吗？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/46%20%E5%A4%9A%E4%B8%AA%20ThreadLocal%20%E5%9C%A8%20Thread%20%E4%B8%AD%E7%9A%84%20threadlocals%20%E9%87%8C%E6%98%AF%E6%80%8E%E4%B9%88%E5%AD%98%E5%82%A8%E7%9A%84%EF%BC%9F.md">46 多个 ThreadLocal 在 Thread 中的 threadlocals 里是怎么存储的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/47%20%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E2%80%94%E2%80%94%E4%B8%BA%E4%BD%95%E6%AF%8F%E6%AC%A1%E7%94%A8%E5%AE%8C%20ThreadLocal%20%E9%83%BD%E8%A6%81%E8%B0%83%E7%94%A8%20remove()%EF%BC%9F.md">47 内存泄漏——为何每次用完 ThreadLocal 都要调用 remove()？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/48%20Callable%20%E5%92%8C%20Runnable%20%E7%9A%84%E4%B8%8D%E5%90%8C%EF%BC%9F.md">48 Callable 和 Runnable 的不同？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/49%20Future%20%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F.md">49 Future 的主要功能是什么？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/50%20%E4%BD%BF%E7%94%A8%20Future%20%E6%9C%89%E5%93%AA%E4%BA%9B%E6%B3%A8%E6%84%8F%E7%82%B9%EF%BC%9FFuture%20%E4%BA%A7%E7%94%9F%E6%96%B0%E7%9A%84%E7%BA%BF%E7%A8%8B%E4%BA%86%E5%90%97%EF%BC%9F.md">50 使用 Future 有哪些注意点？Future 产生新的线程了吗？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/51%20%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%20CompletableFuture%20%E5%AE%9E%E7%8E%B0%E2%80%9C%E6%97%85%E6%B8%B8%E5%B9%B3%E5%8F%B0%E2%80%9D%E9%97%AE%E9%A2%98%EF%BC%9F.md">51 如何利用 CompletableFuture 实现“旅游平台”问题？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/52%20%E4%BF%A1%E5%8F%B7%E9%87%8F%E8%83%BD%E8%A2%AB%20FixedThreadPool%20%E6%9B%BF%E4%BB%A3%E5%90%97%EF%BC%9F.md">52 信号量能被 FixedThreadPool 替代吗？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/53%20CountDownLatch%20%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%89%E6%8E%92%E7%BA%BF%E7%A8%8B%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%E7%9A%84%EF%BC%9F.md">53 CountDownLatch 是如何安排线程执行顺序的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/54%20CyclicBarrier%20%E5%92%8C%20CountdownLatch%20%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C%EF%BC%9F.md">54 CyclicBarrier 和 CountdownLatch 有什么异同？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/55%20Condition%E3%80%81object.wait()%20%E5%92%8C%20notify()%20%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%9F.md">55 Condition、object.wait() 和 notify() 的关系？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/56%20%E8%AE%B2%E4%B8%80%E8%AE%B2%E4%BB%80%E4%B9%88%E6%98%AF%20Java%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%EF%BC%9F.md">56 讲一讲什么是 Java 内存模型？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/57%20%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%E5%BA%8F%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%87%8D%E6%8E%92%E5%BA%8F%EF%BC%9F.md">57 什么是指令重排序？为什么要重排序？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/58%20Java%20%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C%E6%9C%89%E5%93%AA%E4%BA%9B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9F.md">58 Java 中的原子操作有哪些注意事项？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/59%20%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E5%86%85%E5%AD%98%E5%8F%AF%E8%A7%81%E6%80%A7%E2%80%9D%E9%97%AE%E9%A2%98%EF%BC%9F.md">59 什么是“内存可见性”问题？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/60%20%E4%B8%BB%E5%86%85%E5%AD%98%E5%92%8C%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AD%98%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%9F.md">60 主内存和工作内存的关系？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/61%20%E4%BB%80%E4%B9%88%E6%98%AF%20happens-before%20%E8%A7%84%E5%88%99%EF%BC%9F.md">61 什么是 happens-before 规则？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/62%20volatile%20%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E4%B8%8E%20synchronized%20%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C%EF%BC%9F.md">62 volatile 的作用是什么？与 synchronized 有什么异同？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/63%20%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8F%8C%E9%87%8D%E6%A3%80%E6%9F%A5%E9%94%81%E6%A8%A1%E5%BC%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E5%8A%A0%20volatile%EF%BC%9F.md">63 单例模式的双重检查锁模式为什么必须加 volatile？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/64%20%E4%BD%A0%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E6%98%AF%20CAS%20%E5%90%97%EF%BC%9F.md">64 你知道什么是 CAS 吗？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/65%20CAS%20%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%8C%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E7%94%A8%E5%88%B0%20CAS%EF%BC%9F.md">65 CAS 和乐观锁的关系，什么时候会用到 CAS？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/66%20CAS%20%E6%9C%89%E4%BB%80%E4%B9%88%E7%BC%BA%E7%82%B9%EF%BC%9F.md">66 CAS 有什么缺点？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/67%20%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AA%E5%BF%85%E7%84%B6%E6%AD%BB%E9%94%81%E7%9A%84%E4%BE%8B%E5%AD%90%EF%BC%9F.md">67 如何写一个必然死锁的例子？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/68%20%E5%8F%91%E7%94%9F%E6%AD%BB%E9%94%81%E5%BF%85%E9%A1%BB%E6%BB%A1%E8%B6%B3%E5%93%AA%204%20%E4%B8%AA%E6%9D%A1%E4%BB%B6%EF%BC%9F.md">68 发生死锁必须满足哪 4 个条件？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/69%20%E5%A6%82%E4%BD%95%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%92%8C%E4%BB%A3%E7%A0%81%E5%AE%9A%E4%BD%8D%E6%AD%BB%E9%94%81%EF%BC%9F.md">69 如何用命令行和代码定位死锁？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/70%20%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%A3%E5%86%B3%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E7%9A%84%E7%AD%96%E7%95%A5%EF%BC%9F.md">70 有哪些解决死锁问题的策略？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/71%20%E8%AE%B2%E4%B8%80%E8%AE%B2%E7%BB%8F%E5%85%B8%E7%9A%84%E5%93%B2%E5%AD%A6%E5%AE%B6%E5%B0%B1%E9%A4%90%E9%97%AE%E9%A2%98.md">71 讲一讲经典的哲学家就餐问题.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/72%20final%20%E7%9A%84%E4%B8%89%E7%A7%8D%E7%94%A8%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F.md">72 final 的三种用法是什么？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/73%20%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8A%A0%E4%BA%86%20final%20%E5%8D%B4%E4%BE%9D%E7%84%B6%E6%97%A0%E6%B3%95%E6%8B%A5%E6%9C%89%E2%80%9C%E4%B8%8D%E5%8F%98%E6%80%A7%E2%80%9D%EF%BC%9F.md">73 为什么加了 final 却依然无法拥有“不变性”？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/74%20%E4%B8%BA%E4%BB%80%E4%B9%88%20String%20%E8%A2%AB%E8%AE%BE%E8%AE%A1%E4%B8%BA%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84%EF%BC%9F.md">74 为什么 String 被设计为是不可变的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/75%20%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%20AQS%EF%BC%9FAQS%20%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E9%87%8D%E8%A6%81%E6%80%A7%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F.md">75 为什么需要 AQS？AQS 的作用和重要性是什么？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/76%20AQS%20%E7%9A%84%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%EF%BC%9F.md">76 AQS 的内部原理是什么样的？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/77%20AQS%20%E5%9C%A8%20CountDownLatch%20%E7%AD%89%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F.md">77 AQS 在 CountDownLatch 等类中的应用原理是什么？.md</a>
+
+                    </li>
+                    <li>
+
+                        
+                        <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/78%20%E4%B8%80%E4%BB%BD%E7%8B%AC%E5%AE%B6%E7%9A%84%20Java%20%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E5%9B%BE%E8%B0%B1.md">78 一份独家的 Java 并发工具图谱.md</a>
+
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+            <div class="sidebar-toggle-inner"></div>
+        </div>
+
+        <script>
+            function add_inner() {
+                let inner = document.querySelector('.sidebar-toggle-inner')
+                inner.classList.add('show')
+            }
+
+            function remove_inner() {
+                let inner = document.querySelector('.sidebar-toggle-inner')
+                inner.classList.remove('show')
+            }
+
+            function sidebar_toggle() {
+                let sidebar_toggle = document.querySelector('.sidebar-toggle')
+                let sidebar = document.querySelector('.book-sidebar')
+                let content = document.querySelector('.off-canvas-content')
+                if (sidebar_toggle.classList.contains('extend')) { // show
+                    sidebar_toggle.classList.remove('extend')
+                    sidebar.classList.remove('hide')
+                    content.classList.remove('extend')
+                } else { // hide
+                    sidebar_toggle.classList.add('extend')
+                    sidebar.classList.add('hide')
+                    content.classList.add('extend')
+                }
+            }
+
+
+            function open_sidebar() {
+                let sidebar = document.querySelector('.book-sidebar')
+                let overlay = document.querySelector('.off-canvas-overlay')
+                sidebar.classList.add('show')
+                overlay.classList.add('show')
+            }
+            function hide_canvas() {
+                let sidebar = document.querySelector('.book-sidebar')
+                let overlay = document.querySelector('.off-canvas-overlay')
+                sidebar.classList.remove('show')
+                overlay.classList.remove('show')
+            }
+
+        </script>
+
+        <div class="off-canvas-content">
+            <div class="columns">
+                <div class="column col-12 col-lg-12">
+                    <div class="book-navbar">
+                        <!-- For Responsive Layout -->
+                        <header class="navbar">
+                            <section class="navbar-section">
+                                <a onclick="open_sidebar()">
+                                    <i class="icon icon-menu"></i>
+                                </a>
+                            </section>
+                        </header>
+                    </div>
+                    <div class="book-content" style="max-width: 960px; margin: 0 auto;
+    overflow-x: auto;
+    overflow-y: hidden;">
+                        <div class="book-post">
+                            <p id="tip" align="center"></p>
+                            <div><h1>17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？</h1>
+<p>在本课时我们主要学习如何正确关闭线程池？以及 shutdown() 与 shutdownNow() 方法的区别？首先，我们创建一个线程数固定为 10 的线程池，并且往线程池中提交 100 个任务，如代码所示。</p>
+<pre><code class="language-java hljs"><span class="hljs-type">ExecutorService</span> <span class="hljs-variable">service</span> <span class="hljs-operator">=</span> Executors.newFixedThreadPool(<span class="hljs-number">10</span>);
+
+ <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++) { 
+
+    service.execute(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Task</span>());
+
+ }
+</code></pre>
+<p>那么如果现在我们想关闭该线程池该如何做呢？本课时主要介绍 5 种在 ThreadPoolExecutor 中涉及关闭线程池的方法，如下所示。</p>
+<ul>
+<li>void shutdown;</li>
+<li>boolean isShutdown;</li>
+<li>boolean isTerminated;</li>
+<li>boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException;</li>
+<li>List<runnable> shutdownNow;</runnable></li>
+</ul>
+<p>下面我们就对这些方法逐一展开。</p>
+<h4>shutdown()</h4>
+<p>第一种方法叫作 shutdown()，它可以安全地关闭一个线程池，调用 shutdown() 方法之后线程池并不是立刻就被关闭，因为这时线程池中可能还有很多任务正在被执行，或是任务队列中有大量正在等待被执行的任务，调用 shutdown() 方法后线程池会在执行完正在执行的任务和队列中等待的任务后才彻底关闭。但这并不代表 shutdown() 操作是没有任何效果的，调用 shutdown() 方法后如果还有新的任务被提交，线程池则会根据拒绝策略直接拒绝后续新提交的任务。</p>
+<h4>isShutdown()</h4>
+<p>第二个方法叫作 isShutdown()，它可以返回 true 或者 false 来判断线程池是否已经开始了关闭工作，也就是是否执行了 shutdown 或者 shutdownNow 方法。这里需要注意，如果调用 isShutdown() 方法的返回的结果为 true 并不代表线程池此时已经彻底关闭了，这仅仅代表线程池开始了关闭的流程，也就是说，此时可能线程池中依然有线程在执行任务，队列里也可能有等待被执行的任务。</p>
+<h4>isTerminated()</h4>
+<p>第三种方法叫作 isTerminated()，这个方法可以检测线程池是否真正“终结”了，这不仅代表线程池已关闭，同时代表线程池中的所有任务都已经都执行完毕了，因为我们刚才说过，调用 shutdown 方法之后，线程池会继续执行里面未完成的任务，不仅包括线程正在执行的任务，还包括正在任务队列中等待的任务。比如此时已经调用了 shutdown 方法，但是有一个线程依然在执行任务，那么此时调用 isShutdown 方法返回的是 true ，而调用 isTerminated 方法返回的便是 false ，因为线程池中还有任务正在在被执行，线程池并没有真正“终结”。直到所有任务都执行完毕了，调用 isTerminated() 方法才会返回 true，这表示线程池已关闭并且线程池内部是空的，所有剩余的任务都执行完毕了。</p>
+<h4>awaitTermination()</h4>
+<p>第四个方法叫作 awaitTermination()，它本身并不是用来关闭线程池的，而是主要用来判断线程池状态的。比如我们给 awaitTermination 方法传入的参数是 10 秒，那么它就会陷入 10 秒钟的等待，直到发生以下三种情况之一：</p>
+<ol>
+<li>等待期间（包括进入等待状态之前）线程池已关闭并且所有已提交的任务（包括正在执行的和队列中等待的）都执行完毕，相当于线程池已经“终结”了，方法便会返回 true；</li>
+<li>等待超时时间到后，第一种线程池“终结”的情况始终未发生，方法返回 false；</li>
+<li>等待期间线程被中断，方法会抛出 InterruptedException 异常。</li>
+</ol>
+<p>也就是说，调用 awaitTermination 方法后当前线程会尝试等待一段指定的时间，如果在等待时间内，线程池已关闭并且内部的任务都执行完毕了，也就是说线程池真正“终结”了，那么方法就返回 true，否则超时返回 fasle。</p>
+<p>我们则可以根据 awaitTermination() 返回的布尔值来判断下一步应该执行的操作。</p>
+<h4>shutdownNow()</h4>
+<p>最后一个方法是 shutdownNow()，也是 5 种方法里功能最强大的，它与第一种 shutdown 方法不同之处在于名字中多了一个单词 Now，也就是表示立刻关闭的意思。在执行 shutdownNow 方法之后，首先会给所有线程池中的线程发送 interrupt 中断信号，尝试中断这些任务的执行，然后会将任务队列中正在等待的所有任务转移到一个 List 中并返回，我们可以根据返回的任务 List 来进行一些补救的操作，例如记录在案并在后期重试。shutdownNow() 的源码如下所示。</p>
+<pre><code class="language-java hljs"><span class="hljs-keyword">public</span> List&lt;Runnable&gt; <span class="hljs-title function_">shutdownNow</span><span class="hljs-params">()</span> { 
+
+    List&lt;Runnable&gt; tasks;
+
+    <span class="hljs-keyword">final</span> <span class="hljs-type">ReentrantLock</span> <span class="hljs-variable">mainLock</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.mainLock;
+
+    mainLock.lock();
+
+    <span class="hljs-keyword">try</span> { 
+
+        checkShutdownAccess();
+
+        advanceRunState(STOP);
+
+        interruptWorkers();
+
+        tasks = drainQueue();
+
+    } <span class="hljs-keyword">finally</span> { 
+
+        mainLock.unlock();
+
+    } 
+
+    tryTerminate();
+
+    <span class="hljs-keyword">return</span> tasks;
+
+ }
+</code></pre>
+<p>你可以看到源码中有一行 interruptWorkers() 代码，这行代码会让每一个已经启动的线程都中断，这样线程就可以在执行任务期间检测到中断信号并进行相应的处理，提前结束任务。这里需要注意的是，由于 Java 中不推荐强行停止线程的机制的限制，即便我们调用了 shutdownNow 方法，如果被中断的线程对于中断信号不理不睬，那么依然有可能导致任务不会停止。可见我们在开发中落地最佳实践是很重要的，我们自己编写的线程应当具有响应中断信号的能力，正确停止线程的方法在第 2 讲有讲过，应当利用中断信号来协同工作。</p>
+<p>在掌握了这 5 种关闭线程池相关的方法之后，我们就可以根据自己的业务需要，选择合适的方法来停止线程池，比如通常我们可以用 shutdown() 方法来关闭，这样可以让已提交的任务都执行完毕，但是如果情况紧急，那我们就可以用 shutdownNow 方法来加快线程池“终结”的速度。</p>
+</div>
+                        </div>
+                        <div>
+                            <div style="float: left">
+                                <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/16%20%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%99%85%E9%9C%80%E8%A6%81%EF%BC%8C%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9F.md">上一页</a>
+                            </div>
+                            <div style="float: right">
+                                <a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/18%20%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E2%80%9C%E7%BA%BF%E7%A8%8B%E5%A4%8D%E7%94%A8%E2%80%9D%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%9F.md">下一页</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+    </div><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_0_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/ads.html" data-google-container-id="a!1" data-load-complete="true"></iframe></div></ins>
+<script defer="" src="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/vaafb692b2aea4879b33c060e79fe94621666317369993" integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA==" data-cf-beacon="{&quot;rayId&quot;:&quot;7879add0880b110f&quot;,&quot;version&quot;:&quot;2022.11.3&quot;,&quot;r&quot;:1,&quot;token&quot;:&quot;1f5d475227ce4f0089a7cff1ab17c0f5&quot;,&quot;si&quot;:100}" crossorigin="anonymous"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/js"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-NPSEEVD756');
+    var path = window.location.pathname
+    var cookie = getCookie("lastPath");
+    console.log(path)
+    if (path.replace("/", "") === "") {
+        if (cookie.replace("/", "") !== "") {
+            console.log(cookie)
+            document.getElementById("tip").innerHTML = "<a href='" + cookie + "'>跳转到上次进度</a>"
+        }
+    } else {
+        setCookie("lastPath", path)
+    }
+
+    function setCookie(cname, cvalue) {
+        var d = new Date();
+        d.setTime(d.getTime() + (180 * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + "; " + expires + ";path = /";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
+
+    hljs.initHighlightingOnLoad()
+
+</script>
+
+
+<iframe src="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/aframe.html" width="0" height="0" style="display: none;"></iframe></body><iframe id="google_esf" name="google_esf" src="./17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？.md_files/zrt_lookup.html" style="display: none;"></iframe></html>
